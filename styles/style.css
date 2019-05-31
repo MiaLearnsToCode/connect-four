@@ -46,7 +46,7 @@ div.grid-circle-highlighted {
   border: 3px solid yellow;
 }
 
-div.grid-choice {
+div.grid-choice-circle {
   width: 80px;
   height: 80px;
   border-radius: 40px;

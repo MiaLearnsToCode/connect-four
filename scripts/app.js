@@ -1,3 +1,5 @@
+console.log([...Array(7).keys()])
+
 const width = 7
 const squares = []
 const circles = []
@@ -6,6 +8,10 @@ const circles = []
 function init() {
 
   const grid = document.querySelector('.grid')
+  // const columns = {
+  //   one: []
+  // }
+  // columns[e.target.dataset.columnn]
   const columnZero = []
   const columnOne = []
   const columnTwo = []
@@ -89,22 +95,34 @@ function init() {
     })
   }
 
+  function hoverChoices(circlesChoice) {
+    // adding event listeners to the top row
+    circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseenter', () => {
+      circleChosen.classList.add('spongebob')
+      highlightCol(circleChosen)
+    }))
+    circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseleave', () => {
+      removeHighlightCol(circleChosen)
+      circleChosen.classList.remove('spongebob')
+    }))
+  }
 
-  function createTopRow(circle) {
+  function pickChoice(circle) {
+    circle.addEventListener('click', () => {
+
+    }
+    )
+
+  }
+
+
+  function createTopRow(circle, circleIndex) {
     if (i < width) {
       circle.classList.remove('grid-circle')
-      circle.classList.add('grid-choice')
-      const circlesChoice = document.querySelectorAll('.grid-choice')
-      // adding event listeners to the top row
-      circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseenter', () => {
-        circleChosen.classList.add('spongebob')
-        highlightCol(circleChosen)
-      }))
-      circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseleave', () => {
-        removeHighlightCol(circleChosen)
-        circleChosen.classList.remove('spongebob')
-
-      }))
+      circle.classList.add('grid-choice-circle')
+      const circlesChoice = document.querySelectorAll('.grid-choice-circle')
+      hoverChoices(circlesChoice)
+      pickChoice(circle, circleIndex)
     }
   }
 
@@ -114,14 +132,15 @@ function init() {
     const circle = document.createElement('div')
     square.classList.add('grid-square')
     circle.classList.add('grid-circle')
-    const circleIndex = i
+    circle.setAttribute('data-id', i)
+    const circleIndex = circle.getAttribute('data-id')
     circle.innerHTML = circleIndex
     squares.push(square)
     circles.push(circle)
     grid.appendChild(square)
     square.appendChild(circle)
     createCol(circle, circleIndex)
-    createTopRow(circle)
+    createTopRow(circle, circleIndex)
   }
 
 
