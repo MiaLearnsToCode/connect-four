@@ -35,6 +35,7 @@ function init() {
     }
   }
 
+  // Function that highlights columns yellow when you hover over the top circle
   function highlightCol(circleChosen) {
     if (columnZero.includes(circleChosen)) {
       columnZero.forEach(columnZeroItem => {
@@ -66,7 +67,7 @@ function init() {
       })
     }
   }
-
+  // Function that removes the highlights on columns when cursor moves away
   function removeHighlightCol() {
     columnZero.forEach(columnZeroItem => {
       columnZeroItem.classList.remove('grid-circle-highlighted')
@@ -90,7 +91,7 @@ function init() {
       columnSixItem.classList.remove('grid-circle-highlighted')
     })
   }
-
+  // Event listeners on the top circles for when you hover over them
   function hoverChoices(circlesChoice) {
     // adding event listeners to the top row
     circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseenter', () => {
@@ -102,50 +103,62 @@ function init() {
       circleChosen.classList.remove('spongebob')
     }))
   }
-
+  // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle
   function pickChoice(circle, circleIndex) {
     circle.addEventListener('click', () => {
+      const availableZero = columnZero.length - 1
+      const availableOne = columnOne.length - 1
+      const availableTwo = columnTwo.length - 1
+      const availableThree = columnThree.length - 1
+      const availableFour = columnFour.length - 1
+      const availableFive = columnFive.length - 1
+      const availableSix = columnSix.length - 1
+
       if (circleIndex === 0) {
-        const availableZero = columnZero.length - 1
         columnZero[availableZero].classList.add('spongebob')
+        const playedIndex = parseInt(columnZero[availableZero].getAttribute('data-id'))
         columnZero.pop()
+        opponentChoice(playedIndex, width)
       }
       if (circleIndex === 1) {
-        const availableOne = columnOne.length - 1
         columnOne[availableOne].classList.add('spongebob')
+        const playedIndex = parseInt(columnOne[availableOne].getAttribute('data-id'))
         columnOne.pop()
+        opponentChoice(playedIndex, width)
       }
       if (circleIndex === 2) {
-        const availableTwo = columnTwo.length - 1
         columnTwo[availableTwo].classList.add('spongebob')
+        const playedIndex = parseInt(columnTwo[availableTwo].getAttribute('data-id'))
         columnTwo.pop()
+        opponentChoice(playedIndex, width)
       }
       if (circleIndex === 3) {
-        const availableThree = columnThree.length - 1
         columnThree[availableThree].classList.add('spongebob')
+        const playedIndex = parseInt(columnThree[availableThree].getAttribute('data-id'))
         columnThree.pop()
-
+        opponentChoice(playedIndex, width)
       }
       if (circleIndex === 4) {
-        const availableFour = columnFour.length - 1
         columnFour[availableFour].classList.add('spongebob')
+        const playedIndex = parseInt(columnFour[availableFour].getAttribute('data-id'))
         columnFour.pop()
-
+        opponentChoice(playedIndex, width)
       }
       if (circleIndex === 5) {
-        const availableFive = columnFive.length - 1
         columnFive[availableFive].classList.add('spongebob')
+        const playedIndex = parseInt(columnFive[availableFive].getAttribute('data-id'))
         columnFive.pop()
-
+        opponentChoice(playedIndex, width)
       }
       if (circleIndex === 6) {
-        const availableSix = columnSix.length - 1
         columnSix[availableSix].classList.add('spongebob')
+        const playedIndex = parseInt(columnSix[availableSix].getAttribute('data-id'))
         columnSix.pop()
+        opponentChoice(playedIndex, width)
       }
+
     })
   }
-
 
   function createTopRow(circle, circleIndex) {
     if (i < width) {
@@ -154,7 +167,29 @@ function init() {
       const circlesChoice = document.querySelectorAll('.grid-choice-circle')
       hoverChoices(circlesChoice)
       pickChoice(circle, circleIndex)
+
     }
+  }
+
+  function opponentChoice(playedIndex, width) {
+    // generate a random number between 0 and 2
+    const opponentIndex = Math.floor(Math.random() * 3)
+    // if the number is 0 then place squidward on the circle that has a circleIndex -1
+    switch(opponentIndex) {
+      case 0:
+        console.log(playedIndex - 1)
+        break
+      case 1:
+        console.log(playedIndex + 1)
+        break
+      case 2:
+        console.log(playedIndex - width)
+        break
+    }
+    // if the number is 1 then place squidward on the circle that has a circleIndex - width
+    // if the number is 2 then place squidward on the circle that has a circleIndex + 1
+    // only do so if the squares are available
+    // if it's not available generate a new number until find one that is availableOne
   }
 
   // FOR LOOP to build each square as many times as the width
@@ -172,6 +207,7 @@ function init() {
     square.appendChild(circle)
     createCol(circle, circleIndex)
     createTopRow(circle, circleIndex)
+
   }
 
 
