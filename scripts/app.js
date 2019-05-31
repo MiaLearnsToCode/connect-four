@@ -107,12 +107,31 @@ function init() {
     }))
   }
 
-  function pickChoice(circle) {
+  function pickChoice(circle, circleIndex) {
     circle.addEventListener('click', () => {
+      if (parseInt(circleIndex) === 0) {
+        columnZero[6].classList.add('spongebob')
+      }
+      if (parseInt(circleIndex) === 1) {
+        columnOne[6].classList.add('spongebob')
+      }
+      if (parseInt(circleIndex) === 2) {
+        columnTwo[6].classList.add('spongebob')
+      }
+      if (parseInt(circleIndex) === 3) {
+        columnThree[6].classList.add('spongebob')
+      }
+      if (parseInt(circleIndex) === 4) {
+        columnFour[6].classList.add('spongebob')
+      }
+      if (parseInt(circleIndex) === 5) {
+        columnFive[6].classList.add('spongebob')
+      }
+      if (parseInt(circleIndex) === 6) {
+        columnSix[6].classList.add('spongebob')
+      }
 
-    }
-    )
-
+    })
   }
 
 
