@@ -1,4 +1,56 @@
 body {
-  background-color: red;
-  font-size: 50px;
+  background: url(../images/background.png) no-repeat center center fixed;
+  background-size: cover;
+  height:100vh;
+
+}
+
+div.filter {
+  background-color: rgba(255, 255, 255, 0.15);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+}
+
+div.grid {
+  width: 630px;
+  height: 630px;
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .4);
+  border-radius: 5px;
+  backdrop-filter: blur(5px);
+  padding: 10px;
+  border: 2px solid white;
+
+}
+
+div.grid-square {
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+}
+
+div.grid-circle {
+  width: 80px;
+  height: 80px;
+  box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 1);
+  border-radius: 40px;
+  border: 2px solid white;
+}
+
+div.grid-choice {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: yellow;
+}
+
+div.hover-spongebob {
+  background-image: url('../images/spongebob.png');
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
