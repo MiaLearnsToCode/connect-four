@@ -62,3 +62,13 @@ div.spongebob {
   border-radius: 40px;
   border: 2px solid white;
 }
+
+div.squidward {
+  background-image: url('../images/squidward.png');
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 1);
+  border-radius: 40px;
+  border: 2px solid white;
+}

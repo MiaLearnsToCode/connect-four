@@ -156,8 +156,32 @@ function init() {
         columnSix.pop()
         opponentChoice(playedIndex, width)
       }
-
     })
+  }
+
+  function opponentChoice(playedIndex, width) {
+    // generate a random number between 0 and 2
+    const randomIndex = Math.floor(Math.random() * 3)
+    let opponentIndex = null
+    // if the number is 0 then place squidward on the circle that has a circleIndex -1
+    switch(randomIndex) {
+      case 0:
+        opponentIndex = playedIndex - 1
+        circles[opponentIndex].classList.add('squidward')
+        break
+      case 1:
+        opponentIndex = playedIndex + 1
+        circles[opponentIndex].classList.add('squidward')
+        break
+      case 2:
+        opponentIndex = playedIndex - width
+        circles[opponentIndex].classList.add('squidward')
+        break
+    }
+    // if the number is 1 then place squidward on the circle that has a circleIndex - width
+    // if the number is 2 then place squidward on the circle that has a circleIndex + 1
+    // only do so if the squares are available
+    // if it's not available generate a new number until find one that is availableOne
   }
 
   function createTopRow(circle, circleIndex) {
@@ -167,29 +191,7 @@ function init() {
       const circlesChoice = document.querySelectorAll('.grid-choice-circle')
       hoverChoices(circlesChoice)
       pickChoice(circle, circleIndex)
-
     }
-  }
-
-  function opponentChoice(playedIndex, width) {
-    // generate a random number between 0 and 2
-    const opponentIndex = Math.floor(Math.random() * 3)
-    // if the number is 0 then place squidward on the circle that has a circleIndex -1
-    switch(opponentIndex) {
-      case 0:
-        console.log(playedIndex - 1)
-        break
-      case 1:
-        console.log(playedIndex + 1)
-        break
-      case 2:
-        console.log(playedIndex - width)
-        break
-    }
-    // if the number is 1 then place squidward on the circle that has a circleIndex - width
-    // if the number is 2 then place squidward on the circle that has a circleIndex + 1
-    // only do so if the squares are available
-    // if it's not available generate a new number until find one that is availableOne
   }
 
   // FOR LOOP to build each square as many times as the width
