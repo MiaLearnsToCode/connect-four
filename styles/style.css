@@ -41,6 +41,11 @@ div.grid-circle {
   border: 2px solid white;
 }
 
+div.grid-circle-highlighted {
+  box-shadow: 0 0 1rem 0 yellow;
+  border: 3px solid yellow;
+}
+
 div.grid-choice {
   width: 80px;
   height: 80px;
@@ -48,7 +53,7 @@ div.grid-choice {
   background-color: yellow;
 }
 
-div.hover-spongebob {
+div.spongebob {
   background-image: url('../images/spongebob.png');
   background-size: 50px;
   background-repeat: no-repeat;
