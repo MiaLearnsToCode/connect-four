@@ -1,4 +1,4 @@
-console.log([...Array(7).keys()])
+// player = !player
 
 const width = 7
 const squares = []
@@ -8,10 +8,6 @@ const circles = []
 function init() {
 
   const grid = document.querySelector('.grid')
-  // const columns = {
-  //   one: []
-  // }
-  // columns[e.target.dataset.columnn]
   const columnZero = []
   const columnOne = []
   const columnTwo = []
@@ -109,28 +105,44 @@ function init() {
 
   function pickChoice(circle, circleIndex) {
     circle.addEventListener('click', () => {
-      if (parseInt(circleIndex) === 0) {
-        columnZero[6].classList.add('spongebob')
+      if (circleIndex === 0) {
+        const availableZero = columnZero.length - 1
+        columnZero[availableZero].classList.add('spongebob')
+        columnZero.pop()
       }
-      if (parseInt(circleIndex) === 1) {
-        columnOne[6].classList.add('spongebob')
+      if (circleIndex === 1) {
+        const availableOne = columnOne.length - 1
+        columnOne[availableOne].classList.add('spongebob')
+        columnOne.pop()
       }
-      if (parseInt(circleIndex) === 2) {
-        columnTwo[6].classList.add('spongebob')
+      if (circleIndex === 2) {
+        const availableTwo = columnTwo.length - 1
+        columnTwo[availableTwo].classList.add('spongebob')
+        columnTwo.pop()
       }
-      if (parseInt(circleIndex) === 3) {
-        columnThree[6].classList.add('spongebob')
-      }
-      if (parseInt(circleIndex) === 4) {
-        columnFour[6].classList.add('spongebob')
-      }
-      if (parseInt(circleIndex) === 5) {
-        columnFive[6].classList.add('spongebob')
-      }
-      if (parseInt(circleIndex) === 6) {
-        columnSix[6].classList.add('spongebob')
-      }
+      if (circleIndex === 3) {
+        const availableThree = columnThree.length - 1
+        columnThree[availableThree].classList.add('spongebob')
+        columnThree.pop()
 
+      }
+      if (circleIndex === 4) {
+        const availableFour = columnFour.length - 1
+        columnFour[availableFour].classList.add('spongebob')
+        columnFour.pop()
+
+      }
+      if (circleIndex === 5) {
+        const availableFive = columnFive.length - 1
+        columnFive[availableFive].classList.add('spongebob')
+        columnFive.pop()
+
+      }
+      if (circleIndex === 6) {
+        const availableSix = columnSix.length - 1
+        columnSix[availableSix].classList.add('spongebob')
+        columnSix.pop()
+      }
     })
   }
 
@@ -152,7 +164,7 @@ function init() {
     square.classList.add('grid-square')
     circle.classList.add('grid-circle')
     circle.setAttribute('data-id', i)
-    const circleIndex = circle.getAttribute('data-id')
+    const circleIndex = parseInt(circle.getAttribute('data-id'))
     circle.innerHTML = circleIndex
     squares.push(square)
     circles.push(circle)
