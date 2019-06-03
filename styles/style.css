@@ -72,3 +72,7 @@ div.squidward {
   border-radius: 40px;
   border: 2px solid white;
 }
+
+div.winning-circles {
+  background-color: yellow;
+}

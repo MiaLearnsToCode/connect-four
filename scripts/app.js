@@ -109,214 +109,214 @@ function init() {
     const inCheckCircle = playedCircles[0]
     const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
     console.log(inCheckCircle.getAttribute('data-id'))
-    // const lCircle = circles[pickedIndex - 1]
-    // const llCircle = circles[pickedIndex - 2]
-    // const lllCircle = circles[pickedIndex - 3]
-    // const tCircle = circles[pickedIndex - width]
-    // const ttCircle = circles[pickedIndex - width * 2]
-    // const tttCircle = circles[pickedIndex - width * 3]
-    // const rCircle = circles[pickedIndex + 1]
-    // const rrCircle = circles[pickedIndex + 2]
-    // const rrrCircle = circles[pickedIndex + 3]
-    // const bCircle = circles[pickedIndex + width]
-    // const bbCircle = circles[pickedIndex + width * 2]
-    // const bbbCircle = circles[pickedIndex + width * 3]
-    // const tlCircle = circles[pickedIndex - 1 - width]
-    // const tltlCircle = circles[pickedIndex - 2 - width * 2]
-    // const tltltlCircle = circles[pickedIndex - 3 - width * 3]
-    // const trCircle = circles[pickedIndex + 1 - width]
-    // const trtrCircle = circles[pickedIndex + 2 - width * 2]
-    // const trtrtrCircle = circles[pickedIndex + 3 - width * 3]
-    // const blCircle = circles[pickedIndex - 1 + width]
-    // const blblCircle = circles[pickedIndex - 2 + width * 2]
-    // const blblblCircle = circles[pickedIndex - 3 + width * 3]
-    // const brCircle = circles[pickedIndex - 1 - width]
-    // const brbrCircle = circles[pickedIndex - 2 - width * 2]
-    // const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
-    //
-    // if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
-    //   if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
-    //     if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       lCircle.classList.add('winning-circles')
-    //       llCircle.classList.add('winning-circles')
-    //       lllCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    //
-    // if (tCircle !== undefined && tCircle.classList.contains('spongebob')) {
-    //   if (ttCircle !== undefined && ttCircle.classList.contains('spongebob')) {
-    //     if (tttCircle !== undefined && tttCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       tCircle.classList.add('winning-circles')
-    //       ttCircle.classList.add('winning-circles')
-    //       tttCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    //
-    // if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-    //   if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-    //     if (bbbCircle !== undefined && bbbCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       bCircle.classList.add('winning-circles')
-    //       bbCircle.classList.add('winning-circles')
-    //       bbbCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    //
-    // if (rCircle !== undefined && rCircle.classList.contains('spongebob')) {
-    //   if (rrCircle !== undefined && rrCircle.classList.contains('spongebob')) {
-    //     if (rrrCircle !== undefined && rrrCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       rCircle.classList.add('winning-circles')
-    //       rrCircle.classList.add('winning-circles')
-    //       rrrCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (tlCircle !== undefined && tlCircle.classList.contains('spongebob')) {
-    //   if (tltlCircle !== undefined && tltlCircle.classList.contains('spongebob')) {
-    //     if (tltltlCircle !== undefined && tltltlCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       tlCircle.classList.add('winning-circles')
-    //       tltlCircle.classList.add('winning-circles')
-    //       tltltlCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (trCircle !== undefined && trCircle.classList.contains('spongebob')) {
-    //   if (trtrCircle !== undefined && trtrCircle.classList.contains('spongebob')) {
-    //     if (trtrtrCircle !== undefined && trtrtrCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       trCircle.classList.add('winning-circles')
-    //       trtrCircle.classList.add('winning-circles')
-    //       trtrtrCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (brCircle !== undefined && brCircle.classList.contains('spongebob')) {
-    //   if (brbrCircle !== undefined && brbrCircle.classList.contains('spongebob')) {
-    //     if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       brCircle.classList.add('winning-circles')
-    //       brbrCircle.classList.add('winning-circles')
-    //       brbrbrCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (blCircle !== undefined && blCircle.classList.contains('spongebob')) {
-    //   if (blblCircle !== undefined && blblCircle.classList.contains('spongebob')) {
-    //     if (blblblCircle !== undefined && blblblCircle.classList.contains('spongebob')) {
-    //       console.log('You win!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       blCircle.classList.add('winning-circles')
-    //       blblCircle.classList.add('winning-circles')
-    //       blblblCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    //
-    // if (lCircle !== undefined && lCircle.classList.contains('squidward')) {
-    //   if (llCircle !== undefined && llCircle.classList.contains('squidward')) {
-    //     if (lllCircle !== undefined && lllCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       lCircle.classList.add('winning-circles')
-    //       llCircle.classList.add('winning-circles')
-    //       lllCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    //
-    // if (tCircle !== undefined && tCircle.classList.contains('squidward')) {
-    //   if (ttCircle !== undefined && ttCircle.classList.contains('squidward')) {
-    //     if (tttCircle !== undefined && tttCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       tCircle.classList.add('winning-circles')
-    //       ttCircle.classList.add('winning-circles')
-    //       tttCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    //
-    // if (bCircle !== undefined && bCircle.classList.contains('squidward')) {
-    //   if (bbCircle !== undefined && bbCircle.classList.contains('squidward')) {
-    //     if (bbbCircle !== undefined && bbbCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       bCircle.classList.add('winning-circles')
-    //       bbCircle.classList.add('winning-circles')
-    //       bbbCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    //
-    // if (rCircle !== undefined && rCircle.classList.contains('squidward')) {
-    //   if (rrCircle !== undefined && rrCircle.classList.contains('squidward')) {
-    //     if (rrrCircle !== undefined && rrrCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       rCircle.classList.add('winning-circles')
-    //       rrCircle.classList.add('winning-circles')
-    //       rrrCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (tlCircle !== undefined && tlCircle.classList.contains('squidward')) {
-    //   if (tltlCircle !== undefined && tltlCircle.classList.contains('squidward')) {
-    //     if (tltltlCircle !== undefined && tltltlCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       tlCircle.classList.add('winning-circles')
-    //       tltlCircle.classList.add('winning-circles')
-    //       tltltlCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (trCircle !== undefined && trCircle.classList.contains('squidward')) {
-    //   if (trtrCircle !== undefined && trtrCircle.classList.contains('squidward')) {
-    //     if (trtrtrCircle !== undefined && trtrtrCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       trCircle.classList.add('winning-circles')
-    //       trtrCircle.classList.add('winning-circles')
-    //       trtrtrCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (brCircle !== undefined && brCircle.classList.contains('squidward')) {
-    //   if (brbrCircle !== undefined && brbrCircle.classList.contains('squidward')) {
-    //     if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       brCircle.classList.add('winning-circles')
-    //       brbrCircle.classList.add('winning-circles')
-    //       brbrbrCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
-    // if (blCircle !== undefined && blCircle.classList.contains('squidward')) {
-    //   if (blblCircle !== undefined && blblCircle.classList.contains('squidward')) {
-    //     if (blblblCircle !== undefined && blblblCircle.classList.contains('squidward')) {
-    //       console.log('You lost!')
-    //       inCheckCircle.classList.add('winning-circles')
-    //       blCircle.classList.add('winning-circles')
-    //       blblCircle.classList.add('winning-circles')
-    //       blblblCircle.classList.add('winning-circles')
-    //     }
-    //   }
-    // }
+    const lCircle = circles[pickedIndex - 1]
+    const llCircle = circles[pickedIndex - 2]
+    const lllCircle = circles[pickedIndex - 3]
+    const tCircle = circles[pickedIndex - width]
+    const ttCircle = circles[pickedIndex - width * 2]
+    const tttCircle = circles[pickedIndex - width * 3]
+    const rCircle = circles[pickedIndex + 1]
+    const rrCircle = circles[pickedIndex + 2]
+    const rrrCircle = circles[pickedIndex + 3]
+    const bCircle = circles[pickedIndex + width]
+    const bbCircle = circles[pickedIndex + width * 2]
+    const bbbCircle = circles[pickedIndex + width * 3]
+    const tlCircle = circles[pickedIndex - 1 - width]
+    const tltlCircle = circles[pickedIndex - 2 - width * 2]
+    const tltltlCircle = circles[pickedIndex - 3 - width * 3]
+    const trCircle = circles[pickedIndex + 1 - width]
+    const trtrCircle = circles[pickedIndex + 2 - width * 2]
+    const trtrtrCircle = circles[pickedIndex + 3 - width * 3]
+    const blCircle = circles[pickedIndex - 1 + width]
+    const blblCircle = circles[pickedIndex - 2 + width * 2]
+    const blblblCircle = circles[pickedIndex - 3 + width * 3]
+    const brCircle = circles[pickedIndex - 1 - width]
+    const brbrCircle = circles[pickedIndex - 2 - width * 2]
+    const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
+
+    if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
+      if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
+        if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          lCircle.classList.add('winning-circles')
+          llCircle.classList.add('winning-circles')
+          lllCircle.classList.add('winning-circles')
+        }
+      }
+    }
+
+    if (tCircle !== undefined && tCircle.classList.contains('spongebob')) {
+      if (ttCircle !== undefined && ttCircle.classList.contains('spongebob')) {
+        if (tttCircle !== undefined && tttCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          tCircle.classList.add('winning-circles')
+          ttCircle.classList.add('winning-circles')
+          tttCircle.classList.add('winning-circles')
+        }
+      }
+    }
+
+    if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+      if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
+        if (bbbCircle !== undefined && bbbCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          bCircle.classList.add('winning-circles')
+          bbCircle.classList.add('winning-circles')
+          bbbCircle.classList.add('winning-circles')
+        }
+      }
+    }
+
+    if (rCircle !== undefined && rCircle.classList.contains('spongebob')) {
+      if (rrCircle !== undefined && rrCircle.classList.contains('spongebob')) {
+        if (rrrCircle !== undefined && rrrCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          rCircle.classList.add('winning-circles')
+          rrCircle.classList.add('winning-circles')
+          rrrCircle.classList.add('winning-circles')
+        }
+      }
+    }
+    if (tlCircle !== undefined && tlCircle.classList.contains('spongebob')) {
+      if (tltlCircle !== undefined && tltlCircle.classList.contains('spongebob')) {
+        if (tltltlCircle !== undefined && tltltlCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          tlCircle.classList.add('winning-circles')
+          tltlCircle.classList.add('winning-circles')
+          tltltlCircle.classList.add('winning-circles')
+        }
+      }
+    }
+    if (trCircle !== undefined && trCircle.classList.contains('spongebob')) {
+      if (trtrCircle !== undefined && trtrCircle.classList.contains('spongebob')) {
+        if (trtrtrCircle !== undefined && trtrtrCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          trCircle.classList.add('winning-circles')
+          trtrCircle.classList.add('winning-circles')
+          trtrtrCircle.classList.add('winning-circles')
+        }
+      }
+    }
+    if (brCircle !== undefined && brCircle.classList.contains('spongebob')) {
+      if (brbrCircle !== undefined && brbrCircle.classList.contains('spongebob')) {
+        if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          brCircle.classList.add('winning-circles')
+          brbrCircle.classList.add('winning-circles')
+          brbrbrCircle.classList.add('winning-circles')
+        }
+      }
+    }
+    if (blCircle !== undefined && blCircle.classList.contains('spongebob')) {
+      if (blblCircle !== undefined && blblCircle.classList.contains('spongebob')) {
+        if (blblblCircle !== undefined && blblblCircle.classList.contains('spongebob')) {
+          console.log('You win!')
+          inCheckCircle.classList.add('winning-circles')
+          blCircle.classList.add('winning-circles')
+          blblCircle.classList.add('winning-circles')
+          blblblCircle.classList.add('winning-circles')
+        }
+      }
+    }
+
+    if (lCircle !== undefined && lCircle.classList.contains('squidward')) {
+      if (llCircle !== undefined && llCircle.classList.contains('squidward')) {
+        if (lllCircle !== undefined && lllCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          lCircle.classList.add('loosing-circles')
+          llCircle.classList.add('loosing-circles')
+          lllCircle.classList.add('loosing-circles')
+        }
+      }
+    }
+
+    if (tCircle !== undefined && tCircle.classList.contains('squidward')) {
+      if (ttCircle !== undefined && ttCircle.classList.contains('squidward')) {
+        if (tttCircle !== undefined && tttCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          tCircle.classList.add('loosing-circles')
+          ttCircle.classList.add('loosing-circles')
+          tttCircle.classList.add('loosing-circles')
+        }
+      }
+    }
+
+    if (bCircle !== undefined && bCircle.classList.contains('squidward')) {
+      if (bbCircle !== undefined && bbCircle.classList.contains('squidward')) {
+        if (bbbCircle !== undefined && bbbCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          bCircle.classList.add('loosing-circles')
+          bbCircle.classList.add('loosing-circles')
+          bbbCircle.classList.add('loosing-circles')
+        }
+      }
+    }
+
+    if (rCircle !== undefined && rCircle.classList.contains('squidward')) {
+      if (rrCircle !== undefined && rrCircle.classList.contains('squidward')) {
+        if (rrrCircle !== undefined && rrrCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          rCircle.classList.add('loosing-circles')
+          rrCircle.classList.add('loosing-circles')
+          rrrCircle.classList.add('loosing-circles')
+        }
+      }
+    }
+    if (tlCircle !== undefined && tlCircle.classList.contains('squidward')) {
+      if (tltlCircle !== undefined && tltlCircle.classList.contains('squidward')) {
+        if (tltltlCircle !== undefined && tltltlCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          tlCircle.classList.add('loosing-circles')
+          tltlCircle.classList.add('loosing-circles')
+          tltltlCircle.classList.add('loosing-circles')
+        }
+      }
+    }
+    if (trCircle !== undefined && trCircle.classList.contains('squidward')) {
+      if (trtrCircle !== undefined && trtrCircle.classList.contains('squidward')) {
+        if (trtrtrCircle !== undefined && trtrtrCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          trCircle.classList.add('loosing-circles')
+          trtrCircle.classList.add('loosing-circles')
+          trtrtrCircle.classList.add('loosing-circles')
+        }
+      }
+    }
+    if (brCircle !== undefined && brCircle.classList.contains('squidward')) {
+      if (brbrCircle !== undefined && brbrCircle.classList.contains('squidward')) {
+        if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          brCircle.classList.add('loosing-circles')
+          brbrCircle.classList.add('loosing-circles')
+          brbrbrCircle.classList.add('loosing-circles')
+        }
+      }
+    }
+    if (blCircle !== undefined && blCircle.classList.contains('squidward')) {
+      if (blblCircle !== undefined && blblCircle.classList.contains('squidward')) {
+        if (blblblCircle !== undefined && blblblCircle.classList.contains('squidward')) {
+          console.log('You lost!')
+          inCheckCircle.classList.add('loosing-circles')
+          blCircle.classList.add('loosing-circles')
+          blblCircle.classList.add('loosing-circles')
+          blblblCircle.classList.add('loosing-circles')
+        }
+      }
+    }
   }
 
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle
