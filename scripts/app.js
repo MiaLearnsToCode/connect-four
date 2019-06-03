@@ -15,6 +15,7 @@ function init() {
   let columnFour = []
   let columnFive = []
   let columnSix = []
+  const playedCircles = []
 
   // Create the 7 columns
   function createCol(circle, circleIndex) {
@@ -104,7 +105,7 @@ function init() {
     }))
   }
 
-  function checkForWin(pickedCircle) {
+  function checkForWin() {
     // all the circles around the picked cricle
     const pickedIndex = parseInt(pickedCircle.getAttribute('data-id'))
     const lCircle = circles[pickedIndex - 1]
@@ -318,7 +319,7 @@ function init() {
   }
 
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle
-  function pickChoice(circle, circleIndex) {
+  function playChoice(circle, circleIndex) {
     circle.addEventListener('click', () => {
       let availableZero = columnZero.length - 1
       let availableOne = columnOne.length - 1
@@ -331,35 +332,42 @@ function init() {
       function playColumnZero() {
         columnZero[availableZero].classList.add('squidward')
         columnZero.pop()
+        playedCircles.push(columnZero[availableZero])
       }
 
       function playColumnOne() {
-        columnOne[availableOne].classList.add('squidward')
+        columnZero[availableZero].classList.add('squidward')
+        playedCircles.push(columnZero[availableZero])
         columnOne.pop()
       }
 
       function playColumnTwo() {
         columnTwo[availableTwo].classList.add('squidward')
+        playedCircles.push(columnTwo[availableTwo])
         columnTwo.pop()
       }
 
       function playColumnThree() {
         columnThree[availableThree].classList.add('squidward')
+        playedCircles.push(columnThree[availableThree])
         columnThree.pop()
       }
 
       function playColumnFour() {
         columnFour[availableFour].classList.add('squidward')
+        playedCircles.push(columnFour[availableFour])
         columnFour.pop()
       }
 
       function playColumnFive() {
         columnFive[availableFive].classList.add('squidward')
+        playedCircles.push(columnFive[availableFive])
         columnFive.pop()
       }
 
       function playColumnSix() {
         columnSix[availableSix].classList.add('squidward')
+        playedCircles.push(columnSix[availableSix])
         columnSix.pop()
       }
 
@@ -493,6 +501,7 @@ function init() {
       if (circleIndex === 0) {
         const randomIndex = Math.round(Math.random())
         columnZero[availableZero].classList.add('spongebob')
+        playedCircles.push(columnZero[availableZero])
         columnZero.pop()
         availableZero = columnZero.length - 1
 
@@ -503,11 +512,13 @@ function init() {
           switch(randomIndex) {
             case 0:
               columnZero[availableZero].classList.add('squidward')
+              playedCircles.push(columnZero[availableZero])
               columnZero.pop()
               break
             case 1:
               if (availableOne > 0) {
                 columnOne[availableOne].classList.add('squidward')
+                playedCircles.push(columnOne[availableOne])
                 columnOne.pop()
               } else {
                 checkFromColumnZero()
@@ -520,6 +531,7 @@ function init() {
       if (circleIndex === 1) {
         const randomIndex = Math.floor(Math.random() * 3)
         columnOne[availableOne].classList.add('spongebob')
+        playedCircles.push(columnOne[availableOne])
         columnOne.pop()
         availableOne = columnOne.length - 1
 
@@ -531,6 +543,7 @@ function init() {
             case 0:
               if (availableZero > 0) {
                 columnZero[availableZero].classList.add('squidward')
+                playedCircles.push(columnZero[availableZero])
                 columnZero.pop()
               } else {
                 checkFromColumnOne()
@@ -538,11 +551,13 @@ function init() {
               break
             case 1:
               columnOne[availableOne].classList.add('squidward')
+              playedCircles.push(columnOne[availableOne])
               columnOne.pop()
               break
             case 2:
               if (availableTwo > 0) {
                 columnTwo[availableTwo].classList.add('squidward')
+                playedCircles.push(columnTwo[availableTwo])
                 columnTwo.pop()
               } else {
                 checkFromColumnOne()
@@ -554,6 +569,7 @@ function init() {
       if (circleIndex === 2) {
         const randomIndex = Math.floor(Math.random() * 3)
         columnTwo[availableTwo].classList.add('spongebob')
+        playedCircles.push(columnTwo[availableTwo])
         columnTwo.pop()
         availableTwo = columnTwo.length - 1
         if (availableTwo === 0) {
@@ -564,6 +580,7 @@ function init() {
             case 0:
               if (availableOne > 0) {
                 columnOne[availableOne].classList.add('squidward')
+                playedCircles.push(columnOne[availableOne])
                 columnOne.pop()
               } else {
                 checkFromColumnTwo()
@@ -571,11 +588,13 @@ function init() {
               break
             case 1:
               columnTwo[availableTwo].classList.add('squidward')
+              playedCircles.push(columnTwo[availableTwo])
               columnTwo.pop()
               break
             case 2:
               if (availableThree > 0) {
                 columnThree[availableThree].classList.add('squidward')
+                playedCircles.push(columnThree[availableThree])
                 columnThree.pop()
               } else {
                 checkFromColumnTwo()
@@ -587,6 +606,7 @@ function init() {
       if (circleIndex === 3) {
         const randomIndex = Math.floor(Math.random() * 3)
         columnThree[availableThree].classList.add('spongebob')
+        playedCircles.push(columnThree[availableThree])
         columnThree.pop()
         availableThree = columnThree.length - 1
 
@@ -598,6 +618,7 @@ function init() {
             case 0:
               if (availableTwo > 0) {
                 columnTwo[availableTwo].classList.add('squidward')
+                playedCircles.push(columnTwo[availableTwo])
                 columnTwo.pop()
               } else {
                 checkFromColumnThree()
@@ -605,11 +626,13 @@ function init() {
               break
             case 1:
               columnThree[availableThree].classList.add('squidward')
+              playedCircles.push(columnThree[availableThree])
               columnThree.pop()
               break
             case 2:
               if (availableFour > 0) {
                 columnFour[availableFour].classList.add('squidward')
+                playedCircles.push(columnFour[availableFour])
                 columnFour.pop()
               } else {
                 checkFromColumnThree()
@@ -621,6 +644,7 @@ function init() {
       if (circleIndex === 4) {
         const randomIndex = Math.floor(Math.random() * 3)
         columnFour[availableFour].classList.add('spongebob')
+        playedCircles.push([availableFour])
         columnFour.pop()
         availableFour = columnFour.length - 1
         if (availableFour === 0) {
@@ -631,6 +655,7 @@ function init() {
             case 0:
               if (availableThree > 0) {
                 columnThree[availableThree].classList.add('squidward')
+                playedCircles.push(columnThree[availableThree])
                 columnThree.pop()
               } else {
                 checkFromColumnFour()
@@ -638,11 +663,13 @@ function init() {
               break
             case 1:
               columnFour[availableFour].classList.add('squidward')
+              playedCircles.push(columnFour[availableFour])
               columnFour.pop()
               break
             case 2:
               if (availableFive > 0) {
                 columnFive[availableFive].classList.add('squidward')
+                playedCircles.push(columnFive[availableFive])
                 columnFive.pop()
               } else {
                 checkFromColumnFour()
@@ -654,6 +681,7 @@ function init() {
       if (circleIndex === 5) {
         const randomIndex = Math.floor(Math.random() * 3)
         columnFive[availableFive].classList.add('spongebob')
+        playedCircles.push(columnFive[availableFive])
         columnFive.pop()
         availableFive = columnFive.length - 1
         if (availableFive === 0) {
@@ -664,6 +692,7 @@ function init() {
             case 0:
               if (columnFour > 0) {
                 columnFour[availableFour].classList.add('squidward')
+                playedCircles.push(columnFour[availableFour])
                 columnFour.pop()
               } else {
                 checkFromColumnFive()
@@ -671,11 +700,13 @@ function init() {
               break
             case 1:
               columnFive[availableFive].classList.add('squidward')
+              playedCircles.push(columnFive[availableFive])
               columnFive.pop()
               break
             case 2:
               if (columnSix > 0) {
                 columnSix[availableSix].classList.add('squidward')
+                playedCircles.push(columnSix[availableSix])
                 columnSix.pop()
               } else {
                 checkFromColumnFive()
@@ -688,6 +719,7 @@ function init() {
       if (circleIndex === 6) {
         const randomIndex = Math.round(Math.random())
         columnSix[availableSix].classList.add('spongebob')
+        playedCircles.push(columnSix[availableSix])
         columnSix.pop()
         availableSix = columnSix.length - 1
         if (availableSix === 0) {
@@ -698,6 +730,7 @@ function init() {
             case 0:
               if (availableFive > 0) {
                 columnFive[availableFive].classList.add('squidward')
+                playedCircles.push(columnFive[availableFive])
                 columnFive.pop()
               } else {
                 checkFromColumnSix()
@@ -705,6 +738,7 @@ function init() {
               break
             case 1:
               columnSix[availableSix].classList.add('squidward')
+              playedCircles.push(columnSix[availableSix])
               columnSix.pop()
               break
           }
@@ -720,7 +754,7 @@ function init() {
       circle.classList.add('grid-choice-circle')
       const circlesChoice = document.querySelectorAll('.grid-choice-circle')
       hoverChoices(circlesChoice)
-      pickChoice(circle, circleIndex)
+      playChoice(circle, circleIndex)
     }
   }
 
