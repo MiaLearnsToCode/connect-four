@@ -8,15 +8,13 @@ const circles = []
 function init() {
 
   const grid = document.querySelector('.grid')
-  const columnZero = []
-  const columnOne = []
-  const columnTwo = []
-  const columnThree = []
-  const columnFour = []
-  const columnFive = []
-  const columnSix = []
-
-
+  let columnZero = []
+  let columnOne = []
+  let columnTwo = []
+  let columnThree = []
+  let columnFour = []
+  let columnFive = []
+  let columnSix = []
 
   // Create the 7 columns
   function createCol(circle, circleIndex) {
@@ -106,9 +104,6 @@ function init() {
     }))
   }
 
-
-
-
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle
   function pickChoice(circle, circleIndex) {
     circle.addEventListener('click', () => {
@@ -120,42 +115,239 @@ function init() {
       let availableFive = columnFive.length - 1
       let availableSix = columnSix.length - 1
 
+      function playColumnZero() {
+        columnZero[availableZero].classList.add('squidward')
+        columnZero.pop()
+      }
+
+      function playColumnOne() {
+        columnOne[availableOne].classList.add('squidward')
+        columnOne.pop()
+      }
+
+      function playColumnTwo() {
+        columnTwo[availableTwo].classList.add('squidward')
+        columnTwo.pop()
+      }
+
+      function playColumnThree() {
+        columnThree[availableThree].classList.add('squidward')
+        columnThree.pop()
+      }
+
+      function playColumnFour() {
+        columnFour[availableThree].classList.add('squidward')
+        columnFour.pop()
+      }
+
+      function playColumnFive() {
+        columnFive[availableFive].classList.add('squidward')
+        columnFive.pop()
+      }
+
+      function playColumnSix() {
+        columnSix[availableSix].classList.add('squidward')
+        columnSix.pop()
+      }
+
+      function checkFromColumnZero() {
+        if (availableOne > 1) {
+          playColumnOne()
+        } else if (availableTwo > 1) {
+          playColumnTwo()
+        } else if (availableThree > 1) {
+          playColumnThree()
+        } else if (availableFour > 1) {
+          playColumnFour()
+        } else if (availableFive > 1) {
+          playColumnFive()
+        } else if (availableSix > 1) {
+          playColumnSix()
+        } else {
+          console.log('You draw!')
+        }
+      }
+
+      function checkFromColumnOne() {
+        if (availableOne === 0) {
+          columnOne = []
+          if (availableZero > 1) {
+            playColumnZero()
+          } else if (availableTwo > 1) {
+            playColumnTwo()
+            columnZero = []
+          } else if (availableThree > 1) {
+            playColumnThree()
+            columnTwo = []
+          } else if (availableFour > 1) {
+            playColumnFour()
+            columnThree = []
+          } else if (availableFive > 1) {
+            playColumnFive()
+            columnFour = []
+          } else if (availableSix > 1) {
+            playColumnSix()
+            columnFive = []
+          } else {
+            console.log('You draw!')
+          }
+        }
+      }
+
+      function checkFromColumnTwo() {
+        if (availableOne > 1) {
+          playColumnOne()
+        } else if (availableThree > 1) {
+          playColumnThree()
+        } else if (availableZero > 1) {
+          playColumnZero()
+        }  else if (availableFour > 1) {
+          playColumnFour()
+          columnZero = []
+        } else if (availableFive > 1) {
+          playColumnFive()
+        } else if (availableSix > 1) {
+          playColumnSix()
+          columnFive = []
+        } else {
+          console.log('You draw!')
+        }
+      }
+
+      function checkFromColumnThree() {
+        if (availableTwo > 1) {
+          playColumnTwo()
+        } else if (availableFour > 1) {
+          playColumnFour()
+        } else if (availableOne > 1) {
+          playColumnOne()
+        }  else if (availableFive > 1) {
+          playColumnFive()
+        } else if (availableZero > 1) {
+          playColumnZero()
+          columnFive = []
+        } else if (availableSix > 1) {
+          playColumnSix()
+          columnZero = []
+        } else {
+          console.log('You draw!')
+        }
+      }
+
+      function checkFromColumnFour() {
+        if (availableThree > 1) {
+          playColumnThree()
+        } else if (availableFive > 1) {
+          playColumnFive()
+        } else if (availableTwo > 1) {
+          playColumnTwo()
+          columnFive = []
+        }  else if (availableSix > 1) {
+          playColumnSix()
+        } else if (availableOne > 1) {
+          playColumnOne()
+        } else if (availableZero > 1) {
+          playColumnZero()
+        } else {
+          console.log('You draw!')
+        }
+      }
+
+      function checkFromColumnFive() {
+        if (availableSix > 1) {
+          playColumnSix()
+        } else if (availableFour > 1) {
+          playColumnFour()
+        } else if (availableThree > 1) {
+          playColumnThree()
+        }  else if (availableTwo > 1) {
+          playColumnTwo()
+        } else if (availableOne > 1) {
+          playColumnOne()
+        } else if (availableZero > 1) {
+          playColumnZero()
+        } else {
+          console.log('You draw!')
+        }
+      }
+
+      function checkFromColumnSix() {
+        if (availableZero > 1) {
+          playColumnZero()
+        } else if (availableOne > 1) {
+          playColumnOne()
+        } else if (availableTwo > 1) {
+          playColumnTwo()
+        }  else if (availableThree > 1) {
+          playColumnThree()
+        } else if (availableFour > 1) {
+          playColumnFour()
+        } else if (availableFive > 1) {
+          playColumnFive()
+        } else {
+          console.log('You draw!')
+        }
+      }
 
       if (circleIndex === 0) {
         const randomIndex = Math.round(Math.random())
         columnZero[availableZero].classList.add('spongebob')
-        // const playedIndex = parseInt(columnZero[availableZero].getAttribute('data-id'))
         columnZero.pop()
         availableZero = columnZero.length - 1
-        switch(randomIndex) {
-          case 0:
-            columnZero[availableZero].classList.add('squidward')
-            columnZero.pop()
-            break
-          case 1:
-            columnOne[availableOne].classList.add('squidward')
-            columnOne.pop()
-            break
+
+        if (availableZero === 0) {
+          columnZero = []
+          checkFromColumnZero()
+        } else {
+          switch(randomIndex) {
+            case 0:
+              columnZero[availableZero].classList.add('squidward')
+              columnZero.pop()
+              break
+            case 1:
+              if (availableOne > 1) {
+                columnOne[availableOne].classList.add('squidward')
+                columnOne.pop()
+              } else {
+                checkFromColumnZero()
+              }
+              break
+          }
         }
       }
+
       if (circleIndex === 1) {
         const randomIndex = Math.floor(Math.random() * 3)
         columnOne[availableOne].classList.add('spongebob')
         columnOne.pop()
         availableOne = columnOne.length - 1
-        switch(randomIndex) {
-          case 0:
-            columnZero[availableZero].classList.add('squidward')
-            columnZero.pop()
-            break
-          case 1:
-            columnOne[availableOne].classList.add('squidward')
-            columnOne.pop()
-            break
-          case 2:
-            columnTwo[availableTwo].classList.add('squidward')
-            columnTwo.pop()
-            break
+
+        if (availableOne === 0) {
+          columnOne = []
+          checkFromColumnOne()
+        } else {
+          switch(randomIndex) {
+            case 0:
+              if (availableZero > 1) {
+                columnZero[availableZero].classList.add('squidward')
+                columnZero.pop()
+              } else {
+                checkFromColumnOne()
+              }
+              break
+            case 1:
+              columnOne[availableOne].classList.add('squidward')
+              columnOne.pop()
+              break
+            case 2:
+              if (availableTwo > 1) {
+                columnTwo[availableTwo].classList.add('squidward')
+                columnTwo.pop()
+              } else {
+                checkFromColumnOne()
+              }
+              break
+          }
         }
       }
       if (circleIndex === 2) {
@@ -163,19 +355,32 @@ function init() {
         columnTwo[availableTwo].classList.add('spongebob')
         columnTwo.pop()
         availableTwo = columnTwo.length - 1
-        switch(randomIndex) {
-          case 0:
-            columnOne[availableOne].classList.add('squidward')
-            columnOne.pop()
-            break
-          case 1:
-            columnTwo[availableTwo].classList.add('squidward')
-            columnTwo.pop()
-            break
-          case 2:
-            columnThree[availableThree].classList.add('squidward')
-            columnThree.pop()
-            break
+        if (availableTwo === 0) {
+          columnTwo = []
+          checkFromColumnTwo()
+        } else {
+          switch(randomIndex) {
+            case 0:
+              if (availableOne > 1) {
+                columnOne[availableOne].classList.add('squidward')
+                columnOne.pop()
+              } else {
+                checkFromColumnTwo()
+              }
+              break
+            case 1:
+              columnTwo[availableTwo].classList.add('squidward')
+              columnTwo.pop()
+              break
+            case 2:
+              if (availableThree > 1) {
+                columnThree[availableThree].classList.add('squidward')
+                columnThree.pop()
+              } else {
+                checkFromColumnTwo()
+              }
+              break
+          }
         }
       }
       if (circleIndex === 3) {
@@ -183,19 +388,33 @@ function init() {
         columnThree[availableThree].classList.add('spongebob')
         columnThree.pop()
         availableThree = columnThree.length - 1
-        switch(randomIndex) {
-          case 0:
-            columnTwo[availableTwo].classList.add('squidward')
-            columnTwo.pop()
-            break
-          case 1:
-            columnThree[availableThree].classList.add('squidward')
-            columnThree.pop()
-            break
-          case 2:
-            columnFour[availableFour].classList.add('squidward')
-            columnFour.pop()
-            break
+
+        if (availableThree === 0) {
+          columnThree = []
+          checkFromColumnThree()
+        } else {
+          switch(randomIndex) {
+            case 0:
+              if (availableTwo > 1) {
+                columnTwo[availableTwo].classList.add('squidward')
+                columnTwo.pop()
+              } else {
+                checkFromColumnThree()
+              }
+              break
+            case 1:
+              columnThree[availableThree].classList.add('squidward')
+              columnThree.pop()
+              break
+            case 2:
+              if (availableFour > 1) {
+                columnFour[availableFour].classList.add('squidward')
+                columnFour.pop()
+              } else {
+                checkFromColumnThree()
+              }
+              break
+          }
         }
       }
       if (circleIndex === 4) {
@@ -203,19 +422,32 @@ function init() {
         columnFour[availableFour].classList.add('spongebob')
         columnFour.pop()
         availableFour = columnFour.length - 1
-        switch(randomIndex) {
-          case 0:
-            columnThree[availableThree].classList.add('squidward')
-            columnThree.pop()
-            break
-          case 1:
-            columnFour[availableFour].classList.add('squidward')
-            columnFour.pop()
-            break
-          case 2:
-            columnFive[availableFive].classList.add('squidward')
-            columnFive.pop()
-            break
+        if (availableFour === 0) {
+          columnFour = []
+          checkFromColumnFour()
+        } else {
+          switch(randomIndex) {
+            case 0:
+              if (availableThree > 1) {
+                columnThree[availableThree].classList.add('squidward')
+                columnThree.pop()
+              } else {
+                checkFromColumnFour()
+              }
+              break
+            case 1:
+              columnFour[availableFour].classList.add('squidward')
+              columnFour.pop()
+              break
+            case 2:
+              if (availableFive > 1) {
+                columnFive[availableFive].classList.add('squidward')
+                columnFive.pop()
+              } else {
+                checkFromColumnFour()
+              }
+              break
+          }
         }
       }
       if (circleIndex === 5) {
@@ -223,38 +455,60 @@ function init() {
         columnFive[availableFive].classList.add('spongebob')
         columnFive.pop()
         availableFive = columnFive.length - 1
-        switch(randomIndex) {
-          case 0:
-            columnFour[availableFour].classList.add('squidward')
-            columnFour.pop()
-            break
-          case 1:
-            columnFive[availableFive].classList.add('squidward')
-            columnFive.pop()
-            break
-          case 2:
-            columnSix[availableSix].classList.add('squidward')
-            columnSix.pop()
-            break
+        if (availableFive === 0) {
+          columnFive = []
+          checkFromColumnFive()
+        } else {
+          switch(randomIndex) {
+            case 0:
+              if (columnFour > 1) {
+                columnFour[availableFour].classList.add('squidward')
+                columnFour.pop()
+              } else {
+                checkFromColumnFive()
+              }
+              break
+            case 1:
+              columnFive[availableFive].classList.add('squidward')
+              columnFive.pop()
+              break
+            case 2:
+              if (columnSix > 1) {
+                columnSix[availableSix].classList.add('squidward')
+                columnSix.pop()
+              } else {
+                checkFromColumnFive()
+              }
+              break
+          }
         }
       }
+
       if (circleIndex === 6) {
         const randomIndex = Math.round(Math.random())
         columnSix[availableSix].classList.add('spongebob')
         columnSix.pop()
         availableSix = columnSix.length - 1
-        switch(randomIndex) {
-          case 0:
-            columnFive[availableFive].classList.add('squidward')
-            columnFive.pop()
-            break
-          case 1:
-            columnSix[availableSix].classList.add('squidward')
-            columnSix.pop()
-            break
+        if (availableSix === 0) {
+          columnSix = []
+          checkFromColumnSix()
+        } else {
+          switch(randomIndex) {
+            case 0:
+              if (availableFive > 1) {
+                columnFive[availableFive].classList.add('squidward')
+                columnFive.pop()
+              } else {
+                checkFromColumnSix()
+              }
+              break
+            case 1:
+              columnSix[availableSix].classList.add('squidward')
+              columnSix.pop()
+              break
+          }
         }
       }
-
     })
   }
 
@@ -288,6 +542,5 @@ function init() {
 
 
 }
-
 
 window.addEventListener('DOMContentLoaded', init)
