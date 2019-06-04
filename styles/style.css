@@ -76,3 +76,7 @@ div.squidward {
 div.winning-circles {
   background-color: yellow;
 }
+
+div.loosing-circles {
+  background-color: red;
+}
