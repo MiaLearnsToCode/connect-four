@@ -105,8 +105,76 @@ function init() {
     }))
   }
 
-
-
+  // function computerDefendThree() {
+  //   const inCheckCircle = playedCircles[0]
+  //   const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+  //   const lCircle = circles[pickedIndex - 1]
+  //   const llCircle = circles[pickedIndex - 2]
+  //   const lllCircle = circles[pickedIndex - 3]
+  //   console.log(pickedIndex)
+  //   const rCircle = circles[pickedIndex + 1]
+  //   const rrCircle = circles[pickedIndex + 2]
+  //   const rrrCircle = circles[pickedIndex + 3]
+  //   const bCircle = circles[pickedIndex + width]
+  //   const bbCircle = circles[pickedIndex + width * 2]
+  //   const bbbCircle = circles[pickedIndex + width * 3]
+  //   const blCircle = circles[pickedIndex - 1 + width]
+  //   const blblCircle = circles[pickedIndex - 2 + width * 2]
+  //   const blblblCircle = circles[pickedIndex - 3 + width * 3]
+  //   const brCircle = circles[pickedIndex - 1 - width]
+  //   const brbrCircle = circles[pickedIndex - 2 - width * 2]
+  //   const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
+  //
+  //   if (lllCircle === undefined && lCircle !== undefined && llCircle !== undefined) {
+  //     if (lCircle.classList.contains('spongebob')) {
+  //       if (llCircle.classList.contains('spongebob')) {
+  //         lllCircle.classList.add('squidward')
+  //         console.log('L')
+  //         console.log(lllCircle)
+  //       }
+  //     }
+  //   }
+  //
+  //   if (rrrCircle === undefined && rCircle !== undefined && rrCircle !== undefined) {
+  //     if (rCircle.classList.contains('spongebob')) {
+  //       if (rrCircle.classList.contains('spongebob')) {
+  //         rrrCircle.classList.add('squidward')
+  //         console.log('R')
+  //         console.log(rrrCircle)
+  //       }
+  //     }
+  //   }
+  //
+  //   if (bbbCircle === undefined && bCircle !== undefined && bbCircle !== undefined) {
+  //     if (bCircle.classList.contains('spongebob')) {
+  //       if (bbCircle.classList.contains('spongebob')) {
+  //         bbbCircle.classList.add('squidward')
+  //         console.log('B')
+  //         console.log(bbbCircle)
+  //       }
+  //     }
+  //   }
+  //
+  //   if (blblblCircle === undefined && blCircle !== undefined && blblCircle !== undefined) {
+  //     if (blCircle.classList.contains('spongebob')) {
+  //       if (blblCircle.classList.contains('spongebob')) {
+  //         blblblCircle.classList.add('squidward')
+  //         console.log('B')
+  //         console.log(blblblCircle)
+  //       }
+  //     }
+  //   }
+  //
+  //   if (brbrbrCircle === undefined && brCircle !== undefined && brbrCircle !== undefined) {
+  //     if (brCircle.classList.contains('spongebob')) {
+  //       if (brbrCircle.classList.contains('spongebob')) {
+  //         brbrbrCircle.classList.add('squidward')
+  //         console.log('B')
+  //         console.log(brbrbrCircle)
+  //       }
+  //     }
+  //   }
+  // }
 
   function checkForWin() {
     const inCheckCircle = playedCircles[0]
@@ -127,7 +195,6 @@ function init() {
     const brbrCircle = circles[pickedIndex - 2 - width * 2]
     const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
 
-    console.log(inCheckCircle)
     if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
       if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
         if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
@@ -207,7 +274,7 @@ function init() {
     const brCircle = circles[pickedIndex - 1 - width]
     const brbrCircle = circles[pickedIndex - 2 - width * 2]
     const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
-    
+
     if (lCircle !== undefined && lCircle.classList.contains('squidward')) {
       if (llCircle !== undefined && llCircle.classList.contains('squidward')) {
         if (lllCircle !== undefined && lllCircle.classList.contains('squidward')) {
@@ -244,7 +311,6 @@ function init() {
         }
       }
     }
-
 
     if (brCircle !== undefined && brCircle.classList.contains('squidward')) {
       if (brbrCircle !== undefined && brbrCircle.classList.contains('squidward')) {
@@ -464,7 +530,6 @@ function init() {
         checkForWin()
         columnZero.pop()
         availableZero = columnZero.length - 1
-
         if (availableZero === 0) {
           columnZero = []
           checkFromColumnZero()
@@ -497,7 +562,6 @@ function init() {
         checkForWin()
         columnOne.pop()
         availableOne = columnOne.length - 1
-
         if (availableOne === 0) {
           columnOne = []
           checkFromColumnOne()
@@ -580,7 +644,6 @@ function init() {
         checkForWin()
         columnThree.pop()
         availableThree = columnThree.length - 1
-
         if (availableThree === 0) {
           columnThree = []
           checkFromColumnThree()
