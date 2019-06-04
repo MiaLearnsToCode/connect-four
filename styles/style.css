@@ -1,16 +1,46 @@
 body {
   background: url(../images/background.png) no-repeat center center fixed;
   background-size: cover;
-  height:100vh;
-
 }
 
 div.filter {
   background-color: rgba(255, 255, 255, 0.2);
+  height:100vh;
+}
+
+nav {
+  align-self: baseline;
+  height: 18vh;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: 80px;
+  color:yellow;
+  text-shadow: 5px 5px 10px #997d0f;
+  margin-top: 5px;
+}
+
+h2 {
+  text-align: center;
+  font-family: 'Dokdo', cursive;
+  font-size: 50px;
+  text-transform: uppercase;
+  color:white;
+  text-shadow: 10px 10px 30px blue;
+  -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg);
+  margin-top: -90px;
+  margin-left: 150px;
+}
+
+main {
   display:flex;
   justify-content: center;
   align-items: center;
-  height:100vh;
 }
 
 div.grid {
@@ -24,13 +54,20 @@ div.grid {
   backdrop-filter: blur(5px);
   padding: 10px;
   border: 2px solid white;
+}
 
+h3 {
+  text-align: center;
+  font-family: 'East Sea Dokdo', cursive;
+  font-size: 100px;
+  color:white;
 }
 
 div.grid-square {
   width: 80px;
   height: 80px;
   margin: 5px;
+  display: none;
 }
 
 div.grid-circle {
@@ -39,6 +76,7 @@ div.grid-circle {
   box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 1);
   border-radius: 40px;
   border: 2px solid white;
+  display: none;
 }
 
 div.grid-circle-highlighted {
