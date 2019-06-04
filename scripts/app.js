@@ -114,76 +114,11 @@ function init() {
     }))
   }
 
-  // function computerDefendThree() {
-  //   const inCheckCircle = playedCircles[0]
-  //   const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-  //   const lCircle = circles[pickedIndex - 1]
-  //   const llCircle = circles[pickedIndex - 2]
-  //   const lllCircle = circles[pickedIndex - 3]
-  //   console.log(pickedIndex)
-  //   const rCircle = circles[pickedIndex + 1]
-  //   const rrCircle = circles[pickedIndex + 2]
-  //   const rrrCircle = circles[pickedIndex + 3]
-  //   const bCircle = circles[pickedIndex + width]
-  //   const bbCircle = circles[pickedIndex + width * 2]
-  //   const bbbCircle = circles[pickedIndex + width * 3]
-  //   const blCircle = circles[pickedIndex - 1 + width]
-  //   const blblCircle = circles[pickedIndex - 2 + width * 2]
-  //   const blblblCircle = circles[pickedIndex - 3 + width * 3]
-  //   const brCircle = circles[pickedIndex - 1 - width]
-  //   const brbrCircle = circles[pickedIndex - 2 - width * 2]
-  //   const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
-  //
-  //   if (lllCircle === undefined && lCircle !== undefined && llCircle !== undefined) {
-  //     if (lCircle.classList.contains('spongebob')) {
-  //       if (llCircle.classList.contains('spongebob')) {
-  //         lllCircle.classList.add('squidward')
-  //         console.log('L')
-  //         console.log(lllCircle)
-  //       }
-  //     }
-  //   }
-  //
-  //   if (rrrCircle === undefined && rCircle !== undefined && rrCircle !== undefined) {
-  //     if (rCircle.classList.contains('spongebob')) {
-  //       if (rrCircle.classList.contains('spongebob')) {
-  //         rrrCircle.classList.add('squidward')
-  //         console.log('R')
-  //         console.log(rrrCircle)
-  //       }
-  //     }
-  //   }
-  //
-  //   if (bbbCircle === undefined && bCircle !== undefined && bbCircle !== undefined) {
-  //     if (bCircle.classList.contains('spongebob')) {
-  //       if (bbCircle.classList.contains('spongebob')) {
-  //         bbbCircle.classList.add('squidward')
-  //         console.log('B')
-  //         console.log(bbbCircle)
-  //       }
-  //     }
-  //   }
-  //
-  //   if (blblblCircle === undefined && blCircle !== undefined && blblCircle !== undefined) {
-  //     if (blCircle.classList.contains('spongebob')) {
-  //       if (blblCircle.classList.contains('spongebob')) {
-  //         blblblCircle.classList.add('squidward')
-  //         console.log('B')
-  //         console.log(blblblCircle)
-  //       }
-  //     }
-  //   }
-  //
-  //   if (brbrbrCircle === undefined && brCircle !== undefined && brbrCircle !== undefined) {
-  //     if (brCircle.classList.contains('spongebob')) {
-  //       if (brbrCircle.classList.contains('spongebob')) {
-  //         brbrbrCircle.classList.add('squidward')
-  //         console.log('B')
-  //         console.log(brbrbrCircle)
-  //       }
-  //     }
-  //   }
-  // }
+  function stopHoverChoices() {
+    const circlesChoice = document.querySelectorAll('.grid-choice-circle')
+    console.log(circlesChoice)
+    circlesChoice.forEach(circleChosen => circleChosen.style.visibility = 'hidden')
+  }
 
   function addSpongebob() {
     scoreSpongebob =+ 1
@@ -222,11 +157,8 @@ function init() {
           lCircle.classList.add('winning-circles')
           llCircle.classList.add('winning-circles')
           lllCircle.classList.add('winning-circles')
-          inCheckCircle.classList.add('pulse')
-          lCircle.classList.add('pulse')
-          llCircle.classList.add('pulse')
-          lllCircle.classList.add('pulse')
           addSpongebob()
+          stopHoverChoices()
         }
       }
     }
@@ -239,11 +171,8 @@ function init() {
           bCircle.classList.add('winning-circles')
           bbCircle.classList.add('winning-circles')
           bbbCircle.classList.add('winning-circles')
-          inCheckCircle.classList.add('pulse')
-          bCircle.classList.add('pulse')
-          bbCircle.classList.add('pulse')
-          bbbCircle.classList.add('pulse')
           addSpongebob()
+          stopHoverChoices()
         }
       }
     }
@@ -256,11 +185,8 @@ function init() {
           rCircle.classList.add('winning-circles')
           rrCircle.classList.add('winning-circles')
           rrrCircle.classList.add('winning-circles')
-          inCheckCircle.classList.add('pulse')
-          rCircle.classList.add('pulse')
-          rrCircle.classList.add('pulse')
-          rrrCircle.classList.add('pulse')
           addSpongebob()
+          stopHoverChoices()
         }
       }
     }
@@ -273,11 +199,8 @@ function init() {
           brCircle.classList.add('winning-circles')
           brbrCircle.classList.add('winning-circles')
           brbrbrCircle.classList.add('winning-circles')
-          inCheckCircle.classList.add('pulse')
-          brCircle.classList.add('pulse')
-          brbrCircle.classList.add('pulse')
-          brbrbrCircle.classList.add('pulse')
           addSpongebob()
+          stopHoverChoices()
         }
       }
     }
@@ -289,11 +212,8 @@ function init() {
           blCircle.classList.add('winning-circles')
           blblCircle.classList.add('winning-circles')
           blblblCircle.classList.add('winning-circles')
-          inCheckCircle.classList.add('pulse')
-          blCircle.classList.add('pulse')
-          blblCircle.classList.add('pulse')
-          blblblCircle.classList.add('pulse')
           addSpongebob()
+          stopHoverChoices()
         }
       }
     }
@@ -327,10 +247,6 @@ function init() {
           lCircle.classList.add('loosing-circles')
           llCircle.classList.add('loosing-circles')
           lllCircle.classList.add('loosing-circles')
-          inCheckCircle.classList.add('pulse')
-          lCircle.classList.add('pulse')
-          llCircle.classList.add('pulse')
-          lllCircle.classList.add('pulse')
           addSquidward()
         }
       }
@@ -344,15 +260,10 @@ function init() {
           bCircle.classList.add('loosing-circles')
           bbCircle.classList.add('loosing-circles')
           bbbCircle.classList.add('loosing-circles')
-          inCheckCircle.classList.add('pulse')
-          bCircle.classList.add('pulse')
-          bbCircle.classList.add('pulse')
-          bbbCircle.classList.add('pulse')
           addSquidward()
         }
       }
     }
-
 
     if (rCircle !== undefined && rCircle.classList.contains('squidward')) {
       if (rrCircle !== undefined && rrCircle.classList.contains('squidward')) {
@@ -362,10 +273,6 @@ function init() {
           rCircle.classList.add('loosing-circles')
           rrCircle.classList.add('loosing-circles')
           rrrCircle.classList.add('loosing-circles')
-          inCheckCircle.classList.add('pulse')
-          rCircle.classList.add('pulse')
-          rrCircle.classList.add('pulse')
-          rrrCircle.classList.add('pulse')
           addSquidward()
         }
       }
@@ -379,10 +286,6 @@ function init() {
           brCircle.classList.add('loosing-circles')
           brbrCircle.classList.add('loosing-circles')
           brbrbrCircle.classList.add('loosing-circles')
-          inCheckCircle.classList.add('pulse')
-          brCircle.classList.add('pulse')
-          brbrCircle.classList.add('pulse')
-          brbrbrCircle.classList.add('pulse')
           addSquidward()
         }
       }
@@ -395,10 +298,6 @@ function init() {
           blCircle.classList.add('loosing-circles')
           blblCircle.classList.add('loosing-circles')
           blblblCircle.classList.add('loosing-circles')
-          inCheckCircle.classList.add('pulse')
-          blCircle.classList.add('pulse')
-          blblCircle.classList.add('pulse')
-          blblblCircle.classList.add('pulse')
           addSquidward()
         }
       }
@@ -594,6 +493,7 @@ function init() {
 
       if (circleIndex === 0) {
         const randomIndex = Math.round(Math.random())
+        console.log(columnZero)
         columnZero[availableZero].classList.add('spongebob')
         playedCircles.unshift(columnZero[availableZero])
         checkForWin()
@@ -877,7 +777,6 @@ function init() {
 
   // FOR LOOP to build each square as many times as the width
   function createBoard() {
-
     for (var i = 0; i < width * width; i++) {
       const square = document.createElement('div')
       const circle = document.createElement('div')
@@ -896,12 +795,22 @@ function init() {
     }
   }
 
+  function clearBoard() {
+    grid.parentNode.removeChild()
+  }
+
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     instructions.forEach(instruction => instruction.style.display = 'none')
     scoreBoard.style.visibility = 'visible'
     resetButton.style.visibility = 'visible'
     createBoard()
+  })
+
+  resetButton.addEventListener('click', () => {
+    clearBoard()
+    createBoard()
+    // visible top row
   })
 }
 
