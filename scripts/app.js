@@ -11,10 +11,10 @@ function init() {
   const scoreBoard = document.querySelector('#score-board')
   const resetButton = document.querySelector('#reset-button')
   const grid = document.querySelector('.grid')
-  const spanSpongebob = document.querySelector('#spongebob-score').innerHTML
-  const spanSquidward = document.querySelector('#squidward-score').innerHTML
-  const scoreSpongebob = parseInt(spanSpongebob)
-  const scoreSquidward = parseInt(spanSquidward)
+  const spanSpongebob = document.querySelector('#spongebob-score')
+  const spanSquidward = document.querySelector('#squidward-score')
+  let scoreSpongebob = parseInt(spanSpongebob.innerHTML)
+  let scoreSquidward = parseInt(spanSquidward.innerHTML)
   console.log(scoreSpongebob)
 
   let columnZero = []
@@ -185,7 +185,15 @@ function init() {
   //   }
   // }
 
+  function addSpongebob() {
+    scoreSpongebob =+ 1
+    spanSpongebob.innerHTML = scoreSpongebob
+  }
 
+  function addSquidward() {
+    scoreSquidward =+ 1
+    spanSquidward.innerHTML = scoreSquidward
+  }
 
   function checkForWin() {
     const inCheckCircle = playedCircles[0]
@@ -205,7 +213,7 @@ function init() {
     const brCircle = circles[pickedIndex + 1 + width]
     const brbrCircle = circles[pickedIndex + 2 + width * 2]
     const brbrbrCircle = circles[pickedIndex + 3 + width * 3]
-    console.log(brCircle)
+
     if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
       if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
         if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
@@ -214,6 +222,11 @@ function init() {
           lCircle.classList.add('winning-circles')
           llCircle.classList.add('winning-circles')
           lllCircle.classList.add('winning-circles')
+          inCheckCircle.classList.add('pulse')
+          lCircle.classList.add('pulse')
+          llCircle.classList.add('pulse')
+          lllCircle.classList.add('pulse')
+          addSpongebob()
         }
       }
     }
@@ -226,6 +239,11 @@ function init() {
           bCircle.classList.add('winning-circles')
           bbCircle.classList.add('winning-circles')
           bbbCircle.classList.add('winning-circles')
+          inCheckCircle.classList.add('pulse')
+          bCircle.classList.add('pulse')
+          bbCircle.classList.add('pulse')
+          bbbCircle.classList.add('pulse')
+          addSpongebob()
         }
       }
     }
@@ -238,6 +256,11 @@ function init() {
           rCircle.classList.add('winning-circles')
           rrCircle.classList.add('winning-circles')
           rrrCircle.classList.add('winning-circles')
+          inCheckCircle.classList.add('pulse')
+          rCircle.classList.add('pulse')
+          rrCircle.classList.add('pulse')
+          rrrCircle.classList.add('pulse')
+          addSpongebob()
         }
       }
     }
@@ -250,9 +273,11 @@ function init() {
           brCircle.classList.add('winning-circles')
           brbrCircle.classList.add('winning-circles')
           brbrbrCircle.classList.add('winning-circles')
-          console.log(brCircle)
-          console.log(brbrCircle)
-          console.log(brbrbrCircle)
+          inCheckCircle.classList.add('pulse')
+          brCircle.classList.add('pulse')
+          brbrCircle.classList.add('pulse')
+          brbrbrCircle.classList.add('pulse')
+          addSpongebob()
         }
       }
     }
@@ -264,6 +289,11 @@ function init() {
           blCircle.classList.add('winning-circles')
           blblCircle.classList.add('winning-circles')
           blblblCircle.classList.add('winning-circles')
+          inCheckCircle.classList.add('pulse')
+          blCircle.classList.add('pulse')
+          blblCircle.classList.add('pulse')
+          blblblCircle.classList.add('pulse')
+          addSpongebob()
         }
       }
     }
@@ -297,6 +327,11 @@ function init() {
           lCircle.classList.add('loosing-circles')
           llCircle.classList.add('loosing-circles')
           lllCircle.classList.add('loosing-circles')
+          inCheckCircle.classList.add('pulse')
+          lCircle.classList.add('pulse')
+          llCircle.classList.add('pulse')
+          lllCircle.classList.add('pulse')
+          addSquidward()
         }
       }
     }
@@ -309,6 +344,11 @@ function init() {
           bCircle.classList.add('loosing-circles')
           bbCircle.classList.add('loosing-circles')
           bbbCircle.classList.add('loosing-circles')
+          inCheckCircle.classList.add('pulse')
+          bCircle.classList.add('pulse')
+          bbCircle.classList.add('pulse')
+          bbbCircle.classList.add('pulse')
+          addSquidward()
         }
       }
     }
@@ -322,6 +362,11 @@ function init() {
           rCircle.classList.add('loosing-circles')
           rrCircle.classList.add('loosing-circles')
           rrrCircle.classList.add('loosing-circles')
+          inCheckCircle.classList.add('pulse')
+          rCircle.classList.add('pulse')
+          rrCircle.classList.add('pulse')
+          rrrCircle.classList.add('pulse')
+          addSquidward()
         }
       }
     }
@@ -334,6 +379,11 @@ function init() {
           brCircle.classList.add('loosing-circles')
           brbrCircle.classList.add('loosing-circles')
           brbrbrCircle.classList.add('loosing-circles')
+          inCheckCircle.classList.add('pulse')
+          brCircle.classList.add('pulse')
+          brbrCircle.classList.add('pulse')
+          brbrbrCircle.classList.add('pulse')
+          addSquidward()
         }
       }
     }
@@ -345,6 +395,11 @@ function init() {
           blCircle.classList.add('loosing-circles')
           blblCircle.classList.add('loosing-circles')
           blblblCircle.classList.add('loosing-circles')
+          inCheckCircle.classList.add('pulse')
+          blCircle.classList.add('pulse')
+          blblCircle.classList.add('pulse')
+          blblblCircle.classList.add('pulse')
+          addSquidward()
         }
       }
     }

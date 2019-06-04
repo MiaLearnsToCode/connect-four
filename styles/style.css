@@ -194,3 +194,21 @@ div.winning-circles {
 div.loosing-circles {
   background-color: red;
 }
+
+@keyframes pulse
+{
+     0% {
+          box-shadow: 0 0 0 0px rgba(225, 225, 225, 0);
+     }
+     50% {
+          box-shadow: 0 0 3rem 0 rgba(255, 255, 255, 1);
+     }
+     100% {
+          box-shadow: 0 0 0 0px rgba(225, 225, 225, 0);
+     }
+}
+
+.pulse
+{
+     animation: pulse 2s infinite ease;
+}
