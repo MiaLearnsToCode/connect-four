@@ -8,7 +8,14 @@ const circles = []
 function init() {
   const startButton = document.querySelector('#start-button')
   const instructions = document.querySelectorAll('p, h3')
+  const scoreBoard = document.querySelector('#score-board')
+  const resetButton = document.querySelector('#reset-button')
   const grid = document.querySelector('.grid')
+  const spanSpongebob = document.querySelector('#spongebob-score').innerHTML
+  const spanSquidward = document.querySelector('#squidward-score').innerHTML
+  const scoreSpongebob = parseInt(spanSpongebob)
+  const scoreSquidward = parseInt(spanSquidward)
+  console.log(scoreSpongebob)
 
   let columnZero = []
   let columnOne = []
@@ -837,6 +844,8 @@ function init() {
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     instructions.forEach(instruction => instruction.style.display = 'none')
+    scoreBoard.style.visibility = 'visible'
+    resetButton.style.visibility = 'visible'
     createBoard()
   })
 }
