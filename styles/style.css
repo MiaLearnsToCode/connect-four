@@ -48,26 +48,31 @@ div.grid {
   height: 630px;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.2); */
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .4);
-  border-radius: 5px;
+  border-radius: 10px;
   backdrop-filter: blur(5px);
   padding: 10px;
-  border: 2px solid white;
+  /* border: 3px solid white; */
+
+  background-color: rgba(6 ,188 ,251 , 0.2);
+  background-image: -webkit-linear-gradient(bottom right, rgba(6 ,188 ,251 , 0.4) 0%, rgb(103, 158, 247, 0.4) 64%);
+  background-image: -o-linear-gradient(bottom right, rgba(6 ,188 ,251 , 0.4) 0%, rgb(103, 158, 247 , 0.4) 64%);
+  background-image: linear-gradient(to top left, rgba(6 ,188 ,251 , 0.4) 0%, rgb(103, 158, 247 , 0.4) 64%);
 }
 
-h3 {
+/* h3 {
   text-align: center;
   font-family: 'East Sea Dokdo', cursive;
   font-size: 100px;
   color:white;
-}
+} */
 
 div.grid-square {
   width: 80px;
   height: 80px;
   margin: 5px;
-  display: none;
+  /* display: none; */
 }
 
 div.grid-circle {
@@ -76,7 +81,7 @@ div.grid-circle {
   box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 1);
   border-radius: 40px;
   border: 2px solid white;
-  display: none;
+  /* display: none; */
 }
 
 div.grid-circle-highlighted {
