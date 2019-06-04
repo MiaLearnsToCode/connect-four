@@ -6,19 +6,42 @@
     <script type="text/javascript" src="scripts/app.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Dokdo|East+Sea+Dokdo|ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/bubbles.css">
   </head>
 
   <body>
-    <div class="filter">
+    <div class="filter" id="background-wrap">
+      <div class="bubble x1"></div>
+      <div class="bubble x2"></div>
+      <div class="bubble x3"></div>
+      <div class="bubble x4"></div>
+      <div class="bubble x5"></div>
+      <div class="bubble x6"></div>
+      <div class="bubble x7"></div>
+      <div class="bubble x8"></div>
       <nav>
-        <h1>Spongebob</h1>
-        <h2>Squarepants</h2>
+        <div id="score-board">
+          <img src="images/spongebob.png" alt="Spongebob">
+          <div class="score"><span>0</span> : <span>0</span></div>
+          <img src="images/squidward.png" alt="Squidward">
+        </div>
+        <div id="title">
+          <h1>Spongebob</h1>
+          <h2>Squarepants</h2>
+        </div>
+        <div id="reset-button">
+          <button>Start Again</button>
+        </div>
       </nav>
       <main>
       <div class="grid">
-        <!-- <h3>Connect Four: The Game</h3> -->
+        <h3>Connect Four: The Game</h3>
+        <p>Play a game of Connect Four to save Spongebob from having to go into work! <p/>
+        <p>All you have to do is connect four Spongebobs before Squidward does. This can be done horizontally, vertically or diagonally. To drop Spongebob in your chosen column click on one of the yellow circles!</p>
+        <button id="start-button">Let's play</button>
       </div>
       </main>
+
     </div>
   </body>
 </html>

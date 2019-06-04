@@ -6,8 +6,10 @@ const circles = []
 
 
 function init() {
-
+  const startButton = document.querySelector('#start-button')
+  const instructions = document.querySelectorAll('p, h3')
   const grid = document.querySelector('.grid')
+
   let columnZero = []
   let columnOne = []
   let columnTwo = []
@@ -802,7 +804,7 @@ function init() {
 
 
   function createTopRow(circle, circleIndex) {
-    if (i < width) {
+    if (circleIndex < width) {
       circle.classList.remove('grid-circle')
       circle.classList.add('grid-choice-circle')
       const circlesChoice = document.querySelectorAll('.grid-choice-circle')
@@ -812,23 +814,31 @@ function init() {
   }
 
   // FOR LOOP to build each square as many times as the width
-  for (var i = 0; i < width * width; i++) {
-    const square = document.createElement('div')
-    const circle = document.createElement('div')
-    square.classList.add('grid-square')
-    circle.classList.add('grid-circle')
-    circle.setAttribute('data-id', i)
-    const circleIndex = parseInt(circle.getAttribute('data-id'))
-    squares.push(square)
-    circles.push(circle)
-    grid.appendChild(square)
-    square.appendChild(circle)
-    createCol(circle, circleIndex)
-    createTopRow(circle, circleIndex)
+  function createBoard() {
 
+    for (var i = 0; i < width * width; i++) {
+      const square = document.createElement('div')
+      const circle = document.createElement('div')
+      square.classList.add('grid-square')
+      square.style.display = 'block'
+      circle.classList.add('grid-circle')
+      circle.style.display = 'block'
+      circle.setAttribute('data-id', i)
+      const circleIndex = parseInt(circle.getAttribute('data-id'))
+      squares.push(square)
+      circles.push(circle)
+      grid.appendChild(square)
+      square.appendChild(circle)
+      createCol(circle, circleIndex)
+      createTopRow(circle, circleIndex)
+    }
   }
 
-
+  startButton.addEventListener('click', () => {
+    startButton.style.display = 'none'
+    instructions.forEach(instruction => instruction.style.display = 'none')
+    createBoard()
+  })
 }
 
 window.addEventListener('DOMContentLoaded', init)

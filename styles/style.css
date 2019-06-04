@@ -11,6 +11,25 @@ div.filter {
 nav {
   align-self: baseline;
   height: 18vh;
+  display:flex;
+}
+
+#score-board {
+  display:flex;
+}
+
+.score {
+  text-align: center;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: 40px;
+  line-height: 40px;
+  margin: 10px 30px;
+  text-shadow: 2px 2px 20px blue;
+  color: white;
+}
+
+img {
+  height:50px;
 }
 
 h1 {
@@ -48,31 +67,59 @@ div.grid {
   height: 630px;
   display: flex;
   flex-wrap: wrap;
-  /* background-color: rgba(255, 255, 255, 0.2); */
+  justify-content: center;
+  align-content: flex-start;
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .4);
   border-radius: 10px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
   padding: 10px;
   /* border: 3px solid white; */
 
-  background-color: rgba(6 ,188 ,251 , 0.2);
-  background-image: -webkit-linear-gradient(bottom right, rgba(6 ,188 ,251 , 0.4) 0%, rgb(103, 158, 247, 0.4) 64%);
-  background-image: -o-linear-gradient(bottom right, rgba(6 ,188 ,251 , 0.4) 0%, rgb(103, 158, 247 , 0.4) 64%);
-  background-image: linear-gradient(to top left, rgba(6 ,188 ,251 , 0.4) 0%, rgb(103, 158, 247 , 0.4) 64%);
+  background-color: rgba(6 ,188 ,251 , 0.5);
+  background-image: -webkit-linear-gradient(bottom right, rgba(6 ,188 ,251 , 0.5) 0%, rgb(103, 158, 247, 0.6) 64%);
+  background-image: -o-linear-gradient(bottom right, rgba(6 ,188 ,251 , 0.5) 0%, rgb(103, 158, 247 , 0.6) 64%);
+  background-image: linear-gradient(to top left, rgba(6 ,188 ,251 , 0.5) 0%, rgb(103, 158, 247 , 0.6) 64%);
 }
 
-/* h3 {
+h3 {
   text-align: center;
   font-family: 'East Sea Dokdo', cursive;
-  font-size: 100px;
+  font-size: 70px;
   color:white;
-} */
+  margin: 10px 0px;
+}
+
+p {
+  text-align: center;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  font-size: 20px;
+  line-height: 40px;
+  margin: 10px 50px;
+  text-shadow: 2px 2px 20px blue;
+  color: white;
+}
+
+#start-button {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .4);
+  font-family: 'East Sea Dokdo', cursive;
+  font-size: 50px;
+  padding: 10px 20px;
+  margin-top: 50px;
+  border-radius: 30px;
+  color: rgba(6 ,188 ,251);
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 2rem 0 rgba(255, 255, 255, .2);
+}
 
 div.grid-square {
   width: 80px;
   height: 80px;
   margin: 5px;
-  /* display: none; */
+  display: none;
 }
 
 div.grid-circle {
@@ -81,7 +128,7 @@ div.grid-circle {
   box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 1);
   border-radius: 40px;
   border: 2px solid white;
-  /* display: none; */
+  display: none;
 }
 
 div.grid-circle-highlighted {
@@ -98,6 +145,7 @@ div.grid-choice-circle {
 
 div.spongebob {
   background-image: url('../images/spongebob.png');
+  background-color: rgba(255, 255, 255, 0.5);
   background-size: 50px;
   background-repeat: no-repeat;
   background-position: center;
@@ -108,6 +156,7 @@ div.spongebob {
 
 div.squidward {
   background-image: url('../images/squidward.png');
+  background-color: rgba(255, 255, 255, 0.5);
   background-size: 70px;
   background-repeat: no-repeat;
   background-position: center;
