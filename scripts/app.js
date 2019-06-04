@@ -176,6 +176,8 @@ function init() {
   //   }
   // }
 
+
+
   function checkForWin() {
     const inCheckCircle = playedCircles[0]
     const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
@@ -191,10 +193,10 @@ function init() {
     const blCircle = circles[pickedIndex - 1 + width]
     const blblCircle = circles[pickedIndex - 2 + width * 2]
     const blblblCircle = circles[pickedIndex - 3 + width * 3]
-    const brCircle = circles[pickedIndex - 1 - width]
-    const brbrCircle = circles[pickedIndex - 2 - width * 2]
-    const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
-
+    const brCircle = circles[pickedIndex + 1 + width]
+    const brbrCircle = circles[pickedIndex + 2 + width * 2]
+    const brbrbrCircle = circles[pickedIndex + 3 + width * 3]
+    console.log(brCircle)
     if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
       if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
         if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
@@ -239,6 +241,9 @@ function init() {
           brCircle.classList.add('winning-circles')
           brbrCircle.classList.add('winning-circles')
           brbrbrCircle.classList.add('winning-circles')
+          console.log(brCircle)
+          console.log(brbrCircle)
+          console.log(brbrbrCircle)
         }
       }
     }
@@ -271,9 +276,9 @@ function init() {
     const blCircle = circles[pickedIndex - 1 + width]
     const blblCircle = circles[pickedIndex - 2 + width * 2]
     const blblblCircle = circles[pickedIndex - 3 + width * 3]
-    const brCircle = circles[pickedIndex - 1 - width]
-    const brbrCircle = circles[pickedIndex - 2 - width * 2]
-    const brbrbrCircle = circles[pickedIndex - 3 - width * 3]
+    const brCircle = circles[pickedIndex + 1 + width]
+    const brbrCircle = circles[pickedIndex + 2 + width * 2]
+    const brbrbrCircle = circles[pickedIndex + 3 + width * 3]
 
     if (lCircle !== undefined && lCircle.classList.contains('squidward')) {
       if (llCircle !== undefined && llCircle.classList.contains('squidward')) {
