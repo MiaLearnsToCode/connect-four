@@ -1,10 +1,9 @@
-// player = !player
 
 const width = 7
 let squares = []
 let circles = []
 
-
+// Function loads the game when the window is open
 function init() {
   const startButton = document.querySelector('#start-button')
   const instructions = document.querySelectorAll('p, h3')
@@ -100,6 +99,7 @@ function init() {
       columnSixItem.classList.remove('grid-circle-highlighted')
     })
   }
+
   // Event listeners on the top circles for when you hover over them
   function hoverChoices(circlesChoice) {
     // adding event listeners to the top row
@@ -113,21 +113,26 @@ function init() {
     }))
   }
 
+  // Function that hides the hoverable top row when player wins or looses so that they are forced to restart the game
   function stopHoverChoices() {
     const circlesChoice = document.querySelectorAll('.grid-choice-circle')
     circlesChoice.forEach(circleChosen => circleChosen.style.visibility = 'hidden')
   }
 
+  // Function that increases Spongebob's score
   function addSpongebob() {
     scoreSpongebob =  scoreSpongebob + 1
     spanSpongebob.innerHTML = scoreSpongebob
   }
 
+  // Function that increases Squidward's score
   function addSquidward() {
     scoreSquidward = scoreSquidward + 1
     spanSquidward.innerHTML = scoreSquidward
   }
 
+
+  // Function evoked every time the player (spongebob) plays, to check if it won in any direction (only checks towards left, right and all bottom directions - no point at checking upwards)
   function checkForWin() {
     const inCheckCircle = playedCircles[0]
     const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
@@ -146,7 +151,6 @@ function init() {
     const brCircle = circles[pickedIndex + 1 + width]
     const brbrCircle = circles[pickedIndex + 2 + width * 2]
     const brbrbrCircle = circles[pickedIndex + 3 + width * 3]
-
 
     if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
       if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
@@ -213,7 +217,7 @@ function init() {
     }
   }
 
-
+  // Function evoked every time Squidward plays, to check if it won
   function checkForLost() {
     const inCheckCircle = playedCircles[0]
     const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
@@ -309,6 +313,7 @@ function init() {
       let availableFive = columnFive.length - 1
       let availableSix = columnSix.length - 1
 
+      // Functions that place Squidward in the indicated column
       function playColumnZero() {
         columnZero[availableZero].classList.add('squidward')
         playedCircles.unshift(columnZero[availableZero])
@@ -358,6 +363,8 @@ function init() {
         columnSix.pop()
       }
 
+      // Functions that define the hierarchy of choice as to where squidward should be placed based on spongebob's last move
+
       function checkFromColumnZero() {
         if (availableOne > 0) {
           playColumnOne()
@@ -372,9 +379,9 @@ function init() {
         } else if (availableSix > 0) {
           playColumnSix()
         } else {
-          console.log('You draw!')
           addSquidward()
           addSpongebob()
+          stopHoverChoices()
         }
       }
 
@@ -392,9 +399,9 @@ function init() {
         } else if (availableSix > 0) {
           playColumnSix()
         } else {
-          console.log('You draw!')
           addSquidward()
           addSpongebob()
+          stopHoverChoices()
         }
       }
 
@@ -413,9 +420,9 @@ function init() {
         } else if (availableSix > 0) {
           playColumnSix()
         } else {
-          console.log('You draw!')
           addSquidward()
           addSpongebob()
+          stopHoverChoices()
         }
       }
 
@@ -433,9 +440,9 @@ function init() {
         } else if (availableSix > 0) {
           playColumnSix()
         } else {
-          console.log('You draw!')
           addSquidward()
           addSpongebob()
+          stopHoverChoices()
         }
       }
 
@@ -453,9 +460,9 @@ function init() {
         } else if (availableZero > 0) {
           playColumnZero()
         } else {
-          console.log('You draw!')
           addSquidward()
           addSpongebob()
+          stopHoverChoices()
         }
       }
 
@@ -473,9 +480,9 @@ function init() {
         } else if (availableZero > 0) {
           playColumnZero()
         } else {
-          console.log('You draw!')
           addSquidward()
           addSpongebob()
+          stopHoverChoices()
         }
       }
 
@@ -493,11 +500,13 @@ function init() {
         } else if (availableZero > 0) {
           playColumnZero()
         } else {
-          console.log('You draw!')
           addSquidward()
           addSpongebob()
+          stopHoverChoices()
         }
       }
+
+      // if statements that control where spongebob and squidward are placed at every turn
 
       if (circleIndex === 0) {
         const randomIndex = Math.round(Math.random())
@@ -771,7 +780,7 @@ function init() {
     })
   }
 
-
+  // Function that creates the hoverable top row to make choices
   function createTopRow(circle, circleIndex) {
     if (circleIndex < width) {
       circle.classList.remove('grid-circle')
@@ -782,7 +791,7 @@ function init() {
     }
   }
 
-  // FOR LOOP to build each square as many times as the width
+  // Function that initiates the playing board: the FOR LOOP is used to build each square as many times as the width
   function createBoard() {
     for (var i = 0; i < width * width; i++) {
       const square = document.createElement('div')
@@ -802,6 +811,7 @@ function init() {
     }
   }
 
+  // Function that clears the board, used when the game is reset
   function clearBoard() {
     playedCircles.forEach(playedCircle => {
       playedCircle.classList.remove('spongebob')
@@ -816,16 +826,18 @@ function init() {
 
   }
 
+  // Event listener that creates the board, used when the game is started
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     instructions.forEach(instruction => instruction.style.display = 'none')
     scoreBoard.style.visibility = 'visible'
     resetButton.style.visibility = 'visible'
     const sound = document.querySelector('audio')
-    sound.play() 
+    sound.play()
     createBoard()
   })
 
+  // Event listener on the reset bottom which clears the board and creates a new game (score is kept the same, it does not refresh everytime)
   resetButton.addEventListener('click', () => {
     clearBoard()
     createBoard()
