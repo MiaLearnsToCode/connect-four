@@ -13,8 +13,8 @@ function init() {
   const grid = document.querySelector('.grid')
   const spanSpongebob = document.querySelector('#spongebob-score')
   const spanSquidward = document.querySelector('#squidward-score')
-  let scoreSpongebob = parseInt(spanSpongebob.innerHTML)
-  let scoreSquidward = parseInt(spanSquidward.innerHTML)
+  let scoreSpongebob = 0
+  let scoreSquidward = 0
 
   let columnZero = []
   let columnOne = []
@@ -119,17 +119,16 @@ function init() {
   }
 
   function addSpongebob() {
-    scoreSpongebob =+ 1
+    scoreSpongebob =  scoreSpongebob + 1
     spanSpongebob.innerHTML = scoreSpongebob
   }
 
   function addSquidward() {
-    scoreSquidward =+ 1
+    scoreSquidward = scoreSquidward + 1
     spanSquidward.innerHTML = scoreSquidward
   }
 
   function checkForWin() {
-    console.log(circles)
     const inCheckCircle = playedCircles[0]
     const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
     const lCircle = circles[pickedIndex - 1]
@@ -822,7 +821,9 @@ function init() {
 
   resetButton.addEventListener('click', () => {
     clearBoard()
+    console.log(scoreSpongebob)
     createBoard()
+    console.log(scoreSpongebob)
   })
 }
 
