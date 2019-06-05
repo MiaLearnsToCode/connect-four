@@ -33,7 +33,7 @@ nav {
 }
 
 img {
-  height:50px;
+  height:70px;
 }
 
 h1 {
@@ -163,6 +163,7 @@ div.grid-choice-circle {
   height: 80px;
   border-radius: 40px;
   background-color: yellow;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
 }
 
 div.spongebob {

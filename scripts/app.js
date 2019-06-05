@@ -241,6 +241,7 @@ function init() {
           llCircle.classList.add('loosing-circles')
           lllCircle.classList.add('loosing-circles')
           addSquidward()
+          stopHoverChoices()
         }
       }
     }
@@ -253,6 +254,7 @@ function init() {
           bbCircle.classList.add('loosing-circles')
           bbbCircle.classList.add('loosing-circles')
           addSquidward()
+          stopHoverChoices()
         }
       }
     }
@@ -265,6 +267,7 @@ function init() {
           rrCircle.classList.add('loosing-circles')
           rrrCircle.classList.add('loosing-circles')
           addSquidward()
+          stopHoverChoices()
         }
       }
     }
@@ -277,6 +280,7 @@ function init() {
           brbrCircle.classList.add('loosing-circles')
           brbrbrCircle.classList.add('loosing-circles')
           addSquidward()
+          stopHoverChoices()
         }
       }
     }
@@ -288,6 +292,7 @@ function init() {
           blblCircle.classList.add('loosing-circles')
           blblblCircle.classList.add('loosing-circles')
           addSquidward()
+          stopHoverChoices()
         }
       }
     }
@@ -816,14 +821,14 @@ function init() {
     instructions.forEach(instruction => instruction.style.display = 'none')
     scoreBoard.style.visibility = 'visible'
     resetButton.style.visibility = 'visible'
+    const sound = document.querySelector('audio')
+    sound.play() 
     createBoard()
   })
 
   resetButton.addEventListener('click', () => {
     clearBoard()
-    console.log(scoreSpongebob)
     createBoard()
-    console.log(scoreSpongebob)
   })
 }
 
