@@ -1,8 +1,8 @@
 // player = !player
 
 const width = 7
-const squares = []
-const circles = []
+let squares = []
+let circles = []
 
 
 function init() {
@@ -15,7 +15,6 @@ function init() {
   const spanSquidward = document.querySelector('#squidward-score')
   let scoreSpongebob = parseInt(spanSpongebob.innerHTML)
   let scoreSquidward = parseInt(spanSquidward.innerHTML)
-  console.log(scoreSpongebob)
 
   let columnZero = []
   let columnOne = []
@@ -116,7 +115,6 @@ function init() {
 
   function stopHoverChoices() {
     const circlesChoice = document.querySelectorAll('.grid-choice-circle')
-    console.log(circlesChoice)
     circlesChoice.forEach(circleChosen => circleChosen.style.visibility = 'hidden')
   }
 
@@ -131,6 +129,7 @@ function init() {
   }
 
   function checkForWin() {
+    console.log(circles)
     const inCheckCircle = playedCircles[0]
     const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
     const lCircle = circles[pickedIndex - 1]
@@ -149,10 +148,10 @@ function init() {
     const brbrCircle = circles[pickedIndex + 2 + width * 2]
     const brbrbrCircle = circles[pickedIndex + 3 + width * 3]
 
+
     if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
       if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
         if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
-          console.log('You win!')
           inCheckCircle.classList.add('winning-circles')
           lCircle.classList.add('winning-circles')
           llCircle.classList.add('winning-circles')
@@ -166,7 +165,6 @@ function init() {
     if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
       if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
         if (bbbCircle !== undefined && bbbCircle.classList.contains('spongebob')) {
-          console.log('You win!')
           inCheckCircle.classList.add('winning-circles')
           bCircle.classList.add('winning-circles')
           bbCircle.classList.add('winning-circles')
@@ -180,7 +178,6 @@ function init() {
     if (rCircle !== undefined && rCircle.classList.contains('spongebob')) {
       if (rrCircle !== undefined && rrCircle.classList.contains('spongebob')) {
         if (rrrCircle !== undefined && rrrCircle.classList.contains('spongebob')) {
-          console.log('You win!')
           inCheckCircle.classList.add('winning-circles')
           rCircle.classList.add('winning-circles')
           rrCircle.classList.add('winning-circles')
@@ -194,7 +191,6 @@ function init() {
     if (brCircle !== undefined && brCircle.classList.contains('spongebob')) {
       if (brbrCircle !== undefined && brbrCircle.classList.contains('spongebob')) {
         if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('spongebob')) {
-          console.log('You win!')
           inCheckCircle.classList.add('winning-circles')
           brCircle.classList.add('winning-circles')
           brbrCircle.classList.add('winning-circles')
@@ -207,7 +203,6 @@ function init() {
     if (blCircle !== undefined && blCircle.classList.contains('spongebob')) {
       if (blblCircle !== undefined && blblCircle.classList.contains('spongebob')) {
         if (blblblCircle !== undefined && blblblCircle.classList.contains('spongebob')) {
-          console.log('You win!')
           inCheckCircle.classList.add('winning-circles')
           blCircle.classList.add('winning-circles')
           blblCircle.classList.add('winning-circles')
@@ -242,7 +237,6 @@ function init() {
     if (lCircle !== undefined && lCircle.classList.contains('squidward')) {
       if (llCircle !== undefined && llCircle.classList.contains('squidward')) {
         if (lllCircle !== undefined && lllCircle.classList.contains('squidward')) {
-          console.log('You lost!')
           inCheckCircle.classList.add('loosing-circles')
           lCircle.classList.add('loosing-circles')
           llCircle.classList.add('loosing-circles')
@@ -255,7 +249,6 @@ function init() {
     if (bCircle !== undefined && bCircle.classList.contains('squidward')) {
       if (bbCircle !== undefined && bbCircle.classList.contains('squidward')) {
         if (bbbCircle !== undefined && bbbCircle.classList.contains('squidward')) {
-          console.log('You lost!')
           inCheckCircle.classList.add('loosing-circles')
           bCircle.classList.add('loosing-circles')
           bbCircle.classList.add('loosing-circles')
@@ -268,7 +261,6 @@ function init() {
     if (rCircle !== undefined && rCircle.classList.contains('squidward')) {
       if (rrCircle !== undefined && rrCircle.classList.contains('squidward')) {
         if (rrrCircle !== undefined && rrrCircle.classList.contains('squidward')) {
-          console.log('You lost!')
           inCheckCircle.classList.add('loosing-circles')
           rCircle.classList.add('loosing-circles')
           rrCircle.classList.add('loosing-circles')
@@ -281,7 +273,6 @@ function init() {
     if (brCircle !== undefined && brCircle.classList.contains('squidward')) {
       if (brbrCircle !== undefined && brbrCircle.classList.contains('squidward')) {
         if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('squidward')) {
-          console.log('You lost!')
           inCheckCircle.classList.add('loosing-circles')
           brCircle.classList.add('loosing-circles')
           brbrCircle.classList.add('loosing-circles')
@@ -293,7 +284,6 @@ function init() {
     if (blCircle !== undefined && blCircle.classList.contains('squidward')) {
       if (blblCircle !== undefined && blblCircle.classList.contains('squidward')) {
         if (blblblCircle !== undefined && blblblCircle.classList.contains('squidward')) {
-          console.log('You lost!')
           inCheckCircle.classList.add('loosing-circles')
           blCircle.classList.add('loosing-circles')
           blblCircle.classList.add('loosing-circles')
@@ -379,6 +369,8 @@ function init() {
           playColumnSix()
         } else {
           console.log('You draw!')
+          addSquidward()
+          addSpongebob()
         }
       }
 
@@ -397,6 +389,8 @@ function init() {
           playColumnSix()
         } else {
           console.log('You draw!')
+          addSquidward()
+          addSpongebob()
         }
       }
 
@@ -416,6 +410,8 @@ function init() {
           playColumnSix()
         } else {
           console.log('You draw!')
+          addSquidward()
+          addSpongebob()
         }
       }
 
@@ -434,6 +430,8 @@ function init() {
           playColumnSix()
         } else {
           console.log('You draw!')
+          addSquidward()
+          addSpongebob()
         }
       }
 
@@ -452,6 +450,8 @@ function init() {
           playColumnZero()
         } else {
           console.log('You draw!')
+          addSquidward()
+          addSpongebob()
         }
       }
 
@@ -470,6 +470,8 @@ function init() {
           playColumnZero()
         } else {
           console.log('You draw!')
+          addSquidward()
+          addSpongebob()
         }
       }
 
@@ -488,12 +490,13 @@ function init() {
           playColumnZero()
         } else {
           console.log('You draw!')
+          addSquidward()
+          addSpongebob()
         }
       }
 
       if (circleIndex === 0) {
         const randomIndex = Math.round(Math.random())
-        console.log(columnZero)
         columnZero[availableZero].classList.add('spongebob')
         playedCircles.unshift(columnZero[availableZero])
         checkForWin()
@@ -795,6 +798,20 @@ function init() {
     }
   }
 
+  function clearBoard() {
+    playedCircles.forEach(playedCircle => {
+      playedCircle.classList.remove('spongebob')
+      playedCircle.classList.remove('squidward')
+      playedCircle.classList.remove('winning-circles')
+      playedCircle.classList.remove('loosing-circles')
+    })
+    playedCircles = []
+    squares = []
+    circles = []
+    grid.innerHTML = ''
+
+  }
+
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     instructions.forEach(instruction => instruction.style.display = 'none')
@@ -802,12 +819,6 @@ function init() {
     resetButton.style.visibility = 'visible'
     createBoard()
   })
-
-  function clearBoard() {
-    playedCircles = []
-    grid.innerHTML = ''
-
-  }
 
   resetButton.addEventListener('click', () => {
     clearBoard()
