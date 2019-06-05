@@ -24,7 +24,7 @@ function init() {
   let columnFour = []
   let columnFive = []
   let columnSix = []
-  const playedCircles = []
+  let playedCircles = []
 
   // Create the 7 columns
   function createCol(circle, circleIndex) {
@@ -795,10 +795,6 @@ function init() {
     }
   }
 
-  function clearBoard() {
-    grid.parentNode.removeChild()
-  }
-
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     instructions.forEach(instruction => instruction.style.display = 'none')
@@ -807,10 +803,15 @@ function init() {
     createBoard()
   })
 
+  function clearBoard() {
+    playedCircles = []
+    grid.innerHTML = ''
+
+  }
+
   resetButton.addEventListener('click', () => {
     clearBoard()
     createBoard()
-    // visible top row
   })
 }
 
