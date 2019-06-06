@@ -204,6 +204,7 @@ function init() {
         }
       }
     }
+
     if (blCircle !== undefined && blCircle.classList.contains('spongebob')) {
       if (blblCircle !== undefined && blblCircle.classList.contains('spongebob')) {
         if (blblblCircle !== undefined && blblblCircle.classList.contains('spongebob')) {
@@ -531,7 +532,6 @@ function init() {
             inCheckCircle.classList.add('connect-three')
             bCircle.classList.add('connect-three')
             bbCircle.classList.add('connect-three')
-            console.log('Vdefended3')
             playSquidward = false
           }
         } else {
@@ -542,7 +542,6 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             playColumnZero()
-            console.log('Vdefended2')
             playSquidward = false
           } else {
             playSquidward = true
@@ -559,10 +558,12 @@ function init() {
         const rrCircle = circles[pickedIndex + 2]
         const bCircle = circles[pickedIndex + width]
         const bbCircle = circles[pickedIndex + width * 2]
-        const blCircle = circles[pickedIndex - 1 + width]
+        const blCircle = circles[pickedIndex + width - 1]
+        const brCircle = circles[pickedIndex + width + 1]
+        const brbrCircle = circles[pickedIndex + width * 2 + 2]
+        const tlCircle = circles[pickedIndex - width - 1]
 
         // Defend if there 3 in a row on the right hand side (horizontally)
-
         if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
           if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
             if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
@@ -570,7 +571,6 @@ function init() {
               inCheckCircle.classList.add('connect-three')
               rCircle.classList.add('connect-three')
               rrCircle.classList.add('connect-three')
-              console.log('Rdefended3')
               playSquidward = false
             }
           }
@@ -586,8 +586,26 @@ function init() {
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
-              console.log('Vdefended3')
               playSquidward = false
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend if 3 in a row diagonally (bottom right)
+        if (playSquidward) {
+          if (brCircle && brbrCircle) {
+            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
+              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
+                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
+                  playColumnZero()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
             }
           } else {
             playSquidward = true
@@ -600,7 +618,6 @@ function init() {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
                 playColumnZero()
-                console.log('Rdefended2')
                 playSquidward = false
               }
             }
@@ -613,7 +630,6 @@ function init() {
         if(playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             playColumnOne()
-            console.log('Vdefended2')
             playSquidward = false
           } else {
             playSquidward = true
@@ -632,6 +648,8 @@ function init() {
         const bbCircle = circles[pickedIndex + width * 2]
         const blCircle = circles[pickedIndex - 1 + width]
         const brCircle = circles[pickedIndex + 1 + width]
+        const brbrCircle = circles[pickedIndex + width * 2 + 2]
+        const tlCircle = circles[pickedIndex - width - 1]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
         if (rCircle && brCircle) {
@@ -642,7 +660,6 @@ function init() {
                 inCheckCircle.classList.add('connect-three')
                 lCircle.classList.add('connect-three')
                 llCircle.classList.add('connect-three')
-                console.log('Ldefended3')
                 playSquidward = false
               }
             }
@@ -660,7 +677,6 @@ function init() {
                 inCheckCircle.classList.add('connect-three')
                 rCircle.classList.add('connect-three')
                 rrCircle.classList.add('connect-three')
-                console.log('Rdefended3')
                 playSquidward = false
               }
             }
@@ -677,8 +693,26 @@ function init() {
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
-              console.log('Vdefended3')
               playSquidward = false
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend if 3 in a row diagonally (bottom right)
+        if (playSquidward) {
+          if (brCircle && brbrCircle) {
+            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
+              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
+                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
+                  playColumnOne()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
             }
           } else {
             playSquidward = true
@@ -692,7 +726,6 @@ function init() {
               if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
                 if (lCircle.classList.contains('spongebob')) {
                   playColumnThree()
-                  console.log('Ldefended2')
                   playSquidward = false
                 }
               }
@@ -708,7 +741,6 @@ function init() {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
                 playColumnOne()
-                console.log('Rdefended2')
                 playSquidward = false
               }
             }
@@ -721,7 +753,6 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             playColumnTwo()
-            console.log('Vdefended2')
             playSquidward = false
           } else {
             playSquidward = true
@@ -741,6 +772,8 @@ function init() {
         const bbCircle = circles[pickedIndex + width * 2]
         const blCircle = circles[pickedIndex - 1 + width]
         const brCircle = circles[pickedIndex + 1 + width]
+        const brbrCircle = circles[pickedIndex + width * 2 + 2]
+        const tlCircle = circles[pickedIndex - width - 1]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
         if (rCircle !== undefined && brCircle !== undefined) {
@@ -751,7 +784,6 @@ function init() {
                 inCheckCircle.classList.add('connect-three')
                 lCircle.classList.add('connect-three')
                 llCircle.classList.add('connect-three')
-                console.log('Ldefended3')
                 playSquidward = false
               }
             }
@@ -769,7 +801,6 @@ function init() {
                 inCheckCircle.classList.add('connect-three')
                 rCircle.classList.add('connect-three')
                 rrCircle.classList.add('connect-three')
-                console.log('Rdefended3')
                 playSquidward = false
               }
             }
@@ -786,8 +817,26 @@ function init() {
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
-              console.log('Vdefended3')
               playSquidward = false
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend if 3 in a row diagonally (bottom right)
+        if (playSquidward) {
+          if (brCircle && brbrCircle) {
+            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
+              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
+                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
+                  playColumnTwo()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
             }
           } else {
             playSquidward = true
@@ -801,7 +850,6 @@ function init() {
               if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
                 if (lCircle.classList.contains('spongebob')) {
                   playColumnFour()
-                  console.log('Ldefended2')
                   playSquidward = false
                 }
               }
@@ -817,7 +865,6 @@ function init() {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
                 playColumnTwo()
-                console.log('Rdefended2')
                 playSquidward = false
               }
             }
@@ -830,7 +877,6 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             playColumnThree()
-            console.log('Vdefended2')
             playSquidward = false
           } else {
             playSquidward = true
@@ -850,6 +896,8 @@ function init() {
         const bbCircle = circles[pickedIndex + width * 2]
         const blCircle = circles[pickedIndex - 1 + width]
         const brCircle = circles[pickedIndex + 1 + width]
+        const brbrCircle = circles[pickedIndex + width * 2 + 2]
+        const tlCircle = circles[pickedIndex - width - 1]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
         if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
@@ -859,7 +907,6 @@ function init() {
               inCheckCircle.classList.add('connect-three')
               lCircle.classList.add('connect-three')
               llCircle.classList.add('connect-three')
-              console.log('Ldefended')
               playSquidward = false
             }
           }
@@ -876,7 +923,6 @@ function init() {
                 inCheckCircle.classList.add('connect-three')
                 rCircle.classList.add('connect-three')
                 rrCircle.classList.add('connect-three')
-                console.log('Rdefended')
                 playSquidward = false
               }
             }
@@ -893,20 +939,38 @@ function init() {
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
-              console.log('defended')
               playSquidward = false
             }
           } else {
             playSquidward = true
           }
         }
+
+        // Defend if 3 in a row diagonally (bottom right)
+        if (playSquidward) {
+          if (brCircle && brbrCircle) {
+            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
+              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
+                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
+                  playColumnThree()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
         // Defend if there 2 in a row on the left hand side (horizontally)
         if (playSquidward) {
           if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
             if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob')) {
                 playColumnFive()
-                console.log('Ldefended')
                 playSquidward = false
               }
             }
@@ -921,7 +985,6 @@ function init() {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
                 playColumnThree()
-                console.log('Rdefended')
                 playSquidward = false
               }
             }
@@ -934,7 +997,6 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             playColumnFour()
-            console.log('defended')
             playSquidward = false
           } else {
             playSquidward = true
@@ -961,7 +1023,6 @@ function init() {
                 inCheckCircle.classList.add('connect-three')
                 lCircle.classList.add('connect-three')
                 llCircle.classList.add('connect-three')
-                console.log('Ldefended3')
                 playSquidward = false
               }
             }
@@ -978,7 +1039,6 @@ function init() {
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
-              console.log('Vdefended3')
               playSquidward = false
             }
           } else {
@@ -993,7 +1053,6 @@ function init() {
               if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
                 if (lCircle.classList.contains('spongebob')) {
                   playColumnSix()
-                  console.log('Ldefended2')
                   playSquidward = false
                 }
               }
@@ -1007,7 +1066,6 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             playColumnFive()
-            console.log('Vdefended2')
             playSquidward = false
           } else {
             playSquidward = true
@@ -1028,7 +1086,6 @@ function init() {
             inCheckCircle.classList.add('connect-three')
             bCircle.classList.add('connect-three')
             bbCircle.classList.add('connect-three')
-            console.log('Vdefended3')
             playSquidward = false
           }
         } else {
@@ -1039,7 +1096,6 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             playColumnSix()
-            console.log('Vdefended2')
             playSquidward = false
           } else {
             playSquidward = true
@@ -1348,7 +1404,6 @@ function init() {
     columnFive = []
     columnSix = []
     grid.innerHTML = ''
-
   }
 
   // Event listener that creates the board, used when the game is started
