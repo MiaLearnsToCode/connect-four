@@ -557,38 +557,28 @@ function init() {
         const bbCircle = circles[pickedIndex + width * 2]
         const blCircle = circles[pickedIndex - 1 + width]
 
-        // Defend if 3 in a column vertically
-        if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-          if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-            playColumnOne()
-            console.log('defended')
-            playSquidward = false
+        // Defend if there 3 in a row on the right hand side (horizontally)
+
+        if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
+          if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
+            if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
+              playColumnZero()
+              console.log('Rdefended3')
+              playSquidward = false
+            }
           }
         } else {
           playSquidward = true
         }
 
-        // Defend if there 3 in a row on the right hand side (horizontally)
-        if(playSquidward) {
-          if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-                playColumnZero()
-                console.log('Rdefended3')
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if 2 in a column vertically
-        if(playSquidward) {
+        // Defend if 3 in a column vertically
+        if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnOne()
-            console.log('defended')
-            playSquidward = false
+            if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
+              playColumnOne()
+              console.log('Vdefended3')
+              playSquidward = false
+            }
           } else {
             playSquidward = true
           }
@@ -608,6 +598,17 @@ function init() {
             playSquidward = true
           }
         }
+
+        // Defend if 2 in a column vertically
+        if(playSquidward) {
+          if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+            playColumnOne()
+            console.log('Vdefended2')
+            playSquidward = false
+          } else {
+            playSquidward = true
+          }
+        }
       }
 
       function defendColumnTwo() {
@@ -622,24 +623,13 @@ function init() {
         const blCircle = circles[pickedIndex - 1 + width]
         const brCircle = circles[pickedIndex + 1 + width]
 
-        // Defend vertically
-        if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-          if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-            playColumnTwo()
-            console.log('defended')
-            playSquidward = false
-          }
-        } else {
-          playSquidward = true
-        }
-
         // Defend if there 3 in a row on the left hand side (horizontally)
         if (rCircle && brCircle) {
           if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
             if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
                 playColumnThree()
-                console.log('Ldefended')
+                console.log('Ldefended3')
                 playSquidward = false
               }
             }
@@ -649,18 +639,75 @@ function init() {
         }
 
         // Defend if there 3 in a row on the right hand side (horizontally)
-        if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-          if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-            if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-              playColumnOne()
-              console.log('Rdefended')
-              playSquidward = false
+        if (playSquidward) {
+          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
+            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
+                playColumnOne()
+                console.log('Rdefended3')
+                playSquidward = false
+              }
             }
+          } else {
+            playSquidward = true
           }
-        } else {
-          playSquidward = true
         }
 
+        // Defend vertically if 3 in a column
+        if (playSquidward) {
+          if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+            if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
+              playColumnTwo()
+              console.log('Vdefended3')
+              playSquidward = false
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+        // Defend if there 2 in a row on the left hand side (horizontally)
+        if (playSquidward) {
+          if (rCircle && brCircle) {
+            if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
+              if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
+                if (lCircle.classList.contains('spongebob')) {
+                  playColumnThree()
+                  console.log('Ldefended2')
+                  playSquidward = false
+                }
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+
+        // Defend if there 2 in a row on the right hand side (horizontally)
+        if (playSquidward) {
+          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
+            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob')) {
+                playColumnOne()
+                console.log('Rdefended2')
+                playSquidward = false
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend vertically if 2 in a column
+        if (playSquidward) {
+          if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+            playColumnTwo()
+            console.log('Vdefended2')
+            playSquidward = false
+          } else {
+            playSquidward = true
+          }
+        }
       }
 
       function defendColumnThree() {
@@ -675,23 +722,13 @@ function init() {
         const blCircle = circles[pickedIndex - 1 + width]
         const brCircle = circles[pickedIndex + 1 + width]
 
-        if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-          if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-            playColumnThree()
-            console.log('defended')
-            playSquidward = false
-          }
-        } else {
-          playSquidward = true
-        }
-
         // Defend if there 3 in a row on the left hand side (horizontally)
         if (rCircle !== undefined && brCircle !== undefined) {
           if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
             if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
                 playColumnFour()
-                console.log('Ldefended')
+                console.log('Ldefended3')
                 playSquidward = false
               }
             }
@@ -701,16 +738,74 @@ function init() {
         }
 
         // Defend if there 3 in a row on the right hand side (horizontally)
-        if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-          if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-            if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-              playColumnTwo()
-              console.log('Rdefended')
+        if (playSquidward) {
+          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
+            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
+                playColumnTwo()
+                console.log('Rdefended3')
+                playSquidward = false
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend vertically if 3 in a column
+        if (playSquidward) {
+          if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+            if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
+              playColumnThree()
+              console.log('Vdefended3')
               playSquidward = false
             }
+          } else {
+            playSquidward = true
           }
-        } else {
-          playSquidward = true
+        }
+
+        // Defend if there 2 in a row on the left hand side (horizontally)
+        if (playSquidward) {
+          if (rCircle !== undefined && brCircle !== undefined) {
+            if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
+              if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
+                if (lCircle.classList.contains('spongebob')) {
+                  playColumnFour()
+                  console.log('Ldefended2')
+                  playSquidward = false
+                }
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend if there 2 in a row on the right hand side (horizontally)
+        if (playSquidward) {
+          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
+            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob')) {
+                playColumnTwo()
+                console.log('Rdefended2')
+                playSquidward = false
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend vertically if 2 in a column
+        if (playSquidward) {
+          if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+            playColumnThree()
+            console.log('Vdefended2')
+            playSquidward = false
+          } else {
+            playSquidward = true
+          }
         }
 
       }
