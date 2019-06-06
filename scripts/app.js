@@ -528,6 +528,9 @@ function init() {
         if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
           if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
             playColumnZero()
+            inCheckCircle.classList.add('connect-three')
+            bCircle.classList.add('connect-three')
+            bbCircle.classList.add('connect-three')
             console.log('Vdefended3')
             playSquidward = false
           }
@@ -577,6 +580,9 @@ function init() {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
               playColumnOne()
+              inCheckCircle.classList.add('connect-three')
+              bCircle.classList.add('connect-three')
+              bbCircle.classList.add('connect-three')
               console.log('Vdefended3')
               playSquidward = false
             }
@@ -659,6 +665,9 @@ function init() {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
               playColumnTwo()
+              inCheckCircle.classList.add('connect-three')
+              bCircle.classList.add('connect-three')
+              bbCircle.classList.add('connect-three')
               console.log('Vdefended3')
               playSquidward = false
             }
@@ -759,6 +768,9 @@ function init() {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
               playColumnThree()
+              inCheckCircle.classList.add('connect-three')
+              bCircle.classList.add('connect-three')
+              bbCircle.classList.add('connect-three')
               console.log('Vdefended3')
               playSquidward = false
             }
@@ -857,6 +869,9 @@ function init() {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
               playColumnFour()
+              inCheckCircle.classList.add('connect-three')
+              bCircle.classList.add('connect-three')
+              bbCircle.classList.add('connect-three')
               console.log('defended')
               playSquidward = false
             }
@@ -936,6 +951,9 @@ function init() {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
               playColumnFive()
+              inCheckCircle.classList.add('connect-three')
+              bCircle.classList.add('connect-three')
+              bbCircle.classList.add('connect-three')
               console.log('Vdefended3')
               playSquidward = false
             }
@@ -983,13 +1001,16 @@ function init() {
         if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
           if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
             playColumnSix()
+            inCheckCircle.classList.add('connect-three')
+            bCircle.classList.add('connect-three')
+            bbCircle.classList.add('connect-three')
             console.log('Vdefended3')
             playSquidward = false
           }
         } else {
           playSquidward = true
         }
-        
+
         // Defend if there's 2 in a column
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
