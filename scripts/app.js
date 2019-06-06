@@ -153,15 +153,22 @@ function init() {
     const brbrCircle = circles[pickedIndex + 2 + width * 2]
     const brbrbrCircle = circles[pickedIndex + 3 + width * 3]
 
-    if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
-      if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
-        if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
-          inCheckCircle.classList.add('winning-circles')
-          lCircle.classList.add('winning-circles')
-          llCircle.classList.add('winning-circles')
-          lllCircle.classList.add('winning-circles')
-          addSpongebob()
-          stopHoverChoices()
+    const lllIndex = parseInt(lllCircle.getAttribute('data-id'))
+    const rrrIndex = parseInt(lllCircle.getAttribute('data-id'))
+    const blblblIndex = parseInt(lllCircle.getAttribute('data-id'))
+    const brbrbrIndex = parseInt(lllCircle.getAttribute('data-id'))
+
+    if(lllIndex % width === 0 || (lllIndex - 1) % width === 0 || (lllIndex - 2) % width === 0 || (lllIndex - 3) % width === 0) {
+      if (lCircle !== undefined && lCircle.classList.contains('spongebob')) {
+        if (llCircle !== undefined && llCircle.classList.contains('spongebob')) {
+          if (lllCircle !== undefined && lllCircle.classList.contains('spongebob')) {
+            inCheckCircle.classList.add('winning-circles')
+            lCircle.classList.add('winning-circles')
+            llCircle.classList.add('winning-circles')
+            lllCircle.classList.add('winning-circles')
+            addSpongebob()
+            stopHoverChoices()
+          }
         }
       }
     }
@@ -179,41 +186,47 @@ function init() {
       }
     }
 
-    if (rCircle !== undefined && rCircle.classList.contains('spongebob')) {
-      if (rrCircle !== undefined && rrCircle.classList.contains('spongebob')) {
-        if (rrrCircle !== undefined && rrrCircle.classList.contains('spongebob')) {
-          inCheckCircle.classList.add('winning-circles')
-          rCircle.classList.add('winning-circles')
-          rrCircle.classList.add('winning-circles')
-          rrrCircle.classList.add('winning-circles')
-          addSpongebob()
-          stopHoverChoices()
+    if((rrrIndex - 6) % width === 0 || (rrrIndex - 5) % width === 0 || (rrrIndex - 4) % width === 0 || (rrrIndex - 3) % width === 0) {
+      if (rCircle !== undefined && rCircle.classList.contains('spongebob')) {
+        if (rrCircle !== undefined && rrCircle.classList.contains('spongebob')) {
+          if (rrrCircle !== undefined && rrrCircle.classList.contains('spongebob')) {
+            inCheckCircle.classList.add('winning-circles')
+            rCircle.classList.add('winning-circles')
+            rrCircle.classList.add('winning-circles')
+            rrrCircle.classList.add('winning-circles')
+            addSpongebob()
+            stopHoverChoices()
+          }
         }
       }
     }
 
-    if (brCircle !== undefined && brCircle.classList.contains('spongebob')) {
-      if (brbrCircle !== undefined && brbrCircle.classList.contains('spongebob')) {
-        if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('spongebob')) {
-          inCheckCircle.classList.add('winning-circles')
-          brCircle.classList.add('winning-circles')
-          brbrCircle.classList.add('winning-circles')
-          brbrbrCircle.classList.add('winning-circles')
-          addSpongebob()
-          stopHoverChoices()
+    if((brbrbrIndex - 6) % width === 0 || (brbrbrIndex - 5) % width === 0 || (brbrbrIndex - 4) % width === 0 || (brbrbrIndex - 3) % width === 0) {
+      if (brCircle !== undefined && brCircle.classList.contains('spongebob')) {
+        if (brbrCircle !== undefined && brbrCircle.classList.contains('spongebob')) {
+          if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('spongebob')) {
+            inCheckCircle.classList.add('winning-circles')
+            brCircle.classList.add('winning-circles')
+            brbrCircle.classList.add('winning-circles')
+            brbrbrCircle.classList.add('winning-circles')
+            addSpongebob()
+            stopHoverChoices()
+          }
         }
       }
     }
 
-    if (blCircle !== undefined && blCircle.classList.contains('spongebob')) {
-      if (blblCircle !== undefined && blblCircle.classList.contains('spongebob')) {
-        if (blblblCircle !== undefined && blblblCircle.classList.contains('spongebob')) {
-          inCheckCircle.classList.add('winning-circles')
-          blCircle.classList.add('winning-circles')
-          blblCircle.classList.add('winning-circles')
-          blblblCircle.classList.add('winning-circles')
-          addSpongebob()
-          stopHoverChoices()
+    if(blblblIndex % width === 0 || (blblblIndex - 1) % width === 0 || (blblblIndex - 2) % width === 0 || (blblblIndex - 3) % width === 0) {
+      if (blCircle !== undefined && blCircle.classList.contains('spongebob')) {
+        if (blblCircle !== undefined && blblCircle.classList.contains('spongebob')) {
+          if (blblblCircle !== undefined && blblblCircle.classList.contains('spongebob')) {
+            inCheckCircle.classList.add('winning-circles')
+            blCircle.classList.add('winning-circles')
+            blblCircle.classList.add('winning-circles')
+            blblblCircle.classList.add('winning-circles')
+            addSpongebob()
+            stopHoverChoices()
+          }
         }
       }
     }
@@ -239,15 +252,22 @@ function init() {
     const brbrCircle = circles[pickedIndex + 2 + width * 2]
     const brbrbrCircle = circles[pickedIndex + 3 + width * 3]
 
-    if (lCircle !== undefined && lCircle.classList.contains('squidward')) {
-      if (llCircle !== undefined && llCircle.classList.contains('squidward')) {
-        if (lllCircle !== undefined && lllCircle.classList.contains('squidward')) {
-          inCheckCircle.classList.add('loosing-circles')
-          lCircle.classList.add('loosing-circles')
-          llCircle.classList.add('loosing-circles')
-          lllCircle.classList.add('loosing-circles')
-          addSquidward()
-          stopHoverChoices()
+    const lllIndex = parseInt(lllCircle.getAttribute('data-id'))
+    const rrrIndex = parseInt(lllCircle.getAttribute('data-id'))
+    const blblblIndex = parseInt(lllCircle.getAttribute('data-id'))
+    const brbrbrIndex = parseInt(lllCircle.getAttribute('data-id'))
+
+    if(lllIndex % width === 0 || (lllIndex - 1) % width === 0 || (lllIndex - 2) % width === 0 || (lllIndex - 3) % width === 0) {
+      if (lCircle !== undefined && lCircle.classList.contains('squidward')) {
+        if (llCircle !== undefined && llCircle.classList.contains('squidward')) {
+          if (lllCircle !== undefined && lllCircle.classList.contains('squidward')) {
+            inCheckCircle.classList.add('loosing-circles')
+            lCircle.classList.add('loosing-circles')
+            llCircle.classList.add('loosing-circles')
+            lllCircle.classList.add('loosing-circles')
+            addSquidward()
+            stopHoverChoices()
+          }
         }
       }
     }
@@ -265,40 +285,47 @@ function init() {
       }
     }
 
-    if (rCircle !== undefined && rCircle.classList.contains('squidward')) {
-      if (rrCircle !== undefined && rrCircle.classList.contains('squidward')) {
-        if (rrrCircle !== undefined && rrrCircle.classList.contains('squidward')) {
-          inCheckCircle.classList.add('loosing-circles')
-          rCircle.classList.add('loosing-circles')
-          rrCircle.classList.add('loosing-circles')
-          rrrCircle.classList.add('loosing-circles')
-          addSquidward()
-          stopHoverChoices()
+    if((rrrIndex - 6) % width === 0 || (rrrIndex - 5) % width === 0 || (rrrIndex - 4) % width === 0 || (rrrIndex - 3) % width === 0) {
+      if (rCircle !== undefined && rCircle.classList.contains('squidward')) {
+        if (rrCircle !== undefined && rrCircle.classList.contains('squidward')) {
+          if (rrrCircle !== undefined && rrrCircle.classList.contains('squidward')) {
+            inCheckCircle.classList.add('loosing-circles')
+            rCircle.classList.add('loosing-circles')
+            rrCircle.classList.add('loosing-circles')
+            rrrCircle.classList.add('loosing-circles')
+            addSquidward()
+            stopHoverChoices()
+          }
         }
       }
     }
 
-    if (brCircle !== undefined && brCircle.classList.contains('squidward')) {
-      if (brbrCircle !== undefined && brbrCircle.classList.contains('squidward')) {
-        if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('squidward')) {
-          inCheckCircle.classList.add('loosing-circles')
-          brCircle.classList.add('loosing-circles')
-          brbrCircle.classList.add('loosing-circles')
-          brbrbrCircle.classList.add('loosing-circles')
-          addSquidward()
-          stopHoverChoices()
+    if((brbrbrIndex - 6) % width === 0 || (brbrbrIndex - 5) % width === 0 || (brbrbrIndex - 4) % width === 0 || (brbrbrIndex - 3) % width === 0) {
+      if (brCircle !== undefined && brCircle.classList.contains('squidward')) {
+        if (brbrCircle !== undefined && brbrCircle.classList.contains('squidward')) {
+          if (brbrbrCircle !== undefined && brbrbrCircle.classList.contains('squidward')) {
+            inCheckCircle.classList.add('loosing-circles')
+            brCircle.classList.add('loosing-circles')
+            brbrCircle.classList.add('loosing-circles')
+            brbrbrCircle.classList.add('loosing-circles')
+            addSquidward()
+            stopHoverChoices()
+          }
         }
       }
     }
-    if (blCircle !== undefined && blCircle.classList.contains('squidward')) {
-      if (blblCircle !== undefined && blblCircle.classList.contains('squidward')) {
-        if (blblblCircle !== undefined && blblblCircle.classList.contains('squidward')) {
-          inCheckCircle.classList.add('loosing-circles')
-          blCircle.classList.add('loosing-circles')
-          blblCircle.classList.add('loosing-circles')
-          blblblCircle.classList.add('loosing-circles')
-          addSquidward()
-          stopHoverChoices()
+
+    if(blblblIndex % width === 0 || (blblblIndex - 1) % width === 0 || (blblblIndex - 2) % width === 0 || (blblblIndex - 3) % width === 0) {
+      if (blCircle !== undefined && blCircle.classList.contains('squidward')) {
+        if (blblCircle !== undefined && blblCircle.classList.contains('squidward')) {
+          if (blblblCircle !== undefined && blblblCircle.classList.contains('squidward')) {
+            inCheckCircle.classList.add('loosing-circles')
+            blCircle.classList.add('loosing-circles')
+            blblCircle.classList.add('loosing-circles')
+            blblblCircle.classList.add('loosing-circles')
+            addSquidward()
+            stopHoverChoices()
+          }
         }
       }
     }
