@@ -547,7 +547,6 @@ function init() {
             playSquidward = true
           }
         }
-
       }
 
       function defendColumnOne() {
@@ -647,9 +646,11 @@ function init() {
         const bCircle = circles[pickedIndex + width]
         const bbCircle = circles[pickedIndex + width * 2]
         const blCircle = circles[pickedIndex - 1 + width]
+        const blblCircle = circles[pickedIndex - 2 + width * 2]
         const brCircle = circles[pickedIndex + 1 + width]
         const brbrCircle = circles[pickedIndex + width * 2 + 2]
         const tlCircle = circles[pickedIndex - width - 1]
+        const trCircle = circles[pickedIndex - width + 1]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
         if (rCircle && brCircle) {
@@ -719,6 +720,25 @@ function init() {
           }
         }
 
+        // Defend if 3 in a row diagonally (bottom left)
+        if (playSquidward) {
+          if (blCircle && blblCircle) {
+            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
+                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
+                  playColumnThree()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
         // Defend if there 2 in a row on the left hand side (horizontally)
         if (playSquidward) {
           if (rCircle && brCircle) {
@@ -758,7 +778,6 @@ function init() {
             playSquidward = true
           }
         }
-
       }
 
       function defendColumnThree() {
@@ -774,6 +793,8 @@ function init() {
         const brCircle = circles[pickedIndex + 1 + width]
         const brbrCircle = circles[pickedIndex + width * 2 + 2]
         const tlCircle = circles[pickedIndex - width - 1]
+        const trCircle = circles[pickedIndex - width + 1]
+        const blblCircle = circles[pickedIndex - 2 + width * 2]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
         if (rCircle !== undefined && brCircle !== undefined) {
@@ -843,6 +864,25 @@ function init() {
           }
         }
 
+        // Defend if 3 in a row diagonally (bottom left)
+        if (playSquidward) {
+          if (blCircle && blblCircle) {
+            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
+                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
+                  playColumnFour()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
         // Defend if there 2 in a row on the left hand side (horizontally)
         if (playSquidward) {
           if (rCircle !== undefined && brCircle !== undefined) {
@@ -882,7 +922,6 @@ function init() {
             playSquidward = true
           }
         }
-
       }
 
       function defendColumnFour() {
@@ -898,6 +937,8 @@ function init() {
         const brCircle = circles[pickedIndex + 1 + width]
         const brbrCircle = circles[pickedIndex + width * 2 + 2]
         const tlCircle = circles[pickedIndex - width - 1]
+        const trCircle = circles[pickedIndex - width + 1]
+        const blblCircle = circles[pickedIndex - 2 + width * 2]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
         if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
@@ -965,6 +1006,25 @@ function init() {
           }
         }
 
+        // Defend if 3 in a row diagonally (bottom left)
+        if (playSquidward) {
+          if (blCircle && blblCircle) {
+            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
+                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
+                  playColumnFive()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
         // Defend if there 2 in a row on the left hand side (horizontally)
         if (playSquidward) {
           if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
@@ -1013,6 +1073,9 @@ function init() {
         const bCircle = circles[pickedIndex + width]
         const bbCircle = circles[pickedIndex + width * 2]
         const brCircle = circles[pickedIndex + 1 + width]
+        const trCircle = circles[pickedIndex - width + 1]
+        const blCircle = circles[pickedIndex - 1 + width]
+        const blblCircle = circles[pickedIndex - 2 + width * 2]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
         if (rCircle !== undefined && brCircle !== undefined) {
@@ -1040,6 +1103,25 @@ function init() {
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
               playSquidward = false
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend if 3 in a row diagonally (bottom left)
+        if (playSquidward) {
+          if (blCircle && blblCircle) {
+            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
+                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
+                  playColumnSix()
+                  inCheckCircle.classList.add('connect-three')
+                  bCircle.classList.add('connect-three')
+                  bbCircle.classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
             }
           } else {
             playSquidward = true
@@ -1101,7 +1183,6 @@ function init() {
             playSquidward = true
           }
         }
-
       }
 
       // if statements that control where spongebob and squidward are placed at every turn
