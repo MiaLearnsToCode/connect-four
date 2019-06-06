@@ -316,7 +316,7 @@ function init() {
       let availableSix = columnSix.length - 1
 
       // Functions that place Squidward in the indicated column
-      
+
       function playColumnZero() {
         columnZero[availableZero].classList.add('squidward')
         playedCircles.unshift(columnZero[availableZero])
@@ -989,7 +989,7 @@ function init() {
         } else {
           playSquidward = true
         }
-
+        
         // Defend if there's 2 in a column
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
