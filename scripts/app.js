@@ -9,7 +9,8 @@ function init() {
   const twoPlayer = document.querySelector('#two-player')
   const instructions = document.querySelectorAll('p, h3')
   const scoreBoard = document.querySelector('#score-board')
-  const resetButton = document.querySelector('#reset-button')
+  const resetButton = document.querySelector('#reset-one-player')
+  const resetButtonTwo = document.querySelector('#reset-two-player')
   const grid = document.querySelector('.grid')
   const spanSpongebob = document.querySelector('#spongebob-score')
   const spanSquidward = document.querySelector('#squidward-score')
@@ -1683,6 +1684,7 @@ function init() {
     instructions.forEach(instruction => instruction.style.display = 'none')
     scoreBoard.style.visibility = 'visible'
     resetButton.style.visibility = 'visible'
+    resetButtonTwo.style.visibility = 'visible'
     const sound = document.querySelector('audio')
     sound.play()
   }
@@ -1705,7 +1707,11 @@ function init() {
     createBoard()
   })
 
-
+  // Event listener on the reset bottom which clears the board and creates a new game (score is kept the same, it does not refresh everytime)
+  resetButtonTwo.addEventListener('click', () => {
+    clearBoard()
+    createBoardTwo()
+  })
 
 }
 

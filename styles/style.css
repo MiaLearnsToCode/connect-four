@@ -43,7 +43,6 @@ h1 {
   color:yellow;
   text-shadow: 5px 5px 10px #997d0f;
   margin-top: 5px;
-  margin-left: -130px;
 }
 
 h2 {
@@ -58,23 +57,23 @@ h2 {
     -ms-transform: rotate(-5deg);
     -o-transform: rotate(-5deg);
   margin-top: -90px;
-  margin-left: 100px;
+  margin-left: 130px;
 }
 
-#reset-button {
+.reset {
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .4);
   font-family: 'East Sea Dokdo', cursive;
-  font-size: 30px;
-  padding: 10px 20px;
-  margin-top: 50px;
-  border-radius: 20px;
+  font-size: 20px;
+  padding: 10px 10px;
+  margin: 50px 10px;
+  border-radius: 10px;
   border: 3px solid white;
   color: rgba(6 ,188 ,251);
   visibility: hidden;
 }
 
-#reset-button:hover {
+.reset:hover {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 0 2rem 0 rgba(255, 255, 255, .2);
 }
