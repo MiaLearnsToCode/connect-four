@@ -5,7 +5,8 @@ let circles = []
 
 // Function loads the game when the window is open
 function init() {
-  const startButton = document.querySelector('#start-button')
+  const onePlayer = document.querySelector('#one-player')
+  const twoPlayer = document.querySelector('#two-player')
   const instructions = document.querySelectorAll('p, h3')
   const scoreBoard = document.querySelector('#score-board')
   const resetButton = document.querySelector('#reset-button')
@@ -15,6 +16,7 @@ function init() {
   let scoreSpongebob = 0
   let scoreSquidward = 0
   let playSquidward = true
+  let playerSpongebob = true
 
   let columnZero = []
   let columnOne = []
@@ -44,7 +46,7 @@ function init() {
     }
   }
 
-  // Function that highlights columns yellow when you hover over the top circle
+  // Function that highlights columns yellow when you hover over the top circle as Spongebob
   function highlightCol(circleChosen) {
     if (columnZero.includes(circleChosen)) {
       columnZero.forEach(columnZeroItem => {
@@ -77,7 +79,7 @@ function init() {
     }
   }
 
-  // Function that removes the highlights on columns when cursor moves away
+  // Function that removes the highlights on columns when cursor moves away as Spongebob
   function removeHighlightCol() {
     columnZero.forEach(columnZeroItem => {
       columnZeroItem.classList.remove('grid-circle-highlighted')
@@ -112,6 +114,19 @@ function init() {
     circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseleave', () => {
       removeHighlightCol(circleChosen)
       circleChosen.classList.remove('spongebob')
+    }))
+  }
+
+  // Event listeners on the top circles for when you hover over them
+  function hoverChoicesTwo(circlesChoice) {
+    // adding event listeners to the top row
+    circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseenter', () => {
+      circleChosen.classList.add('two-player-hover')
+      highlightCol(circleChosen)
+    }))
+    circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseleave', () => {
+      removeHighlightCol(circleChosen)
+      circleChosen.classList.remove('two-player-hover')
     }))
   }
 
@@ -331,7 +346,7 @@ function init() {
     }
   }
 
-  // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle
+  // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle in playerx1 mode
   function playChoice(circle, circleIndex) {
     circle.addEventListener('click', () => {
 
@@ -1462,6 +1477,120 @@ function init() {
     })
   }
 
+  // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle in playerx2 mode
+  function playChoiceTwo(circle, circleIndex) {
+    circle.addEventListener('click', () => {
+      let availableZero = columnZero.length - 1
+      let availableOne = columnOne.length - 1
+      let availableTwo = columnTwo.length - 1
+      let availableThree = columnThree.length - 1
+      let availableFour = columnFour.length - 1
+      let availableFive = columnFive.length - 1
+      let availableSix = columnSix.length - 1
+      console.log(playerSpongebob)
+      playerSpongebob = !playerSpongebob
+
+      // if statements that control where spongebob is dropped
+      if (circleIndex === 0) {
+        if (playerSpongebob) {
+          columnZero[availableZero].classList.add('spongebob')
+          playedCircles.unshift(columnZero[availableZero])
+          checkForWin()
+        } else {
+          columnZero[availableZero].classList.add('squidward')
+          playedCircles.unshift(columnZero[availableZero])
+          checkForLost()
+        }
+        columnZero.pop()
+        availableZero = columnZero.length - 1
+      }
+
+      if (circleIndex === 1) {
+        if (playerSpongebob) {
+          columnOne[availableOne].classList.add('spongebob')
+          playedCircles.unshift(columnOne[availableOne])
+          checkForWin()
+        } else {
+          columnOne[availableOne].classList.add('squidward')
+          playedCircles.unshift(columnOne[availableOne])
+          checkForLost()
+        }
+        columnOne.pop()
+        availableOne = columnOne.length - 1
+      }
+
+      if (circleIndex === 2) {
+        if (playerSpongebob) {
+          columnTwo[availableTwo].classList.add('spongebob')
+          playedCircles.unshift(columnTwo[availableTwo])
+          checkForWin()
+        } else {
+          columnTwo[availableTwo].classList.add('squidward')
+          playedCircles.unshift(columnTwo[availableTwo])
+          checkForLost()
+        }
+        columnTwo.pop()
+        availableTwo = columnTwo.length - 1
+      }
+
+      if (circleIndex === 3) {
+        if (playerSpongebob) {
+          columnThree[availableThree].classList.add('spongebob')
+          playedCircles.unshift(columnThree[availableThree])
+          checkForWin()
+        } else {
+          columnThree[availableThree].classList.add('squidward')
+          playedCircles.unshift(columnThree[availableThree])
+          checkForLost()
+        }
+        columnThree.pop()
+        availableThree = columnThree.length - 1
+      }
+
+      if (circleIndex === 4) {
+        if (playerSpongebob) {
+          columnFour[availableFour].classList.add('spongebob')
+          playedCircles.unshift(columnFour[availableFour])
+          checkForWin()
+        } else {
+          columnFour[availableFour].classList.add('squidward')
+          playedCircles.unshift(columnFour[availableFour])
+          checkForLost()
+        }
+        columnFour.pop()
+        availableFour = columnFour.length - 1
+      }
+
+      if (circleIndex === 5) {
+        if (playerSpongebob) {
+          columnFive[availableFive].classList.add('spongebob')
+          playedCircles.unshift(columnFive[availableFive])
+          checkForWin()
+        } else {
+          columnFive[availableFive].classList.add('squidward')
+          playedCircles.unshift(columnFive[availableFive])
+          checkForLost()
+        }
+        columnFive.pop()
+        availableFive = columnFive.length - 1
+      }
+
+      if (circleIndex === 6) {
+        if (playerSpongebob) {
+          columnSix[availableSix].classList.add('spongebob')
+          playedCircles.unshift(columnSix[availableSix])
+          checkForWin()
+        } else {
+          columnSix[availableSix].classList.add('squidward')
+          playedCircles.unshift(columnSix[availableSix])
+          checkForLost()
+        }
+        columnSix.pop()
+        availableSix = columnSix.length - 1
+      }
+    })
+  }
+
   // Function that creates the hoverable top row to make choices
   function createTopRow(circle, circleIndex) {
     if (circleIndex < width) {
@@ -1471,6 +1600,19 @@ function init() {
       hoverChoices(circlesChoice)
       playChoice(circle, circleIndex)
     }
+  }
+
+  // Function that creates the hoverable top row to make choices for both players
+  function createTopRowTwo(circle, square, circleIndex) {
+    if (circleIndex < width) {
+      circle.classList.remove('grid-circle')
+      circle.classList.add('grid-choice-circle')
+    }
+
+    const circlesChoice = document.querySelectorAll('.grid-choice-circle')
+    hoverChoicesTwo(circlesChoice)
+    playChoiceTwo(circle, circleIndex)
+
   }
 
   // Function that initiates the playing board: the FOR LOOP is used to build each square as many times as the width
@@ -1490,6 +1632,26 @@ function init() {
       square.appendChild(circle)
       createCol(circle, circleIndex)
       createTopRow(circle, circleIndex)
+    }
+  }
+
+  // Function that initiates the playing board: the FOR LOOP is used to build each square as many times as the width
+  function createBoardTwo() {
+    for (var i = 0; i < width * width; i++) {
+      const square = document.createElement('div')
+      const circle = document.createElement('div')
+      square.classList.add('grid-square')
+      square.style.display = 'block'
+      circle.classList.add('grid-circle')
+      circle.style.display = 'block'
+      circle.setAttribute('data-id', i)
+      const circleIndex = parseInt(circle.getAttribute('data-id'))
+      squares.push(square)
+      circles.push(circle)
+      grid.appendChild(square)
+      square.appendChild(circle)
+      createCol(circle, circleIndex)
+      createTopRowTwo(circle, square, circleIndex)
     }
   }
 
@@ -1514,15 +1676,27 @@ function init() {
     grid.innerHTML = ''
   }
 
-  // Event listener that creates the board, used when the game is started
-  startButton.addEventListener('click', () => {
-    startButton.style.display = 'none'
+  // Functions that clears the instructions screen
+  function clearInstructions() {
+    onePlayer.style.display = 'none'
+    twoPlayer.style.display = 'none'
     instructions.forEach(instruction => instruction.style.display = 'none')
     scoreBoard.style.visibility = 'visible'
     resetButton.style.visibility = 'visible'
     const sound = document.querySelector('audio')
     sound.play()
+  }
+
+  // Event listener that creates the board, used when the game is started with one player vs computer
+  onePlayer.addEventListener('click', () => {
+    clearInstructions()
     createBoard()
+  })
+
+  // Event listener that creates the board, used when the game is started with two players
+  twoPlayer.addEventListener('click', () => {
+    clearInstructions()
+    createBoardTwo()
   })
 
   // Event listener on the reset bottom which clears the board and creates a new game (score is kept the same, it does not refresh everytime)
@@ -1530,6 +1704,9 @@ function init() {
     clearBoard()
     createBoard()
   })
+
+
+
 }
 
 window.addEventListener('DOMContentLoaded', init)

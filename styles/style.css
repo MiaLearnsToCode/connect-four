@@ -122,19 +122,19 @@ p {
   color: white;
 }
 
-#start-button {
+.start-button {
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .4);
   font-family: 'East Sea Dokdo', cursive;
-  font-size: 50px;
+  font-size: 40px;
   padding: 10px 20px;
-  margin-top: 50px;
+  margin: 50px 10px;
   border-radius: 30px;
   color: rgba(6 ,188 ,251);
   border: 3px solid white;
 }
 
-#start-button:hover {
+.start-button:hover {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 0 2rem 0 rgba(255, 255, 255, .2);
 }
@@ -158,6 +158,11 @@ div.grid-circle {
 div.grid-circle-highlighted {
   box-shadow: 0 0 1rem 0 yellow;
   border: 3px solid yellow;
+}
+
+div.grid-circle-highlighted-two {
+  box-shadow: 0 0 1rem 0 red;
+  border: 3px solid red;
 }
 
 div.grid-choice-circle {
@@ -188,7 +193,16 @@ div.squidward {
   box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 1);
   border-radius: 40px;
   border: 2px solid white;
-  animation: delay 0.4s ease;
+}
+
+div.two-player-hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 1);
+  border-radius: 40px;
+  border: 2px solid white;
 }
 
 div.winning-circles {
@@ -206,11 +220,6 @@ div.loosing-circles {
    0% {box-shadow: 0 0 0 0px rgba(225, 225, 225, 0);}
    50% {box-shadow: 0 0 3rem 0 rgba(255, 255, 255, 1);}
    100% {box-shadow: 0 0 0 0px rgba(225, 225, 225, 0);}
-}
-
-@keyframes delay {
-   0% {background: url();}
-   100% {background: url('../images/squidward.png');}
 }
 
 /* Animation for when you have 3 in a row and squidward protects */
