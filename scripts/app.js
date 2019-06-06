@@ -14,7 +14,6 @@ function init() {
   const spanSquidward = document.querySelector('#squidward-score')
   let scoreSpongebob = 0
   let scoreSquidward = 0
-
   let playSquidward = true
 
   let columnZero = []
@@ -77,6 +76,7 @@ function init() {
       })
     }
   }
+
   // Function that removes the highlights on columns when cursor moves away
   function removeHighlightCol() {
     columnZero.forEach(columnZeroItem => {
@@ -515,21 +515,36 @@ function init() {
         }
       }
 
+      // Functions that defend each column horizontally and vertically
+
       function defendColumnZero() {
         const inCheckCircle = playedCircles[0]
         const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
         const bCircle = circles[pickedIndex + width]
         const bbCircle = circles[pickedIndex + width * 2]
 
+        //  Defende vertically if 3 in a column
         if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
           if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
             playColumnZero()
-            console.log('defended')
+            console.log('Vdefended3')
             playSquidward = false
           }
         } else {
           playSquidward = true
         }
+
+        //  Defende vertically if 2 in a column
+        if (playSquidward) {
+          if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+            playColumnZero()
+            console.log('Vdefended2')
+            playSquidward = false
+          } else {
+            playSquidward = true
+          }
+        }
+
       }
 
       function defendColumnOne() {
@@ -542,6 +557,7 @@ function init() {
         const bbCircle = circles[pickedIndex + width * 2]
         const blCircle = circles[pickedIndex - 1 + width]
 
+        // Defend if 3 in a column vertically
         if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
           if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
             playColumnOne()
@@ -553,16 +569,44 @@ function init() {
         }
 
         // Defend if there 3 in a row on the right hand side (horizontally)
-        if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-          if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-            if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-              playColumnThree()
-              console.log('Rdefended')
-              playSquidward = false
+        if(playSquidward) {
+          if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
+            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
+                playColumnZero()
+                console.log('Rdefended3')
+                playSquidward = false
+              }
             }
+          } else {
+            playSquidward = true
           }
-        } else {
-          playSquidward = true
+        }
+
+        // Defend if 2 in a column vertically
+        if(playSquidward) {
+          if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
+            playColumnOne()
+            console.log('defended')
+            playSquidward = false
+          } else {
+            playSquidward = true
+          }
+        }
+
+        // Defend if there 2 in a row on the right hand side (horizontally)
+        if(playSquidward) {
+          if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
+            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
+              if (rCircle.classList.contains('spongebob')) {
+                playColumnZero()
+                console.log('Rdefended2')
+                playSquidward = false
+              }
+            }
+          } else {
+            playSquidward = true
+          }
         }
       }
 
