@@ -1,20 +1,31 @@
-# sei-project-1
-My first project repo
+# Software Engineneering Immersive: Project 1
+This was my first project during the fourth week of the General Assembly Software Engineering Immersive course.
+
+---
 
 # Spongebob SquarePants Connect Four
 This is a browser game of Connect four built with Javascript.
 
+## Built With
+⋅⋅* HTML5 + HTML5 Audio
+⋅⋅* CSS & Animation
+⋅⋅* Javascript (ECMAScript6)
+⋅⋅* GitHub
+
 ## Deployment
 The game is deployed on GitHub Pages and it can be found here:
-
-## Built With
-HTML, CSS & Javascript.
 
 ## Getting Started
 Use the clone button to download the game source code. Open the index.html file in your browser and the game should start, if not check console for any issues. The images used in this game are stored in the images folder and are all png file.
 
 ## Game Architecture
-The game has two modes which the player can choose from: one player or two players. In the **two players mode** the players take turns to drop a Spongebob or a Squidward respectively until one of them manages to place four in a line vertically, horizontally or diagonally.
+Connect 4 is a game where players attempt to make a line of four pieces in a 7 x 6 grid. Players can drop their pieces into columns, so that their piece rests in the lowest available space in that column.
+
+The game has two modes which the player can choose from: one player or two players.
+
+![]("images/readme-one.png" "Instructions")
+
+In the **two players mode** the players take turns to drop a Spongebob or a Squidward respectively until one of them manages to place four in a line vertically, horizontally or diagonally.
 
 In the **one player mode** the player plays as Spongebob against the computer (Squidward). The computer reacts to Spongebob's move following these rules:
 
