@@ -38,15 +38,59 @@ In the **one player mode** the player plays as Spongebob against the computer (S
 
 1) It checks if Spongebob has three in a row (vertical, diagonal or horizontal) and plays on the fourth circle. This for now only works if Spongebob's last move was to place the third circle. There's also an animation that shakes the three Spongebobs in a line to indicate that squidward defended.
 
+The defence priority is horizontal > vertical > diagonal as naturally players will try to place four in a row or a column.
+
 2) If there's no '3 in a line' then it checks for 2s in a line in all directions.
 
 3) If there's no '2 in a line' either then it generates a random number between 0 and 2 and if 0 then places the player on the first available left hand side column. If 1 then places it above and if 2 then on the right.
+
+An example of the function used for column four:
+
+```js
+if (circleIndex === 4) {
+  const randomIndex = Math.floor(Math.random() * 3)
+  columnFour[availableFour].classList.add('spongebob')
+  playedCircles.unshift(columnFour[availableFour])
+  checkForWin()
+  columnFour.pop()
+  availableFour = columnFour.length - 1
+  playSquidward = true
+
+  if (availableFour > 0) {
+    defendColumnFour()
+    if(playSquidward) {
+      switch(randomIndex) {
+        case 0:
+          if (availableThree > 0) {
+            playColumnThree()
+          } else {
+            checkFromColumnThree()
+          }
+          break
+        case 1:
+          playColumnFour()
+          break
+        case 2:
+          if (availableFive > 0) {
+            playColumnFive()
+          } else {
+            checkFromColumnFive()
+          }
+          break
+      }
+    }
+  } else {
+    checkFromColumnFour()
+  }
+}
+```
 
 As the board fills up, there are also some rules that set an hierarchy to tell Squidward where to go if the column it's meant to go to is already full. It looks at the closest columns available then moves on to ones further away. If there are no more available places then **it's a draw**.
 
 After every move of both players (or both the player and the computer), the game checks for 'winning' or 'loosing'. Winning assigns and point to Spongebob and loosing assigns one to Squidward. The functions also highlight the cells that won/lost respectively yellow or red and the top row is hidden so the player can't continue to play on.
 
 ![readme-two](images/readme-two.png)
+
 
 ## Challenges and future improvements
 

@@ -182,6 +182,7 @@ function init() {
             lCircle.classList.add('winning-circles')
             llCircle.classList.add('winning-circles')
             lllCircle.classList.add('winning-circles')
+            playSquidward = false
             addSpongebob()
             stopHoverChoices()
           }
@@ -196,6 +197,7 @@ function init() {
           bCircle.classList.add('winning-circles')
           bbCircle.classList.add('winning-circles')
           bbbCircle.classList.add('winning-circles')
+          playSquidward = false
           addSpongebob()
           stopHoverChoices()
         }
@@ -210,6 +212,7 @@ function init() {
             rCircle.classList.add('winning-circles')
             rrCircle.classList.add('winning-circles')
             rrrCircle.classList.add('winning-circles')
+            playSquidward = false
             addSpongebob()
             stopHoverChoices()
           }
@@ -225,6 +228,7 @@ function init() {
             brCircle.classList.add('winning-circles')
             brbrCircle.classList.add('winning-circles')
             brbrbrCircle.classList.add('winning-circles')
+            playSquidward = false
             addSpongebob()
             stopHoverChoices()
           }
@@ -240,6 +244,7 @@ function init() {
             blCircle.classList.add('winning-circles')
             blblCircle.classList.add('winning-circles')
             blblblCircle.classList.add('winning-circles')
+            playSquidward = false
             addSpongebob()
             stopHoverChoices()
           }
@@ -1231,250 +1236,269 @@ function init() {
       // if statements that control where spongebob and squidward are placed at every turn
 
       if (circleIndex === 0) {
+        playSquidward = true
         const randomIndex = Math.round(Math.random())
         columnZero[availableZero].classList.add('spongebob')
         playedCircles.unshift(columnZero[availableZero])
         checkForWin()
         columnZero.pop()
         availableZero = columnZero.length - 1
-        playSquidward = true
 
-        if (availableZero > 0) {
-          defendColumnZero()
-          if(playSquidward) {
-            switch(randomIndex) {
-              case 0:
-                playColumnZero()
-                break
-              case 1:
-                if (availableOne > 0) {
-                  playColumnOne()
-                } else {
-                  checkFromColumnOne()
-                }
-                break
+        if (playSquidward) {
+          if (availableZero > 0) {
+            defendColumnZero()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  playColumnZero()
+                  break
+                case 1:
+                  if (availableOne > 0) {
+                    playColumnOne()
+                  } else {
+                    checkFromColumnOne()
+                  }
+                  break
+              }
             }
+          } else {
+            checkFromColumnZero()
           }
-        } else {
-          checkFromColumnZero()
         }
+
       }
 
       if (circleIndex === 1) {
+        playSquidward = true
         const randomIndex = Math.floor(Math.random() * 3)
         columnOne[availableOne].classList.add('spongebob')
         playedCircles.unshift(columnOne[availableOne])
         checkForWin()
         columnOne.pop()
         availableOne = columnOne.length - 1
-        playSquidward = true
 
-        if (availableOne > 0) {
-          defendColumnOne()
-          if(playSquidward) {
-            switch(randomIndex) {
-              case 0:
-                if (availableZero > 0) {
-                  playColumnZero()
-                } else {
-                  checkFromColumnZero()
-                }
-                break
-              case 1:
-                playColumnOne()
-                break
-              case 2:
-                if (availableTwo > 0) {
-                  playColumnTwo()
-                } else {
-                  checkFromColumnTwo()
-                }
-                break
+        if (playSquidward) {
+          if (availableOne > 0) {
+            defendColumnOne()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  if (availableZero > 0) {
+                    playColumnZero()
+                  } else {
+                    checkFromColumnZero()
+                  }
+                  break
+                case 1:
+                  playColumnOne()
+                  break
+                case 2:
+                  if (availableTwo > 0) {
+                    playColumnTwo()
+                  } else {
+                    checkFromColumnTwo()
+                  }
+                  break
+              }
             }
+          } else {
+            checkFromColumnOne()
           }
-        } else {
-          checkFromColumnOne()
         }
+
       }
 
       if (circleIndex === 2) {
+        playSquidward = true
         const randomIndex = Math.floor(Math.random() * 3)
         columnTwo[availableTwo].classList.add('spongebob')
         playedCircles.unshift(columnTwo[availableTwo])
         checkForWin()
         columnTwo.pop()
         availableTwo = columnTwo.length - 1
-        playSquidward = true
 
-        if (availableTwo > 0) {
-          defendColumnTwo()
-          if(playSquidward) {
-            switch(randomIndex) {
-              case 0:
-                if (availableOne > 0) {
-                  playColumnOne()
-                } else {
-                  checkFromColumnOne()
-                }
-                break
-              case 1:
-                playColumnTwo()
-                break
-              case 2:
-                if (availableThree > 0) {
-                  playColumnThree()
-                } else {
-                  checkFromColumnThree()
-                }
-                break
+        if(playSquidward) {
+          if (availableTwo > 0) {
+            defendColumnTwo()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  if (availableOne > 0) {
+                    playColumnOne()
+                  } else {
+                    checkFromColumnOne()
+                  }
+                  break
+                case 1:
+                  playColumnTwo()
+                  break
+                case 2:
+                  if (availableThree > 0) {
+                    playColumnThree()
+                  } else {
+                    checkFromColumnThree()
+                  }
+                  break
+              }
             }
+          } else {
+            checkFromColumnTwo()
           }
-        } else {
-          checkFromColumnTwo()
         }
+
       }
 
       if (circleIndex === 3) {
+        playSquidward = true
         const randomIndex = Math.floor(Math.random() * 3)
         columnThree[availableThree].classList.add('spongebob')
         playedCircles.unshift(columnThree[availableThree])
         checkForWin()
         columnThree.pop()
         availableThree = columnThree.length - 1
-        playSquidward = true
 
-        if (availableThree > 0) {
-          defendColumnThree()
-          if(playSquidward) {
-            switch(randomIndex) {
-              case 0:
-                if (availableTwo > 0) {
-                  playColumnTwo()
-                } else {
-                  checkFromColumnTwo()
-                }
-                break
-              case 1:
-                playColumnThree()
-                break
-              case 2:
-                if (availableFour > 0) {
-                  playColumnFour()
-                } else {
-                  checkFromColumnFour()
-                }
-                break
+        if (playSquidward) {
+          if (availableThree > 0) {
+            defendColumnThree()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  if (availableTwo > 0) {
+                    playColumnTwo()
+                  } else {
+                    checkFromColumnTwo()
+                  }
+                  break
+                case 1:
+                  playColumnThree()
+                  break
+                case 2:
+                  if (availableFour > 0) {
+                    playColumnFour()
+                  } else {
+                    checkFromColumnFour()
+                  }
+                  break
+              }
             }
+          } else {
+            checkFromColumnThree()
           }
-        } else {
-          checkFromColumnThree()
         }
+
       }
 
       if (circleIndex === 4) {
+        playSquidward = true
         const randomIndex = Math.floor(Math.random() * 3)
         columnFour[availableFour].classList.add('spongebob')
         playedCircles.unshift(columnFour[availableFour])
         checkForWin()
         columnFour.pop()
         availableFour = columnFour.length - 1
-        playSquidward = true
 
-        if (availableFour > 0) {
-          defendColumnFour()
-          if(playSquidward) {
-            switch(randomIndex) {
-              case 0:
-                if (availableThree > 0) {
-                  playColumnThree()
-                } else {
-                  checkFromColumnThree()
-                }
-                break
-              case 1:
-                playColumnFour()
-                break
-              case 2:
-                if (availableFive > 0) {
-                  playColumnFive()
-                } else {
-                  checkFromColumnFive()
-                }
-                break
+        if(playSquidward) {
+          if (availableFour > 0) {
+            defendColumnFour()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  if (availableThree > 0) {
+                    playColumnThree()
+                  } else {
+                    checkFromColumnThree()
+                  }
+                  break
+                case 1:
+                  playColumnFour()
+                  break
+                case 2:
+                  if (availableFive > 0) {
+                    playColumnFive()
+                  } else {
+                    checkFromColumnFive()
+                  }
+                  break
+              }
             }
+          } else {
+            checkFromColumnFour()
           }
-        } else {
-          checkFromColumnFour()
         }
+
       }
 
       if (circleIndex === 5) {
+        playSquidward = true
         const randomIndex = Math.floor(Math.random() * 3)
         columnFive[availableFive].classList.add('spongebob')
         playedCircles.unshift(columnFive[availableFive])
         checkForWin()
         columnFive.pop()
         availableFive = columnFive.length - 1
-        playSquidward = true
 
-        if (availableFive > 0) {
-          defendColumnFive()
-          if(playSquidward) {
-            switch(randomIndex) {
-              case 0:
-                if (columnFour > 0) {
-                  playColumnFour()
-                } else {
-                  checkFromColumnFour()
-                }
-                break
-              case 1:
-                playColumnFive()
-                break
-              case 2:
-                if (columnSix > 0) {
-                  playColumnSix()
-                } else {
-                  checkFromColumnSix()
-                }
-                break
+        if(playSquidward) {
+          if (availableFive > 0) {
+            defendColumnFive()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  if (columnFour > 0) {
+                    playColumnFour()
+                  } else {
+                    checkFromColumnFour()
+                  }
+                  break
+                case 1:
+                  playColumnFive()
+                  break
+                case 2:
+                  if (columnSix > 0) {
+                    playColumnSix()
+                  } else {
+                    checkFromColumnSix()
+                  }
+                  break
+              }
             }
+          } else {
+            checkFromColumnFive()
           }
-        } else {
-          checkFromColumnFive()
         }
+
       }
 
       if (circleIndex === 6) {
+        playSquidward = true
         const randomIndex = Math.round(Math.random())
         columnSix[availableSix].classList.add('spongebob')
         playedCircles.unshift(columnSix[availableSix])
         checkForWin()
         columnSix.pop()
         availableSix = columnSix.length - 1
-        playSquidward = true
 
-        if (availableSix > 0) {
-          defendColumnSix()
-          if(playSquidward) {
-            switch(randomIndex) {
-              case 0:
-                if (availableFive > 0) {
-                  playColumnFive()
-                } else {
-                  checkFromColumnFive()
-                }
-                break
-              case 1:
-                playColumnSix()
-                break
+        if(playSquidward) {
+          if (availableSix > 0) {
+            defendColumnSix()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  if (availableFive > 0) {
+                    playColumnFive()
+                  } else {
+                    checkFromColumnFive()
+                  }
+                  break
+                case 1:
+                  playColumnSix()
+                  break
+              }
             }
+          } else {
+            checkFromColumnSix()
           }
-        } else {
-          checkFromColumnSix()
         }
       }
-
     })
   }
 
@@ -1488,7 +1512,6 @@ function init() {
       let availableFour = columnFour.length - 1
       let availableFive = columnFive.length - 1
       let availableSix = columnSix.length - 1
-      console.log(playerSpongebob)
       playerSpongebob = !playerSpongebob
 
       // if statements that control where spongebob is dropped
