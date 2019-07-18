@@ -11,9 +11,12 @@ This project is a browser game of Connect four built with Vanilla Javascript.
 
 ## Built With
 
-| HTML5 | CSS | Javascript | GitHub |
-| :---: | :---: | :---: |
-| HTML5 Audio | CSS Animations | ECMAScript6 | Git versions control |
+1. HTML5
+    * Audio
+2. CSS
+    * Animations
+3. Javascript
+4. GitHub
 
 ## Deployment
 
