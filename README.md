@@ -17,7 +17,7 @@ This project is a browser game of Connect four built with Vanilla Javascript.
 
 ## Deployment
 
-The game is deployed on GitHub Pages and it can be found here: https://mialearnstocode.github.io/sei-project-1/
+The game is deployed on GitHub Pages and it can be found here: https://mialearnstocode.github.io/connect-four/
 
 ## Getting Started
 
