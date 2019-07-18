@@ -1,5 +1,5 @@
 body {
-  background: url(../images/background.png) no-repeat center center fixed;
+  background: url(../images/background.png) no-repeat center fixed;
   background-size: cover;
 }
 
@@ -14,6 +14,21 @@ nav {
   display:flex;
   justify-content: space-around;
   margin-left: -50px;
+}
+
+main {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+footer {
+  display:flex;
+  height: 10vh;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 30px;
 }
 
 #score-board {
@@ -39,7 +54,7 @@ img {
 h1 {
   text-align: center;
   font-family: 'ZCOOL KuaiLe', cursive;
-  font-size: 80px;
+  font-size: 70px;
   color:yellow;
   text-shadow: 5px 5px 10px #997d0f;
   margin-top: 25px;
@@ -48,7 +63,7 @@ h1 {
 h2 {
   text-align: center;
   font-family: 'Dokdo', cursive;
-  font-size: 50px;
+  font-size: 40px;
   text-transform: uppercase;
   color:white;
   text-shadow: 10px 10px 30px blue;
@@ -76,12 +91,6 @@ h2 {
 .reset:hover {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 0 2rem 0 rgba(255, 255, 255, .2);
-}
-
-main {
-  display:flex;
-  justify-content: center;
-  align-items: center;
 }
 
 div.grid {
@@ -214,6 +223,9 @@ div.loosing-circles {
   animation: pulse 2s infinite ease;
 }
 
+.github-logo {
+  height:60px;
+}
 
 @keyframes pulse {
    0% {box-shadow: 0 0 0 0px rgba(225, 225, 225, 0);}
@@ -242,4 +254,11 @@ div.loosing-circles {
   40%, 60% {
     transform: translate3d(3px, 0, 0);
   }
+}
+
+@media screen and ( max-height: 820px ) {
+
+h1, h2 {
+  visibility: hidden;
+}
 }

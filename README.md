@@ -1,20 +1,19 @@
 ![ga_cog_large_red_rgb](https://cloud.githubusercontent.com/assets/40461/8183776/469f976e-1432-11e5-8199-6ac91363302b.png)
 
 # Software Engineneering Immersive: Project 1
-This was my first project during the fourth week of the General Assembly Software Engineering Immersive course.
+This was my first project of the General Assembly Software Engineering Immersive course (Week 4).
 
 ---
 
 # Spongebob SquarePants Connect Four
 
-This is a browser game of Connect four built with Javascript.
+This project is a browser game of Connect four built with Vanilla Javascript.
 
 ## Built With
 
-* HTML5 + HTML5 Audio
-* CSS & Animation
-* Javascript (ECMAScript6)
-* GitHub
+| HTML5 | CSS | Javascript | GitHub |
+| :---: | :---: | :---: |
+| HTML5 Audio | CSS Animations | ECMAScript6 | Git versions control |
 
 ## Deployment
 
@@ -22,7 +21,7 @@ The game is deployed on GitHub Pages and it can be found here: https://mialearns
 
 ## Getting Started
 
-Use the clone button to download the game source code. Open the index.html file in your browser and the game should start, if not check console for any issues. The images used in this game are stored in the images folder and are all png file.
+Use the clone button to download the game source code. Open the index.html file in your browser and the game should start, if not check console for any issues. The images used in this game are stored in the images folder and are all png files.
 
 ## Game Architecture
 
@@ -94,17 +93,17 @@ After every move of both players (or both the player and the computer), the game
 
 ## Challenges and future improvements
 
-The main challenge of this project was to create a sound logic that allows squidward to stop Spongebob from winning too easily.
+The main challenge of this project was to create a sound logic that allows Squidward to stop Spongebob from winning too easily.
 
-As every column behaves slightly different from one another I found it easier to split each defend function based on the column the last Spongebob was dropped in.
+As every column behaves slightly differently from one another I found it easier to split each defend function based on the column the last Spongebob was dropped in.
 
 This strategy was effective as it allowed to easily debug which columns were being played on correctly or not. However, the code is quite long and it makes Squidward's move reliant on Spongebob's last one rather then looking at the whole game so far.
 
-So in the future I hope to refactor the defend and play function so that the same function can be called on each column. I also hope to improve on the game and allow Squidward to defend even if there's two spongebob on one side and one on the other like so :
+So in the future I hope to refactor the defend and play functions so that the same function can be called on each column. I also hope to improve on the game and allow Squidward to defend even if there's two spongebob on one side and one on the other like so :
 
 ![readme-three](images/readme-three.png)
 
-And finally I will add a function that tells squidward that if there's nothing to defend, then it should try to actively make a three / four in a row as currently it only wins by chance (usually 1 in 5 games).
+And finally I will add a 'attack' function that allows Squidward to actively try and make a three / four in a row as currently it only wins by chance (usually 1 in 5 games).
 
 ## Author
 
