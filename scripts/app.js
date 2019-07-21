@@ -239,16 +239,39 @@ function init() {
       }
 
       function defendThreeV(inCheckCircle, array, n) {
-        if (array[0] !== undefined && array[0].classList.contains('spongebob')) {
-          if (array[1] !== undefined && array[1].classList.contains('spongebob')) {
-            playColumn(n)
-            inCheckCircle.classList.add('connect-three')
-            array[0].classList.add('connect-three')
-            array[1].classList.add('connect-three')
-            playSquidward = false
+        if (playSquidward) {
+          if (array[0] !== undefined && array[0].classList.contains('spongebob')) {
+            if (array[1] !== undefined && array[1].classList.contains('spongebob')) {
+              playColumn(n)
+              inCheckCircle.classList.add('connect-three')
+              array[0].classList.add('connect-three')
+              array[1].classList.add('connect-three')
+              playSquidward = false
+            }
+          } else {
+            playSquidward = true
           }
-        } else {
-          playSquidward = true
+        }
+
+      }
+
+      function defendThreeH(inCheckCircle, array, n) {
+        if(playSquidward) {
+          if (array[0] && array[1]) {
+            if(!array[0].classList.contains('spongebob') || !array[0].classList.contains('squidward')) {
+              if(array[1] === undefined || array[1].classList.contains('spongebob') || array[1].classList.contains('squidward')) {
+                if (array[2].classList.contains('spongebob') && array[3].classList.contains('spongebob')) {
+                  playColumn(n)
+                  inCheckCircle.classList.add('connect-three')
+                  array[2].classList.add('connect-three')
+                  array[3].classList.add('connect-three')
+                  playSquidward = false
+                }
+              }
+            } else {
+              playSquidward = true
+            }
+          }
         }
       }
 
@@ -259,6 +282,23 @@ function init() {
             playSquidward = false
           } else {
             playSquidward = true
+          }
+        }
+      }
+
+      function defendTwoH(array, n) {
+        if(playSquidward) {
+          if(array[0] && array[1]) {
+            if(!array[0].classList.contains('spongebob') || !array[0].classList.contains('squidward')) {
+              if(array[1] === undefined || array[1].classList.contains('spongebob') || array[1].classList.contains('squidward')) {
+                if (array[2].classList.contains('spongebob')) {
+                  playColumn(n)
+                  playSquidward = false
+                }
+              }
+            } else {
+              playSquidward = true
+            }
           }
         }
       }
@@ -290,20 +330,7 @@ function init() {
         const brbrCircle = circles[pickedIndex + width * 2 + 2]
         const tlCircle = circles[pickedIndex - width - 1]
 
-        // Defend if there 3 in a row on the right hand side (horizontally)
-        if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
-          if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-            if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-              playColumn(0)
-              inCheckCircle.classList.add('connect-three')
-              rCircle.classList.add('connect-three')
-              rrCircle.classList.add('connect-three')
-              playSquidward = false
-            }
-          }
-        } else {
-          playSquidward = true
-        }
+        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 0)
 
         // Defend if 3 in a column vertically
         defendThreeV(inCheckCircle, [bCircle, bbCircle], 1)
@@ -328,18 +355,7 @@ function init() {
         }
 
         // Defend if there 2 in a row on the right hand side (horizontally)
-        if(playSquidward) {
-          if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob')) {
-                playColumn(0)
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([lCircle, blCircle, rCircle], 0)
 
         // Defend if 2 in a column vertically
         defendTwoV(bCircle, 1)
@@ -362,38 +378,10 @@ function init() {
         const trCircle = circles[pickedIndex - width + 1]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
-        if (rCircle && brCircle) {
-          if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
-            if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-                playColumn(3)
-                inCheckCircle.classList.add('connect-three')
-                lCircle.classList.add('connect-three')
-                llCircle.classList.add('connect-three')
-                playSquidward = false
-              }
-            }
-          }
-        } else {
-          playSquidward = true
-        }
+        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 3)
 
         // Defend if there 3 in a row on the right hand side (horizontally)
-        if (playSquidward) {
-          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-                playColumn(1)
-                inCheckCircle.classList.add('connect-three')
-                rCircle.classList.add('connect-three')
-                rrCircle.classList.add('connect-three')
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 1)
 
         // Defend vertically if 3 in a column
         defendThreeV(inCheckCircle, [bCircle, bbCircle], 2)
@@ -437,34 +425,10 @@ function init() {
         }
 
         // Defend if there 2 in a row on the left hand side (horizontally)
-        if (playSquidward) {
-          if (rCircle && brCircle) {
-            if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
-              if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-                if (lCircle.classList.contains('spongebob')) {
-                  playColumn(3)
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([rCircle, brCircle, lCircle], 3)
 
         // Defend if there 2 in a row on the right hand side (horizontally)
-        if (playSquidward) {
-          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob')) {
-                playColumn(1)
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([lCircle, blCircle, rCircle], 1)
 
         // Defend vertically if 2 in a column
         defendTwoV(bCircle, 2)
@@ -487,38 +451,10 @@ function init() {
         const blblCircle = circles[pickedIndex - 2 + width * 2]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
-        if (rCircle !== undefined && brCircle !== undefined) {
-          if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
-            if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-                playColumn(4)
-                inCheckCircle.classList.add('connect-three')
-                lCircle.classList.add('connect-three')
-                llCircle.classList.add('connect-three')
-                playSquidward = false
-              }
-            }
-          }
-        } else {
-          playSquidward = true
-        }
+        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 4)
 
         // Defend if there 3 in a row on the right hand side (horizontally)
-        if (playSquidward) {
-          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-                playColumn(2)
-                inCheckCircle.classList.add('connect-three')
-                rCircle.classList.add('connect-three')
-                rrCircle.classList.add('connect-three')
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 2)
 
         // Defend vertically if 3 in a column
         defendThreeV(inCheckCircle, [bCircle, bbCircle], 3)
@@ -562,34 +498,10 @@ function init() {
         }
 
         // Defend if there 2 in a row on the left hand side (horizontally)
-        if (playSquidward) {
-          if (rCircle !== undefined && brCircle !== undefined) {
-            if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
-              if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-                if (lCircle.classList.contains('spongebob')) {
-                  playColumn(4)
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([rCircle, brCircle, lCircle], 4)
 
         // Defend if there 2 in a row on the right hand side (horizontally)
-        if (playSquidward) {
-          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob')) {
-                playColumn(2)
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([lCircle, blCircle, rCircle], 2)
 
         // Defend vertically if 2 in a column
         defendTwoV(bCircle, 3)
@@ -612,36 +524,10 @@ function init() {
         const blblCircle = circles[pickedIndex - 2 + width * 2]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
-        if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
-          if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-            if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-              playColumn(5)
-              inCheckCircle.classList.add('connect-three')
-              lCircle.classList.add('connect-three')
-              llCircle.classList.add('connect-three')
-              playSquidward = false
-            }
-          }
-        } else {
-          playSquidward = true
-        }
+        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 5)
 
         // Defend if there 3 in a row on the right hand side (horizontally)
-        if (playSquidward) {
-          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-                playColumn(3)
-                inCheckCircle.classList.add('connect-three')
-                rCircle.classList.add('connect-three')
-                rrCircle.classList.add('connect-three')
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 3)
 
         // Defend if there 3 in a column vertically
         defendThreeV(inCheckCircle, [bCircle, bbCircle], 4)
@@ -685,32 +571,11 @@ function init() {
         }
 
         // Defend if there 2 in a row on the left hand side (horizontally)
-        if (playSquidward) {
-          if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
-            if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob')) {
-                playColumn(5)
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([rCircle, brCircle, lCircle], 5)
+
 
         // Defend if there 2 in a row on the right hand side (horizontally)
-        if (playSquidward) {
-          if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
-            if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob')) {
-                playColumn(3)
-                playSquidward = false
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([lCircle, blCircle, rCircle], 3)
 
         // Defend if there 2 in a column vertically
         defendTwoV(bCircle, 4)
@@ -730,21 +595,7 @@ function init() {
         const blblCircle = circles[pickedIndex - 2 + width * 2]
 
         // Defend if there 3 in a row on the left hand side (horizontally)
-        if (rCircle !== undefined && brCircle !== undefined) {
-          if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
-            if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-                playColumn(6)
-                inCheckCircle.classList.add('connect-three')
-                lCircle.classList.add('connect-three')
-                llCircle.classList.add('connect-three')
-                playSquidward = false
-              }
-            }
-          }
-        } else {
-          playSquidward = true
-        }
+        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 6)
 
         // Defend if there's three in a column vertically
         defendThreeV(inCheckCircle, [bCircle, bbCircle], 5)
@@ -769,20 +620,7 @@ function init() {
         }
 
         // Defend if there 2 in a row on the left hand side (horizontally)
-        if (playSquidward) {
-          if (rCircle !== undefined && brCircle !== undefined) {
-            if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
-              if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
-                if (lCircle.classList.contains('spongebob')) {
-                  playColumn(6)
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
+        defendTwoH([rCircle, brCircle, lCircle], 6)
 
         // Defend if there's 2 in a column vertically
         defendTwoV(bCircle, 5)
