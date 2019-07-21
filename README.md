@@ -49,47 +49,58 @@ The defence priority is horizontal > vertical > diagonal as naturally players wi
 An example of the function used for column four:
 
 ```js
-if (circleIndex === 4) {
-  const randomIndex = Math.floor(Math.random() * 3)
-  columnFour[availableFour].classList.add('spongebob')
-  playedCircles.unshift(columnFour[availableFour])
-  checkForWin()
-  columnFour.pop()
-  availableFour = columnFour.length - 1
-  playSquidward = true
+// if statements that control where spongebob and squidward are placed at every turn
+for (let i = 0; i < width; i++) {
+  const defendFunctions = [defendColumnZero, defendColumnOne, defendColumnTwo, defendColumnThree, defendColumnFour, defendColumnFive, defendColumnSix]
+  const checkArrays = [[1,2,3,4,5,6], [0,2,3,4,5,6], [1,3,0,4,5,6], [2,4,1,5,0,6], [3,5,2,6,1,0], [6,4,3,2,1,0], [5,4,3,2,1,0]]
 
-  if (availableFour > 0) {
-    defendColumnFour()
-    if(playSquidward) {
-      switch(randomIndex) {
-        case 0:
-          if (availableThree > 0) {
-            playColumnThree()
-          } else {
-            checkFromColumnThree()
+  if (circleIndex === i) {
+    const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
+    const column = columns[i]
+    const available = availableArray[i]
+    playSquidward = true
+    const randomIndex = Math.floor(Math.random() * 3)
+    column[available].classList.add('spongebob')
+    playedCircles.unshift(column[available])
+    checkForWin('spongebob')
+    column.pop()
+    availableArray[i] = column.length - 1
+
+    if (playSquidward) {
+      if (available > 0) {
+        defendFunctions[i]()
+        if(playSquidward) {
+          switch(randomIndex) {
+            case 0:
+              if (availableArray[i - 1] > 0) {
+                playColumn(i - 1)
+              } else {
+                check(checkArrays[i - 1])
+              }
+              break
+            case 1:
+              playSelf(i)
+              break
+            case 2:
+              if (availableArray[i + 1] > 0) {
+                playColumn(i + 1)
+              } else {
+                check(checkArrays[i + 1])
+              }
+              break
           }
-          break
-        case 1:
-          playColumnFour()
-          break
-        case 2:
-          if (availableFive > 0) {
-            playColumnFive()
-          } else {
-            checkFromColumnFive()
-          }
-          break
+        }
+      } else {
+        check(checkArrays[i])
       }
     }
-  } else {
-    checkFromColumnFour()
   }
 }
 ```
 
 As the board fills up, there are also some rules that set an hierarchy to tell Squidward where to go if the column it's meant to go to is already full. It looks at the closest columns available then moves on to ones further away. If there are no more available places then **it's a draw**.
 
-After every move of both players (or both the player and the computer), the game checks for 'winning' or 'loosing'. Winning assigns and point to Spongebob and loosing assigns one to Squidward. The functions also highlight the cells that won/lost respectively yellow or red and the top row is hidden so the player can't continue to play on.
+After every move of both players (or both the player and the computer), the game checks for 'winning' of each player (in one player mode if squidward wins that means that player lost). Winning assigns and point to Spongebob and loosing assigns one to Squidward. The functions also highlight the cells that won/lost respectively yellow or red and the top row is hidden so the player can't continue to play on.
 
 ![readme-two](images/readme-two.png)
 
@@ -102,7 +113,7 @@ As every column behaves slightly differently from one another I found it easier 
 
 This strategy was effective as it allowed to easily debug which columns were being played on correctly or not. However, the code is quite long and it makes Squidward's move reliant on Spongebob's last one rather then looking at the whole game so far.
 
-So in the future I hope to refactor the defend and play functions so that the same function can be called on each column. I also hope to improve on the game and allow Squidward to defend even if there's two spongebob on one side and one on the other like so :
+So in the future I hope to refactor the defend functions so that the same function can be called from each column. I also hope to improve on the game and allow Squidward to defend even if there's two spongebob on one side and one on the other like so :
 
 ![readme-three](images/readme-three.png)
 
