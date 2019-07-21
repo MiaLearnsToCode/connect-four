@@ -1,24 +1,12 @@
-
-const width = 7
-let squares = []
-let circles = []
-
 // Function loads the game when the window is open
 function init() {
-  const onePlayer = document.querySelector('#one-player')
-  const twoPlayer = document.querySelector('#two-player')
-  const instructions = document.querySelectorAll('p, h3')
-  const scoreBoard = document.querySelector('#score-board')
-  const resetButton = document.querySelector('#reset-one-player')
-  const resetButtonTwo = document.querySelector('#reset-two-player')
-  const grid = document.querySelector('.grid')
-  const spanSpongebob = document.querySelector('#spongebob-score')
-  const spanSquidward = document.querySelector('#squidward-score')
-  let scoreSpongebob = 0
-  let scoreSquidward = 0
-  let playSquidward = true
-  let playerSpongebob = true
 
+  // Playing grid variables
+  const instructions = document.querySelectorAll('p, h3')
+  const grid = document.querySelector('.grid')
+  const width = 7
+  let squares = []
+  let circles = []
   let columnZero = []
   let columnOne = []
   let columnTwo = []
@@ -26,83 +14,58 @@ function init() {
   let columnFour = []
   let columnFive = []
   let columnSix = []
+  let columns = [columnZero, columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix ]
   let playedCircles = []
 
-  // Create the 7 columns
+  // 1 or 2 player mode variables
+  const onePlayer = document.querySelector('#one-player')
+  const twoPlayer = document.querySelector('#two-player')
+  let onePlayerMode = false
+  let playSquidward = true
+  let playerSpongebob = true
+
+  // Variables that control the score
+  const scoreBoard = document.querySelector('#score-board')
+  const spanSpongebob = document.querySelector('#spongebob-score')
+  const spanSquidward = document.querySelector('#squidward-score')
+  let scoreSpongebob = 0
+  let scoreSquidward = 0
+
+  // Reset bottons selectors
+  const resetButton = document.querySelector('#reset-one-player')
+  const resetButtonTwo = document.querySelector('#reset-two-player')
+
+  // Function that pushes each circle into the right column array
   function createCol(circle, circleIndex) {
-    if (circleIndex % width === 0) {
-      columnZero.push(circle)
-    } else if ((circleIndex - 1) % width === 0) {
-      columnOne.push(circle)
-    } else if ((circleIndex - 2) % width === 0) {
-      columnTwo.push(circle)
-    } else if ((circleIndex - 3) % width === 0) {
-      columnThree.push(circle)
-    } else if ((circleIndex - 4) % width === 0) {
-      columnFour.push(circle)
-    } else if ((circleIndex - 5) % width === 0) {
-      columnFive.push(circle)
-    } else if ((circleIndex - 6) % width === 0) {
-      columnSix.push(circle)
+    for(let i = 0; i <= columns.length; i++) {
+      const column = columns[i]
+      if(circleIndex % width === i) {
+        column.push(circle)
+      }
     }
   }
 
-  // Function that highlights columns yellow when you hover over the top circle as Spongebob
+  // Function that highlights a column's circles yellow when you hover over the top circle
   function highlightCol(circleChosen) {
-    if (columnZero.includes(circleChosen)) {
-      columnZero.forEach(columnZeroItem => {
-        columnZeroItem.classList.add('grid-circle-highlighted')
-      })
-    } else if (columnOne.includes(circleChosen)) {
-      columnOne.forEach(columnOneItem => {
-        columnOneItem.classList.add('grid-circle-highlighted')
-      })
-    } else if (columnTwo.includes(circleChosen)) {
-      columnTwo.forEach(columnTwoItem => {
-        columnTwoItem.classList.add('grid-circle-highlighted')
-      })
-    } else if (columnThree.includes(circleChosen)) {
-      columnThree.forEach(columnThreeItem => {
-        columnThreeItem.classList.add('grid-circle-highlighted')
-      })
-    } else if (columnFour.includes(circleChosen)) {
-      columnFour.forEach(columnFourItem => {
-        columnFourItem.classList.add('grid-circle-highlighted')
-      })
-    } else if (columnFive.includes(circleChosen)) {
-      columnFive.forEach(columnFiveItem => {
-        columnFiveItem.classList.add('grid-circle-highlighted')
-      })
-    } else if (columnSix.includes(circleChosen)) {
-      columnSix.forEach(columnSixItem => {
-        columnSixItem.classList.add('grid-circle-highlighted')
-      })
+    for(let i = 0; i < columns.length; i++) {
+      const column = columns[i]
+      if(column.includes(circleChosen)) {
+        column.forEach(gridCircle => {
+          gridCircle.classList.add('grid-circle-highlighted')
+        })
+      }
     }
   }
 
-  // Function that removes the highlights on columns when cursor moves away as Spongebob
+  // Function that removes the highlights on columns when cursor moves away
   function removeHighlightCol() {
-    columnZero.forEach(columnZeroItem => {
-      columnZeroItem.classList.remove('grid-circle-highlighted')
-    })
-    columnOne.forEach(columnOneItem => {
-      columnOneItem.classList.remove('grid-circle-highlighted')
-    })
-    columnTwo.forEach(columnTwoItem => {
-      columnTwoItem.classList.remove('grid-circle-highlighted')
-    })
-    columnThree.forEach(columnThreeItem => {
-      columnThreeItem.classList.remove('grid-circle-highlighted')
-    })
-    columnFour.forEach(columnFourItem => {
-      columnFourItem.classList.remove('grid-circle-highlighted')
-    })
-    columnFive.forEach(columnFiveItem => {
-      columnFiveItem.classList.remove('grid-circle-highlighted')
-    })
-    columnSix.forEach(columnSixItem => {
-      columnSixItem.classList.remove('grid-circle-highlighted')
-    })
+    let i = 0
+    while(i < columns.length) {
+      columns[i].forEach(gridCircle => {
+        gridCircle.classList.remove('grid-circle-highlighted')
+      })
+      i++
+    }
   }
 
   // Event listeners on the top circles for when you hover over them
@@ -113,12 +76,12 @@ function init() {
       highlightCol(circleChosen)
     }))
     circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseleave', () => {
-      removeHighlightCol(circleChosen)
+      removeHighlightCol()
       circleChosen.classList.remove('spongebob')
     }))
   }
 
-  // Event listeners on the top circles for when you hover over them
+  // Event listeners on the top circles for when you hover over them (for the two player mode)
   function hoverChoicesTwo(circlesChoice) {
     // adding event listeners to the top row
     circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseenter', () => {
@@ -126,7 +89,7 @@ function init() {
       highlightCol(circleChosen)
     }))
     circlesChoice.forEach(circleChosen => circleChosen.addEventListener('mouseleave', () => {
-      removeHighlightCol(circleChosen)
+      removeHighlightCol()
       circleChosen.classList.remove('two-player-hover')
     }))
   }
@@ -149,7 +112,7 @@ function init() {
     spanSquidward.innerHTML = scoreSquidward
   }
 
-  // Function evoked every time the player (spongebob) plays, to check if it won in any direction (only checks towards left, right and all bottom directions - no point at checking upwards)
+  // Function evoked every time the spongebob plays, to check if the player has 4 in a line)
   function checkForWin() {
     const inCheckCircle = playedCircles[0]
     const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
@@ -365,78 +328,33 @@ function init() {
       let availableSix = columnSix.length - 1
 
       // Functions that place Squidward in the indicated column
+      function playColumn(n) {
+        const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
 
-      function playColumnZero() {
-        columnZero[availableZero].classList.add('squidward')
-        playedCircles.unshift(columnZero[availableZero])
+        const column = columns[n]
+        const available = availableArray[n]
+        column[available].classList.add('squidward')
+        playedCircles.unshift(column[available])
         checkForLost()
-        columnZero.pop()
-        availableZero = columnZero.length - 1
-      }
-
-      function playColumnOne() {
-        columnOne[availableOne].classList.add('squidward')
-        playedCircles.unshift(columnOne[availableOne])
-        checkForLost()
-        columnOne.pop()
-        availableOne = columnOne.length - 1
-      }
-
-      function playColumnTwo() {
-        columnTwo[availableTwo].classList.add('squidward')
-        playedCircles.unshift(columnTwo[availableTwo])
-        checkForLost()
-        columnTwo.pop()
-        availableTwo = columnTwo.length - 1
-      }
-
-      function playColumnThree() {
-        columnThree[availableThree].classList.add('squidward')
-        playedCircles.unshift(columnThree[availableThree])
-        checkForLost()
-        columnThree.pop()
-        availableThree = columnThree.length - 1
-      }
-
-      function playColumnFour() {
-        columnFour[availableFour].classList.add('squidward')
-        playedCircles.unshift(columnFour[availableFour])
-        checkForLost()
-        columnFour.pop()
-        availableFour = columnFour.length - 1
-      }
-
-      function playColumnFive() {
-        columnFive[availableFive].classList.add('squidward')
-        playedCircles.unshift(columnFive[availableFive])
-        checkForLost()
-        columnFive.pop()
-        availableFive = columnFive.length - 1
-      }
-
-      function playColumnSix() {
-        columnSix[availableSix].classList.add('squidward')
-        playedCircles.unshift(columnSix[availableSix])
-        checkForLost()
-        columnSix.pop()
-        availableSix = columnSix.length - 1
+        column.pop()
+        availableArray[n] = column.length - 1
       }
 
       // Functions that define the hierarchy of choice as to where squidward should be placed based on spongebob's last move
 
       function checkFromColumnZero() {
         if (availableOne > 0) {
-          playColumnOne()
+          playColumn(1)
         } else if (availableTwo > 0) {
-          playColumnTwo()
+          playColumn(2)
         } else if (availableThree > 0) {
-          playColumnThree()
+          playColumn(3)
         } else if (availableFour > 0) {
-          playColumnFour()
+          playColumn(4)
         } else if (availableFive > 0) {
-          playColumnFive()
+          playColumn(5)
         } else if (availableSix > 0) {
-          playColumnSix()
+          playColumn(6)
         } else {
           addSquidward()
           addSpongebob()
@@ -446,17 +364,17 @@ function init() {
 
       function checkFromColumnOne() {
         if (availableZero > 0) {
-          playColumnZero()
+          playColumn(0)
         } else if (availableTwo > 0) {
-          playColumnTwo()
+          playColumn(2)
         } else if (availableThree > 0) {
-          playColumnThree()
+          playColumn(3)
         } else if (availableFour > 0) {
-          playColumnFour()
+          playColumn(4)
         } else if (availableFive > 0) {
-          playColumnFive()
+          playColumn(5)
         } else if (availableSix > 0) {
-          playColumnSix()
+          playColumn(6)
         } else {
           addSquidward()
           addSpongebob()
@@ -466,18 +384,18 @@ function init() {
 
       function checkFromColumnTwo() {
         if (availableOne > 0) {
-          playColumnOne()
+          playColumn(1)
         } else if (availableThree > 0) {
-          playColumnThree()
+          playColumn(3)
         } else if (availableZero > 0) {
-          playColumnZero()
+          playColumn(0)
         }  else if (availableFour > 0) {
-          playColumnFour()
+          playColumn(4)
           columnZero = []
         } else if (availableFive > 0) {
-          playColumnFive()
+          playColumn(5)
         } else if (availableSix > 0) {
-          playColumnSix()
+          playColumn(6)
         } else {
           addSquidward()
           addSpongebob()
@@ -487,17 +405,17 @@ function init() {
 
       function checkFromColumnThree() {
         if (availableTwo > 0) {
-          playColumnTwo()
+          playColumn(2)
         } else if (availableFour > 0) {
-          playColumnFour()
+          playColumn(4)
         } else if (availableOne > 0) {
-          playColumnOne()
+          playColumn(1)
         }  else if (availableFive > 0) {
-          playColumnFive()
+          playColumn(5)
         } else if (availableZero > 0) {
-          playColumnZero()
+          playColumn(0)
         } else if (availableSix > 0) {
-          playColumnSix()
+          playColumn(6)
         } else {
           addSquidward()
           addSpongebob()
@@ -507,17 +425,17 @@ function init() {
 
       function checkFromColumnFour() {
         if (availableThree > 0) {
-          playColumnThree()
+          playColumn(3)
         } else if (availableFive > 0) {
-          playColumnFive()
+          playColumn(5)
         } else if (availableTwo > 0) {
-          playColumnTwo()
+          playColumn(2)
         }  else if (availableSix > 0) {
-          playColumnSix()
+          playColumn(6)
         } else if (availableOne > 0) {
-          playColumnOne()
+          playColumn(1)
         } else if (availableZero > 0) {
-          playColumnZero()
+          playColumn(0)
         } else {
           addSquidward()
           addSpongebob()
@@ -527,17 +445,17 @@ function init() {
 
       function checkFromColumnFive() {
         if (availableSix > 0) {
-          playColumnSix()
+          playColumn(6)
         } else if (availableFour > 0) {
-          playColumnFour()
+          playColumn(4)
         } else if (availableThree > 0) {
-          playColumnThree()
+          playColumn(3)
         }  else if (availableTwo > 0) {
-          playColumnTwo()
+          playColumn(2)
         } else if (availableOne > 0) {
-          playColumnOne()
+          playColumn(1)
         } else if (availableZero > 0) {
-          playColumnZero()
+          playColumn(0)
         } else {
           addSquidward()
           addSpongebob()
@@ -547,17 +465,17 @@ function init() {
 
       function checkFromColumnSix() {
         if (availableFive > 0) {
-          playColumnFive()
+          playColumn(5)
         } else if (availableFour > 0) {
-          playColumnFour()
+          playColumn(4)
         }  else if (availableThree > 0) {
-          playColumnThree()
+          playColumn(3)
         } else if (availableTwo > 0) {
-          playColumnTwo()
+          playColumn(2)
         } else if (availableOne > 0) {
-          playColumnOne()
+          playColumn(1)
         } else if (availableZero > 0) {
-          playColumnZero()
+          playColumn(0)
         } else {
           addSquidward()
           addSpongebob()
@@ -576,7 +494,7 @@ function init() {
         //  Defende vertically if 3 in a column
         if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
           if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-            playColumnZero()
+            playColumn(0)
             inCheckCircle.classList.add('connect-three')
             bCircle.classList.add('connect-three')
             bbCircle.classList.add('connect-three')
@@ -589,7 +507,7 @@ function init() {
         //  Defende vertically if 2 in a column
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnZero()
+            playColumn(0)
             playSquidward = false
           } else {
             playSquidward = true
@@ -614,7 +532,7 @@ function init() {
         if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
           if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
             if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-              playColumnZero()
+              playColumn(0)
               inCheckCircle.classList.add('connect-three')
               rCircle.classList.add('connect-three')
               rrCircle.classList.add('connect-three')
@@ -629,7 +547,7 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-              playColumnOne()
+              playColumn(1)
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
@@ -646,7 +564,7 @@ function init() {
             if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
                 if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumnZero()
+                  playColumn(0)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -664,7 +582,7 @@ function init() {
           if(!lCircle.classList.contains('spongebob') || !lCircle.classList.contains('squidward')) {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
-                playColumnZero()
+                playColumn(0)
                 playSquidward = false
               }
             }
@@ -676,7 +594,7 @@ function init() {
         // Defend if 2 in a column vertically
         if(playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnOne()
+            playColumn(1)
             playSquidward = false
           } else {
             playSquidward = true
@@ -705,7 +623,7 @@ function init() {
           if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
             if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-                playColumnThree()
+                playColumn(3)
                 inCheckCircle.classList.add('connect-three')
                 lCircle.classList.add('connect-three')
                 llCircle.classList.add('connect-three')
@@ -722,7 +640,7 @@ function init() {
           if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-                playColumnOne()
+                playColumn(1)
                 inCheckCircle.classList.add('connect-three')
                 rCircle.classList.add('connect-three')
                 rrCircle.classList.add('connect-three')
@@ -738,7 +656,7 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-              playColumnTwo()
+              playColumn(2)
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
@@ -755,7 +673,7 @@ function init() {
             if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
                 if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumnOne()
+                  playColumn(1)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -774,7 +692,7 @@ function init() {
             if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
                 if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumnThree()
+                  playColumn(3)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -793,7 +711,7 @@ function init() {
             if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
               if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
                 if (lCircle.classList.contains('spongebob')) {
-                  playColumnThree()
+                  playColumn(3)
                   playSquidward = false
                 }
               }
@@ -808,7 +726,7 @@ function init() {
           if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
-                playColumnOne()
+                playColumn(1)
                 playSquidward = false
               }
             }
@@ -820,7 +738,7 @@ function init() {
         // Defend vertically if 2 in a column
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnTwo()
+            playColumn(2)
             playSquidward = false
           } else {
             playSquidward = true
@@ -849,7 +767,7 @@ function init() {
           if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
             if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-                playColumnFour()
+                playColumn(4)
                 inCheckCircle.classList.add('connect-three')
                 lCircle.classList.add('connect-three')
                 llCircle.classList.add('connect-three')
@@ -866,7 +784,7 @@ function init() {
           if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-                playColumnTwo()
+                playColumn(2)
                 inCheckCircle.classList.add('connect-three')
                 rCircle.classList.add('connect-three')
                 rrCircle.classList.add('connect-three')
@@ -882,7 +800,7 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-              playColumnThree()
+              playColumn(3)
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
@@ -899,7 +817,7 @@ function init() {
             if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
                 if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumnTwo()
+                  playColumn(2)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -918,7 +836,7 @@ function init() {
             if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
                 if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumnFour()
+                  playColumn(4)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -937,7 +855,7 @@ function init() {
             if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
               if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
                 if (lCircle.classList.contains('spongebob')) {
-                  playColumnFour()
+                  playColumn(4)
                   playSquidward = false
                 }
               }
@@ -952,7 +870,7 @@ function init() {
           if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
-                playColumnTwo()
+                playColumn(2)
                 playSquidward = false
               }
             }
@@ -964,7 +882,7 @@ function init() {
         // Defend vertically if 2 in a column
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnThree()
+            playColumn(3)
             playSquidward = false
           } else {
             playSquidward = true
@@ -992,7 +910,7 @@ function init() {
         if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
           if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
             if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-              playColumnFive()
+              playColumn(5)
               inCheckCircle.classList.add('connect-three')
               lCircle.classList.add('connect-three')
               llCircle.classList.add('connect-three')
@@ -1008,7 +926,7 @@ function init() {
           if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob') && rrCircle.classList.contains('spongebob')) {
-                playColumnThree()
+                playColumn(3)
                 inCheckCircle.classList.add('connect-three')
                 rCircle.classList.add('connect-three')
                 rrCircle.classList.add('connect-three')
@@ -1024,7 +942,7 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-              playColumnFour()
+              playColumn(4)
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
@@ -1041,7 +959,7 @@ function init() {
             if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
                 if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumnThree()
+                  playColumn(3)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -1060,7 +978,7 @@ function init() {
             if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
                 if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumnFive()
+                  playColumn(5)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -1078,7 +996,7 @@ function init() {
           if(!rCircle.classList.contains('spongebob, squidward') || !rCircle.classList.contains('squidward')) {
             if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob')) {
-                playColumnFive()
+                playColumn(5)
                 playSquidward = false
               }
             }
@@ -1092,7 +1010,7 @@ function init() {
           if(!lCircle.classList.contains('spongebob, squidward') || !lCircle.classList.contains('squidward')) {
             if(blCircle === undefined || blCircle.classList.contains('spongebob') || blCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob')) {
-                playColumnThree()
+                playColumn(3)
                 playSquidward = false
               }
             }
@@ -1104,7 +1022,7 @@ function init() {
         // Defend if there 2 in a column vertically
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnFour()
+            playColumn(4)
             playSquidward = false
           } else {
             playSquidward = true
@@ -1130,7 +1048,7 @@ function init() {
           if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
             if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
               if (lCircle.classList.contains('spongebob') && llCircle.classList.contains('spongebob')) {
-                playColumnSix()
+                playColumn(6)
                 inCheckCircle.classList.add('connect-three')
                 lCircle.classList.add('connect-three')
                 llCircle.classList.add('connect-three')
@@ -1146,7 +1064,7 @@ function init() {
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
             if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-              playColumnFive()
+              playColumn(5)
               inCheckCircle.classList.add('connect-three')
               bCircle.classList.add('connect-three')
               bbCircle.classList.add('connect-three')
@@ -1163,7 +1081,7 @@ function init() {
             if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
               if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
                 if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumnSix()
+                  playColumn(6)
                   inCheckCircle.classList.add('connect-three')
                   bCircle.classList.add('connect-three')
                   bbCircle.classList.add('connect-three')
@@ -1182,7 +1100,7 @@ function init() {
             if(!rCircle.classList.contains('spongebob') || !rCircle.classList.contains('squidward')) {
               if(brCircle === undefined || brCircle.classList.contains('spongebob') || brCircle.classList.contains('squidward')) {
                 if (lCircle.classList.contains('spongebob')) {
-                  playColumnSix()
+                  playColumn(6)
                   playSquidward = false
                 }
               }
@@ -1195,7 +1113,7 @@ function init() {
         // Defend if there's 2 in a column vertically
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnFive()
+            playColumn(5)
             playSquidward = false
           } else {
             playSquidward = true
@@ -1212,7 +1130,7 @@ function init() {
         // Defend if there's three in a column
         if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
           if (bbCircle !== undefined && bbCircle.classList.contains('spongebob')) {
-            playColumnSix()
+            playColumn(6)
             inCheckCircle.classList.add('connect-three')
             bCircle.classList.add('connect-three')
             bbCircle.classList.add('connect-three')
@@ -1225,7 +1143,7 @@ function init() {
         // Defend if there's 2 in a column
         if (playSquidward) {
           if (bCircle !== undefined && bCircle.classList.contains('spongebob')) {
-            playColumnSix()
+            playColumn(6)
             playSquidward = false
           } else {
             playSquidward = true
@@ -1250,11 +1168,11 @@ function init() {
             if(playSquidward) {
               switch(randomIndex) {
                 case 0:
-                  playColumnZero()
+                  playColumn(0)
                   break
                 case 1:
                   if (availableOne > 0) {
-                    playColumnOne()
+                    playColumn(1)
                   } else {
                     checkFromColumnOne()
                   }
@@ -1284,17 +1202,17 @@ function init() {
               switch(randomIndex) {
                 case 0:
                   if (availableZero > 0) {
-                    playColumnZero()
+                    playColumn(0)
                   } else {
                     checkFromColumnZero()
                   }
                   break
                 case 1:
-                  playColumnOne()
+                  playColumn(1)
                   break
                 case 2:
                   if (availableTwo > 0) {
-                    playColumnTwo()
+                    playColumn(2)
                   } else {
                     checkFromColumnTwo()
                   }
@@ -1324,17 +1242,17 @@ function init() {
               switch(randomIndex) {
                 case 0:
                   if (availableOne > 0) {
-                    playColumnOne()
+                    playColumn(1)
                   } else {
                     checkFromColumnOne()
                   }
                   break
                 case 1:
-                  playColumnTwo()
+                  playColumn(2)
                   break
                 case 2:
                   if (availableThree > 0) {
-                    playColumnThree()
+                    playColumn(3)
                   } else {
                     checkFromColumnThree()
                   }
@@ -1364,17 +1282,17 @@ function init() {
               switch(randomIndex) {
                 case 0:
                   if (availableTwo > 0) {
-                    playColumnTwo()
+                    playColumn(2)
                   } else {
                     checkFromColumnTwo()
                   }
                   break
                 case 1:
-                  playColumnThree()
+                  playColumn(3)
                   break
                 case 2:
                   if (availableFour > 0) {
-                    playColumnFour()
+                    playColumn(4)
                   } else {
                     checkFromColumnFour()
                   }
@@ -1404,17 +1322,17 @@ function init() {
               switch(randomIndex) {
                 case 0:
                   if (availableThree > 0) {
-                    playColumnThree()
+                    playColumn(3)
                   } else {
                     checkFromColumnThree()
                   }
                   break
                 case 1:
-                  playColumnFour()
+                  playColumn(4)
                   break
                 case 2:
                   if (availableFive > 0) {
-                    playColumnFive()
+                    playColumn(5)
                   } else {
                     checkFromColumnFive()
                   }
@@ -1444,17 +1362,17 @@ function init() {
               switch(randomIndex) {
                 case 0:
                   if (columnFour > 0) {
-                    playColumnFour()
+                    playColumn(4)
                   } else {
                     checkFromColumnFour()
                   }
                   break
                 case 1:
-                  playColumnFive()
+                  playColumn(5)
                   break
                 case 2:
                   if (columnSix > 0) {
-                    playColumnSix()
+                    playColumn(6)
                   } else {
                     checkFromColumnSix()
                   }
@@ -1484,13 +1402,13 @@ function init() {
               switch(randomIndex) {
                 case 0:
                   if (availableFive > 0) {
-                    playColumnFive()
+                    playColumn(5)
                   } else {
                     checkFromColumnFive()
                   }
                   break
                 case 1:
-                  playColumnSix()
+                  playColumn(6)
                   break
               }
             }
@@ -1505,138 +1423,51 @@ function init() {
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle in playerx2 mode
   function playChoiceTwo(circle, circleIndex) {
     circle.addEventListener('click', () => {
-      let availableZero = columnZero.length - 1
-      let availableOne = columnOne.length - 1
-      let availableTwo = columnTwo.length - 1
-      let availableThree = columnThree.length - 1
-      let availableFour = columnFour.length - 1
-      let availableFive = columnFive.length - 1
-      let availableSix = columnSix.length - 1
+      const availableZero = columnZero.length - 1
+      const availableOne = columnOne.length - 1
+      const availableTwo = columnTwo.length - 1
+      const availableThree = columnThree.length - 1
+      const availableFour = columnFour.length - 1
+      const availableFive = columnFive.length - 1
+      const availableSix = columnSix.length - 1
+      const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
       playerSpongebob = !playerSpongebob
 
-      // if statements that control where spongebob is dropped
-      if (circleIndex === 0) {
-        if (playerSpongebob) {
-          columnZero[availableZero].classList.add('spongebob')
-          playedCircles.unshift(columnZero[availableZero])
-          checkForWin()
-        } else {
-          columnZero[availableZero].classList.add('squidward')
-          playedCircles.unshift(columnZero[availableZero])
-          checkForLost()
-        }
-        columnZero.pop()
-        availableZero = columnZero.length - 1
-      }
+      for (let i = 0; i < availableArray.length; i++) {
 
-      if (circleIndex === 1) {
-        if (playerSpongebob) {
-          columnOne[availableOne].classList.add('spongebob')
-          playedCircles.unshift(columnOne[availableOne])
-          checkForWin()
-        } else {
-          columnOne[availableOne].classList.add('squidward')
-          playedCircles.unshift(columnOne[availableOne])
-          checkForLost()
+        const column = columns[i]
+        let available = availableArray[i]
+        if(circleIndex === i) {
+          if(playerSpongebob) {
+            column[available].classList.add('spongebob')
+            playedCircles.unshift(column[available])
+            checkForWin()
+          } else {
+            column[available].classList.add('squidward')
+            playedCircles.unshift(column[available])
+            checkForLost()
+          }
+          column.pop()
+          available = column.length - 1
         }
-        columnOne.pop()
-        availableOne = columnOne.length - 1
-      }
-
-      if (circleIndex === 2) {
-        if (playerSpongebob) {
-          columnTwo[availableTwo].classList.add('spongebob')
-          playedCircles.unshift(columnTwo[availableTwo])
-          checkForWin()
-        } else {
-          columnTwo[availableTwo].classList.add('squidward')
-          playedCircles.unshift(columnTwo[availableTwo])
-          checkForLost()
-        }
-        columnTwo.pop()
-        availableTwo = columnTwo.length - 1
-      }
-
-      if (circleIndex === 3) {
-        if (playerSpongebob) {
-          columnThree[availableThree].classList.add('spongebob')
-          playedCircles.unshift(columnThree[availableThree])
-          checkForWin()
-        } else {
-          columnThree[availableThree].classList.add('squidward')
-          playedCircles.unshift(columnThree[availableThree])
-          checkForLost()
-        }
-        columnThree.pop()
-        availableThree = columnThree.length - 1
-      }
-
-      if (circleIndex === 4) {
-        if (playerSpongebob) {
-          columnFour[availableFour].classList.add('spongebob')
-          playedCircles.unshift(columnFour[availableFour])
-          checkForWin()
-        } else {
-          columnFour[availableFour].classList.add('squidward')
-          playedCircles.unshift(columnFour[availableFour])
-          checkForLost()
-        }
-        columnFour.pop()
-        availableFour = columnFour.length - 1
-      }
-
-      if (circleIndex === 5) {
-        if (playerSpongebob) {
-          columnFive[availableFive].classList.add('spongebob')
-          playedCircles.unshift(columnFive[availableFive])
-          checkForWin()
-        } else {
-          columnFive[availableFive].classList.add('squidward')
-          playedCircles.unshift(columnFive[availableFive])
-          checkForLost()
-        }
-        columnFive.pop()
-        availableFive = columnFive.length - 1
-      }
-
-      if (circleIndex === 6) {
-        if (playerSpongebob) {
-          columnSix[availableSix].classList.add('spongebob')
-          playedCircles.unshift(columnSix[availableSix])
-          checkForWin()
-        } else {
-          columnSix[availableSix].classList.add('squidward')
-          playedCircles.unshift(columnSix[availableSix])
-          checkForLost()
-        }
-        columnSix.pop()
-        availableSix = columnSix.length - 1
       }
     })
   }
 
-  // Function that creates the hoverable top row to make choices
+  // Function that creates the hoverable top row to make choices (the if statement checks which mode the play is in and creates a different row accordingly)
   function createTopRow(circle, circleIndex) {
     if (circleIndex < width) {
       circle.classList.remove('grid-circle')
       circle.classList.add('grid-choice-circle')
       const circlesChoice = document.querySelectorAll('.grid-choice-circle')
-      hoverChoices(circlesChoice)
-      playChoice(circle, circleIndex)
+      if (onePlayerMode) {
+        hoverChoices(circlesChoice)
+        playChoice(circle, circleIndex)
+      } else {
+        hoverChoicesTwo(circlesChoice)
+        playChoiceTwo(circle, circleIndex)
+      }
     }
-  }
-
-  // Function that creates the hoverable top row to make choices for both players
-  function createTopRowTwo(circle, square, circleIndex) {
-    if (circleIndex < width) {
-      circle.classList.remove('grid-circle')
-      circle.classList.add('grid-choice-circle')
-    }
-
-    const circlesChoice = document.querySelectorAll('.grid-choice-circle')
-    hoverChoicesTwo(circlesChoice)
-    playChoiceTwo(circle, circleIndex)
-
   }
 
   // Function that initiates the playing board: the FOR LOOP is used to build each square as many times as the width
@@ -1659,26 +1490,6 @@ function init() {
     }
   }
 
-  // Function that initiates the playing board: the FOR LOOP is used to build each square as many times as the width
-  function createBoardTwo() {
-    for (var i = 0; i < width * width; i++) {
-      const square = document.createElement('div')
-      const circle = document.createElement('div')
-      square.classList.add('grid-square')
-      square.style.display = 'block'
-      circle.classList.add('grid-circle')
-      circle.style.display = 'block'
-      circle.setAttribute('data-id', i)
-      const circleIndex = parseInt(circle.getAttribute('data-id'))
-      squares.push(square)
-      circles.push(circle)
-      grid.appendChild(square)
-      square.appendChild(circle)
-      createCol(circle, circleIndex)
-      createTopRowTwo(circle, square, circleIndex)
-    }
-  }
-
   // Function that clears the board, used when the game is reset
   function clearBoard() {
     playedCircles.forEach(playedCircle => {
@@ -1687,7 +1498,6 @@ function init() {
       playedCircle.classList.remove('winning-circles')
       playedCircle.classList.remove('loosing-circles')
     })
-    playedCircles = []
     squares = []
     circles = []
     columnZero = []
@@ -1697,7 +1507,10 @@ function init() {
     columnFour = []
     columnFive = []
     columnSix = []
+    columns = [columnZero, columnOne, columnTwo, columnThree, columnFour, columnFive, columnSix ]
+    playedCircles = []
     grid.innerHTML = ''
+    createBoard()
   }
 
   // Functions that clears the instructions screen
@@ -1710,30 +1523,31 @@ function init() {
     resetButtonTwo.style.visibility = 'visible'
     const sound = document.querySelector('audio')
     sound.play()
+    createBoard()
   }
 
   // Event listener that creates the board, used when the game is started with one player vs computer
   onePlayer.addEventListener('click', () => {
+    onePlayerMode = true
     clearInstructions()
-    createBoard()
   })
 
   // Event listener that creates the board, used when the game is started with two players
   twoPlayer.addEventListener('click', () => {
+    onePlayerMode = false
     clearInstructions()
-    createBoardTwo()
   })
 
   // Event listener on the reset bottom which clears the board and creates a new game (score is kept the same, it does not refresh everytime)
   resetButton.addEventListener('click', () => {
+    onePlayerMode = true
     clearBoard()
-    createBoard()
   })
 
   // Event listener on the reset bottom which clears the board and creates a new game (score is kept the same, it does not refresh everytime)
   resetButtonTwo.addEventListener('click', () => {
+    onePlayerMode = false
     clearBoard()
-    createBoardTwo()
   })
 
 }
