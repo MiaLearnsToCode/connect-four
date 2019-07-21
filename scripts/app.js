@@ -167,745 +167,414 @@ function init() {
     }
   }
 
+  // Functions that place Squidward in the indicated column
+  function playColumn(n) {
+    const availableZero = columnZero.length - 1
+    const availableOne = columnOne.length - 1
+    const availableTwo = columnTwo.length - 1
+    const availableThree = columnThree.length - 1
+    const availableFour = columnFour.length - 1
+    const availableFive = columnFive.length - 1
+    const availableSix = columnSix.length - 1
+    const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
+
+    const column = columns[n]
+    const available = availableArray[n]
+    column[available].classList.add('squidward')
+    playedCircles.unshift(column[available])
+    checkForWin('squidward')
+    columns[n].pop()
+    availableArray[n] = column.length - 1
+  }
+  function playSelf(n) {
+    playColumn(n)
+  }
+
+
+
+
+
+  // Functions that define the hierarchy of choice as to where squidward should be placed based on spongebob's last move
+  function check(hierarchyArray) {
+    const availableZero = columnZero.length - 1
+    const availableOne = columnOne.length - 1
+    const availableTwo = columnTwo.length - 1
+    const availableThree = columnThree.length - 1
+    const availableFour = columnFour.length - 1
+    const availableFive = columnFive.length - 1
+    const availableSix = columnSix.length - 1
+    const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
+    let optionsLeft = 6
+    for (let i = 0; i < hierarchyArray; i++) {
+      if (availableArray[i] > 0) {
+        playColumn(i)
+      } else {
+        optionsLeft -= 1
+      }
+    }
+    if (optionsLeft === 0) {
+      addSquidward()
+      addSpongebob()
+      stopHoverChoices()
+    }
+  }
+
+  function play(circle, circleIndex) {
+    const availableZero = columnZero.length - 1
+    const availableOne = columnOne.length - 1
+    const availableTwo = columnTwo.length - 1
+    const availableThree = columnThree.length - 1
+    const availableFour = columnFour.length - 1
+    const availableFive = columnFive.length - 1
+    const availableSix = columnSix.length - 1
+
+    // functions that define how to defend vertically, horizontally and diagonally
+    function defendThreeV(inCheckCircle, array, n) {
+      if (playSquidward) {
+        if (array[0] !== undefined && array[0].classList.contains('spongebob')) {
+          if (array[1] !== undefined && array[1].classList.contains('spongebob')) {
+            playColumn(n)
+            inCheckCircle.classList.add('connect-three')
+            array[0].classList.add('connect-three')
+            array[1].classList.add('connect-three')
+            playSquidward = false
+          }
+        } else {
+          playSquidward = true
+        }
+      }
+
+    }
+
+    function defendThreeH(inCheckCircle, array, n) {
+      if(playSquidward) {
+        if (array[0] && array[1]) {
+          if(!array[0].classList.contains('spongebob') || !array[0].classList.contains('squidward')) {
+            if(array[1] === undefined || array[1].classList.contains('spongebob') || array[1].classList.contains('squidward')) {
+              if (array[2].classList.contains('spongebob') && array[3].classList.contains('spongebob')) {
+                playColumn(n)
+                inCheckCircle.classList.add('connect-three')
+                array[2].classList.add('connect-three')
+                array[3].classList.add('connect-three')
+                playSquidward = false
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+      }
+    }
+
+    function defendThreeD(inCheckCircle, array, n) {
+      if (playSquidward) {
+        if (array[0] && array[1]) {
+          if (!array[2].classList.contains('spongebob') || !array[2].classList.contains('squidward')) {
+            if (array[3].classList.contains('spongebob') || array[3].classList.contains('squidward')) {
+              if (array[0].classList.contains('spongebob') && array[1].classList.contains('spongebob')) {
+                playColumn(n)
+                inCheckCircle.classList.add('connect-three')
+                array[0].classList.add('connect-three')
+                array[1].classList.add('connect-three')
+                playSquidward = false
+              }
+            }
+          }
+        } else {
+          playSquidward = true
+        }
+      }
+    }
+
+    function defendTwoV(circle, n) {
+      if (playSquidward) {
+        if (circle !== undefined && circle.classList.contains('spongebob')) {
+          playColumn(n)
+          playSquidward = false
+        } else {
+          playSquidward = true
+        }
+      }
+    }
+
+    function defendTwoH(array, n) {
+      if(playSquidward) {
+        if(array[0] && array[1]) {
+          if(!array[0].classList.contains('spongebob') || !array[0].classList.contains('squidward')) {
+            if(array[1] === undefined || array[1].classList.contains('spongebob') || array[1].classList.contains('squidward')) {
+              if (array[2].classList.contains('spongebob')) {
+                playColumn(n)
+                playSquidward = false
+              }
+            }
+          } else {
+            playSquidward = true
+          }
+        }
+      }
+    }
+
+    // Functions that defend each column horizontally and vertically
+    function defendColumnZero() {
+      const inCheckCircle = playedCircles[0]
+      const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+      const bCircle = circles[pickedIndex + width]
+      const bbCircle = circles[pickedIndex + width * 2]
+
+      //  Defende vertically if 3 in a column
+      defendThreeV(inCheckCircle, [bCircle, bbCircle], 0)
+
+      //  Defende vertically if 2 in a column
+      defendTwoV(bCircle, 0)
+    }
+
+    function defendColumnOne() {
+      const inCheckCircle = playedCircles[0]
+      const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+      const lCircle = circles[pickedIndex - 1]
+      const rCircle = circles[pickedIndex + 1]
+      const rrCircle = circles[pickedIndex + 2]
+      const bCircle = circles[pickedIndex + width]
+      const bbCircle = circles[pickedIndex + width * 2]
+      const blCircle = circles[pickedIndex + width - 1]
+      const brCircle = circles[pickedIndex + width + 1]
+      const brbrCircle = circles[pickedIndex + width * 2 + 2]
+      const tlCircle = circles[pickedIndex - width - 1]
+
+      defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 0)
+
+      // Defend if 3 in a column vertically
+      defendThreeV(inCheckCircle, [bCircle, bbCircle], 1)
+
+      // Defend if 3 in a row diagonally (bottom right)
+      defendThreeD(inCheckCircle, [brCircle, brbrCircle, tlCircle, lCircle], 0)
+
+      // Defend if there 2 in a row on the right hand side (horizontally)
+      defendTwoH([lCircle, blCircle, rCircle], 0)
+
+      // Defend if 2 in a column vertically
+      defendTwoV(bCircle, 1)
+    }
+
+    function defendColumnTwo() {
+      const inCheckCircle = playedCircles[0]
+      const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+      const lCircle = circles[pickedIndex - 1]
+      const llCircle = circles[pickedIndex - 2]
+      const rCircle = circles[pickedIndex + 1]
+      const rrCircle = circles[pickedIndex + 2]
+      const bCircle = circles[pickedIndex + width]
+      const bbCircle = circles[pickedIndex + width * 2]
+      const blCircle = circles[pickedIndex - 1 + width]
+      const blblCircle = circles[pickedIndex - 2 + width * 2]
+      const brCircle = circles[pickedIndex + 1 + width]
+      const brbrCircle = circles[pickedIndex + width * 2 + 2]
+      const tlCircle = circles[pickedIndex - width - 1]
+      const trCircle = circles[pickedIndex - width + 1]
+
+      // Defend if there 3 in a row on the left hand side (horizontally)
+      defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 3)
+
+      // Defend if there 3 in a row on the right hand side (horizontally)
+      defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 1)
+
+      // Defend vertically if 3 in a column
+      defendThreeV(inCheckCircle, [bCircle, bbCircle], 2)
+
+      // Defend if 3 in a row diagonally (bottom right)
+      defendThreeD(inCheckCircle, [brCircle, brbrCircle, tlCircle, lCircle], 1)
+
+      // Defend if 3 in a row diagonally (bottom left)
+      defendThreeD(inCheckCircle, [blCircle, blblCircle, trCircle, rCircle], 3)
+
+      // Defend if there 2 in a row on the left hand side (horizontally)
+      defendTwoH([rCircle, brCircle, lCircle], 3)
+
+      // Defend if there 2 in a row on the right hand side (horizontally)
+      defendTwoH([lCircle, blCircle, rCircle], 1)
+
+      // Defend vertically if 2 in a column
+      defendTwoV(bCircle, 2)
+    }
+
+    function defendColumnThree() {
+      const inCheckCircle = playedCircles[0]
+      const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+      const lCircle = circles[pickedIndex - 1]
+      const llCircle = circles[pickedIndex - 2]
+      const rCircle = circles[pickedIndex + 1]
+      const rrCircle = circles[pickedIndex + 2]
+      const bCircle = circles[pickedIndex + width]
+      const bbCircle = circles[pickedIndex + width * 2]
+      const blCircle = circles[pickedIndex - 1 + width]
+      const brCircle = circles[pickedIndex + 1 + width]
+      const brbrCircle = circles[pickedIndex + width * 2 + 2]
+      const tlCircle = circles[pickedIndex - width - 1]
+      const trCircle = circles[pickedIndex - width + 1]
+      const blblCircle = circles[pickedIndex - 2 + width * 2]
+
+      // Defend if there 3 in a row on the left hand side (horizontally)
+      defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 4)
+
+      // Defend if there 3 in a row on the right hand side (horizontally)
+      defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 2)
+
+      // Defend vertically if 3 in a column
+      defendThreeV(inCheckCircle, [bCircle, bbCircle], 3)
+
+      // Defend if 3 in a row diagonally (bottom right)
+      defendThreeD(inCheckCircle, [brCircle, brbrCircle, tlCircle, lCircle], 2)
+
+      // Defend if 3 in a row diagonally (bottom left)
+      defendThreeD(inCheckCircle, [blCircle, blblCircle, trCircle, rCircle], 4)
+
+      // Defend if there 2 in a row on the left hand side (horizontally)
+      defendTwoH([rCircle, brCircle, lCircle], 4)
+
+      // Defend if there 2 in a row on the right hand side (horizontally)
+      defendTwoH([lCircle, blCircle, rCircle], 2)
+
+      // Defend vertically if 2 in a column
+      defendTwoV(bCircle, 3)
+    }
+
+    function defendColumnFour() {
+      const inCheckCircle = playedCircles[0]
+      const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+      const lCircle = circles[pickedIndex - 1]
+      const llCircle = circles[pickedIndex - 2]
+      const rCircle = circles[pickedIndex + 1]
+      const rrCircle = circles[pickedIndex + 2]
+      const bCircle = circles[pickedIndex + width]
+      const bbCircle = circles[pickedIndex + width * 2]
+      const blCircle = circles[pickedIndex - 1 + width]
+      const brCircle = circles[pickedIndex + 1 + width]
+      const brbrCircle = circles[pickedIndex + width * 2 + 2]
+      const tlCircle = circles[pickedIndex - width - 1]
+      const trCircle = circles[pickedIndex - width + 1]
+      const blblCircle = circles[pickedIndex - 2 + width * 2]
+
+      // Defend if there 3 in a row on the left hand side (horizontally)
+      defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 5)
+
+      // Defend if there 3 in a row on the right hand side (horizontally)
+      defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 3)
+
+      // Defend if there 3 in a column vertically
+      defendThreeV(inCheckCircle, [bCircle, bbCircle], 4)
+
+      // Defend if 3 in a row diagonally (bottom right)
+      defendThreeD(inCheckCircle, [brCircle, brbrCircle, tlCircle, lCircle], 3)
+
+      // Defend if 3 in a row diagonally (bottom left)
+      defendThreeD(inCheckCircle, [blCircle, blblCircle, trCircle, rCircle], 5)
+
+      // Defend if there 2 in a row on the left hand side (horizontally)
+      defendTwoH([rCircle, brCircle, lCircle], 5)
+
+
+      // Defend if there 2 in a row on the right hand side (horizontally)
+      defendTwoH([lCircle, blCircle, rCircle], 3)
+
+      // Defend if there 2 in a column vertically
+      defendTwoV(bCircle, 4)
+    }
+
+    function defendColumnFive() {
+      const inCheckCircle = playedCircles[0]
+      const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+      const lCircle = circles[pickedIndex - 1]
+      const llCircle = circles[pickedIndex - 2]
+      const rCircle = circles[pickedIndex + 1]
+      const bCircle = circles[pickedIndex + width]
+      const bbCircle = circles[pickedIndex + width * 2]
+      const brCircle = circles[pickedIndex + 1 + width]
+      const trCircle = circles[pickedIndex - width + 1]
+      const blCircle = circles[pickedIndex - 1 + width]
+      const blblCircle = circles[pickedIndex - 2 + width * 2]
+
+      // Defend if there 3 in a row on the left hand side (horizontally)
+      defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 6)
+
+      // Defend if there's three in a column vertically
+      defendThreeV(inCheckCircle, [bCircle, bbCircle], 5)
+
+      // Defend if 3 in a row diagonally (bottom left)
+      defendThreeD(inCheckCircle, [blCircle, blblCircle, trCircle, rCircle], 6)
+
+      // Defend if there 2 in a row on the left hand side (horizontally)
+      defendTwoH([rCircle, brCircle, lCircle], 6)
+
+      // Defend if there's 2 in a column vertically
+      defendTwoV(bCircle, 5)
+    }
+
+    function defendColumnSix() {
+      const inCheckCircle = playedCircles[0]
+      const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
+      const bCircle = circles[pickedIndex + width]
+      const bbCircle = circles[pickedIndex + width * 2]
+
+      // Defend if there's three in a column
+      defendThreeV(inCheckCircle, [bCircle, bbCircle], 6)
+
+      // Defend if there's 2 in a column
+      defendTwoV(bCircle, 6)
+    }
+
+    // if statements that control where spongebob and squidward are placed at every turn
+    for (let i = 0; i < width; i++) {
+      const defendFunctions = [defendColumnZero, defendColumnOne, defendColumnTwo, defendColumnThree, defendColumnFour, defendColumnFive, defendColumnSix]
+      const checkArrays = [[1,2,3,4,5,6], [0,2,3,4,5,6], [1,3,0,4,5,6], [2,4,1,5,0,6], [3,5,2,6,1,0], [6,4,3,2,1,0], [5,4,3,2,1,0]]
+
+      if (circleIndex === i) {
+        const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
+        const column = columns[i]
+        const available = availableArray[i]
+        playSquidward = true
+        const randomIndex = Math.floor(Math.random() * 3)
+        column[available].classList.add('spongebob')
+        playedCircles.unshift(column[available])
+        checkForWin('spongebob')
+        column.pop()
+        availableArray[i] = column.length - 1
+
+        if (playSquidward) {
+          if (available > 0) {
+            defendFunctions[i]()
+            if(playSquidward) {
+              switch(randomIndex) {
+                case 0:
+                  if (availableArray[i - 1] > 0) {
+                    playColumn(i - 1)
+                  } else {
+                    check(checkArrays[i - 1])
+                  }
+                  break
+                case 1:
+                  playSelf(i)
+                  break
+                case 2:
+                  if (availableArray[i + 1] > 0) {
+                    playColumn(i + 1)
+                  } else {
+                    check(checkArrays[i + 1])
+                  }
+                  break
+              }
+            }
+          } else {
+            check(checkArrays[i])
+          }
+        }
+      }
+    }
+  }
+
+
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle in playerx1 mode
   function playChoice(circle, circleIndex) {
-    circle.addEventListener('click', () => {
-
-      let availableZero = columnZero.length - 1
-      let availableOne = columnOne.length - 1
-      let availableTwo = columnTwo.length - 1
-      let availableThree = columnThree.length - 1
-      let availableFour = columnFour.length - 1
-      let availableFive = columnFive.length - 1
-      let availableSix = columnSix.length - 1
-
-      // Functions that place Squidward in the indicated column
-      function playColumn(n) {
-        const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
-
-        const column = columns[n]
-        const available = availableArray[n]
-        column[available].classList.add('squidward')
-        playedCircles.unshift(column[available])
-        checkForWin('squidward')
-        column.pop()
-        availableArray[n] = column.length - 1
-      }
-
-      // Functions that define the hierarchy of choice as to where squidward should be placed based on spongebob's last move
-      function check(hierarchyArray) {
-        const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
-        let optionsLeft = 6
-        for (let i = 0; i < hierarchyArray; i++) {
-          if (availableArray[i] > 0) {
-            playColumn(i)
-          } else {
-            optionsLeft -= 1
-          }
-        }
-        if (optionsLeft === 0) {
-          addSquidward()
-          addSpongebob()
-          stopHoverChoices()
-        }
-      }
-      function checkFromColumnZero() {
-        const hierarchyArray = [1,2,3,4,5,6]
-        check(hierarchyArray)
-      }
-      function checkFromColumnOne() {
-        const hierarchyArray = [0,2,3,4,5,6]
-        check(hierarchyArray)
-      }
-      function checkFromColumnTwo() {
-        const hierarchyArray = [1,3,0,4,5,6]
-        check(hierarchyArray)
-      }
-      function checkFromColumnThree() {
-        const hierarchyArray = [2,4,1,5,0,6]
-        check(hierarchyArray)
-      }
-      function checkFromColumnFour() {
-        const hierarchyArray = [3,5,2,6,1,0]
-        check(hierarchyArray)
-      }
-      function checkFromColumnFive() {
-        const hierarchyArray = [6,4,3,2,1,0]
-        check(hierarchyArray)
-      }
-      function checkFromColumnSix() {
-        const hierarchyArray = [5,4,3,2,1,0]
-        check(hierarchyArray)
-      }
-
-      function defendThreeV(inCheckCircle, array, n) {
-        if (playSquidward) {
-          if (array[0] !== undefined && array[0].classList.contains('spongebob')) {
-            if (array[1] !== undefined && array[1].classList.contains('spongebob')) {
-              playColumn(n)
-              inCheckCircle.classList.add('connect-three')
-              array[0].classList.add('connect-three')
-              array[1].classList.add('connect-three')
-              playSquidward = false
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-      }
-
-      function defendThreeH(inCheckCircle, array, n) {
-        if(playSquidward) {
-          if (array[0] && array[1]) {
-            if(!array[0].classList.contains('spongebob') || !array[0].classList.contains('squidward')) {
-              if(array[1] === undefined || array[1].classList.contains('spongebob') || array[1].classList.contains('squidward')) {
-                if (array[2].classList.contains('spongebob') && array[3].classList.contains('spongebob')) {
-                  playColumn(n)
-                  inCheckCircle.classList.add('connect-three')
-                  array[2].classList.add('connect-three')
-                  array[3].classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            } else {
-              playSquidward = true
-            }
-          }
-        }
-      }
-
-      function defendTwoV(circle, n) {
-        if (playSquidward) {
-          if (circle !== undefined && circle.classList.contains('spongebob')) {
-            playColumn(n)
-            playSquidward = false
-          } else {
-            playSquidward = true
-          }
-        }
-      }
-
-      function defendTwoH(array, n) {
-        if(playSquidward) {
-          if(array[0] && array[1]) {
-            if(!array[0].classList.contains('spongebob') || !array[0].classList.contains('squidward')) {
-              if(array[1] === undefined || array[1].classList.contains('spongebob') || array[1].classList.contains('squidward')) {
-                if (array[2].classList.contains('spongebob')) {
-                  playColumn(n)
-                  playSquidward = false
-                }
-              }
-            } else {
-              playSquidward = true
-            }
-          }
-        }
-      }
-
-      // Functions that defend each column horizontally and vertically
-      function defendColumnZero() {
-        const inCheckCircle = playedCircles[0]
-        const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-        const bCircle = circles[pickedIndex + width]
-        const bbCircle = circles[pickedIndex + width * 2]
-
-        //  Defende vertically if 3 in a column
-        defendThreeV(inCheckCircle, [bCircle, bbCircle], 0)
-
-        //  Defende vertically if 2 in a column
-        defendTwoV(bCircle, 0)
-      }
-
-      function defendColumnOne() {
-        const inCheckCircle = playedCircles[0]
-        const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-        const lCircle = circles[pickedIndex - 1]
-        const rCircle = circles[pickedIndex + 1]
-        const rrCircle = circles[pickedIndex + 2]
-        const bCircle = circles[pickedIndex + width]
-        const bbCircle = circles[pickedIndex + width * 2]
-        const blCircle = circles[pickedIndex + width - 1]
-        const brCircle = circles[pickedIndex + width + 1]
-        const brbrCircle = circles[pickedIndex + width * 2 + 2]
-        const tlCircle = circles[pickedIndex - width - 1]
-
-        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 0)
-
-        // Defend if 3 in a column vertically
-        defendThreeV(inCheckCircle, [bCircle, bbCircle], 1)
-
-        // Defend if 3 in a row diagonally (bottom right)
-        if (playSquidward) {
-          if (brCircle && brbrCircle) {
-            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
-                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumn(0)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if there 2 in a row on the right hand side (horizontally)
-        defendTwoH([lCircle, blCircle, rCircle], 0)
-
-        // Defend if 2 in a column vertically
-        defendTwoV(bCircle, 1)
-      }
-
-      function defendColumnTwo() {
-        const inCheckCircle = playedCircles[0]
-        const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-        const lCircle = circles[pickedIndex - 1]
-        const llCircle = circles[pickedIndex - 2]
-        const rCircle = circles[pickedIndex + 1]
-        const rrCircle = circles[pickedIndex + 2]
-        const bCircle = circles[pickedIndex + width]
-        const bbCircle = circles[pickedIndex + width * 2]
-        const blCircle = circles[pickedIndex - 1 + width]
-        const blblCircle = circles[pickedIndex - 2 + width * 2]
-        const brCircle = circles[pickedIndex + 1 + width]
-        const brbrCircle = circles[pickedIndex + width * 2 + 2]
-        const tlCircle = circles[pickedIndex - width - 1]
-        const trCircle = circles[pickedIndex - width + 1]
-
-        // Defend if there 3 in a row on the left hand side (horizontally)
-        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 3)
-
-        // Defend if there 3 in a row on the right hand side (horizontally)
-        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 1)
-
-        // Defend vertically if 3 in a column
-        defendThreeV(inCheckCircle, [bCircle, bbCircle], 2)
-
-        // Defend if 3 in a row diagonally (bottom right)
-        if (playSquidward) {
-          if (brCircle && brbrCircle) {
-            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
-                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumn(1)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if 3 in a row diagonally (bottom left)
-        if (playSquidward) {
-          if (blCircle && blblCircle) {
-            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
-                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumn(3)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if there 2 in a row on the left hand side (horizontally)
-        defendTwoH([rCircle, brCircle, lCircle], 3)
-
-        // Defend if there 2 in a row on the right hand side (horizontally)
-        defendTwoH([lCircle, blCircle, rCircle], 1)
-
-        // Defend vertically if 2 in a column
-        defendTwoV(bCircle, 2)
-      }
-
-      function defendColumnThree() {
-        const inCheckCircle = playedCircles[0]
-        const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-        const lCircle = circles[pickedIndex - 1]
-        const llCircle = circles[pickedIndex - 2]
-        const rCircle = circles[pickedIndex + 1]
-        const rrCircle = circles[pickedIndex + 2]
-        const bCircle = circles[pickedIndex + width]
-        const bbCircle = circles[pickedIndex + width * 2]
-        const blCircle = circles[pickedIndex - 1 + width]
-        const brCircle = circles[pickedIndex + 1 + width]
-        const brbrCircle = circles[pickedIndex + width * 2 + 2]
-        const tlCircle = circles[pickedIndex - width - 1]
-        const trCircle = circles[pickedIndex - width + 1]
-        const blblCircle = circles[pickedIndex - 2 + width * 2]
-
-        // Defend if there 3 in a row on the left hand side (horizontally)
-        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 4)
-
-        // Defend if there 3 in a row on the right hand side (horizontally)
-        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 2)
-
-        // Defend vertically if 3 in a column
-        defendThreeV(inCheckCircle, [bCircle, bbCircle], 3)
-
-        // Defend if 3 in a row diagonally (bottom right)
-        if (playSquidward) {
-          if (brCircle && brbrCircle) {
-            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
-                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumn(2)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if 3 in a row diagonally (bottom left)
-        if (playSquidward) {
-          if (blCircle && blblCircle) {
-            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
-                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumn(4)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if there 2 in a row on the left hand side (horizontally)
-        defendTwoH([rCircle, brCircle, lCircle], 4)
-
-        // Defend if there 2 in a row on the right hand side (horizontally)
-        defendTwoH([lCircle, blCircle, rCircle], 2)
-
-        // Defend vertically if 2 in a column
-        defendTwoV(bCircle, 3)
-      }
-
-      function defendColumnFour() {
-        const inCheckCircle = playedCircles[0]
-        const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-        const lCircle = circles[pickedIndex - 1]
-        const llCircle = circles[pickedIndex - 2]
-        const rCircle = circles[pickedIndex + 1]
-        const rrCircle = circles[pickedIndex + 2]
-        const bCircle = circles[pickedIndex + width]
-        const bbCircle = circles[pickedIndex + width * 2]
-        const blCircle = circles[pickedIndex - 1 + width]
-        const brCircle = circles[pickedIndex + 1 + width]
-        const brbrCircle = circles[pickedIndex + width * 2 + 2]
-        const tlCircle = circles[pickedIndex - width - 1]
-        const trCircle = circles[pickedIndex - width + 1]
-        const blblCircle = circles[pickedIndex - 2 + width * 2]
-
-        // Defend if there 3 in a row on the left hand side (horizontally)
-        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 5)
-
-        // Defend if there 3 in a row on the right hand side (horizontally)
-        defendThreeH(inCheckCircle, [lCircle, blCircle, rCircle, rrCircle], 3)
-
-        // Defend if there 3 in a column vertically
-        defendThreeV(inCheckCircle, [bCircle, bbCircle], 4)
-
-        // Defend if 3 in a row diagonally (bottom right)
-        if (playSquidward) {
-          if (brCircle && brbrCircle) {
-            if (!tlCircle.classList.contains('spongebob') || !tlCircle.classList.contains('squidward')) {
-              if (lCircle.classList.contains('spongebob') || lCircle.classList.contains('squidward')) {
-                if (brCircle.classList.contains('spongebob') && brbrCircle.classList.contains('spongebob')) {
-                  playColumn(3)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if 3 in a row diagonally (bottom left)
-        if (playSquidward) {
-          if (blCircle && blblCircle) {
-            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
-                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumn(5)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if there 2 in a row on the left hand side (horizontally)
-        defendTwoH([rCircle, brCircle, lCircle], 5)
-
-
-        // Defend if there 2 in a row on the right hand side (horizontally)
-        defendTwoH([lCircle, blCircle, rCircle], 3)
-
-        // Defend if there 2 in a column vertically
-        defendTwoV(bCircle, 4)
-      }
-
-      function defendColumnFive() {
-        const inCheckCircle = playedCircles[0]
-        const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-        const lCircle = circles[pickedIndex - 1]
-        const llCircle = circles[pickedIndex - 2]
-        const rCircle = circles[pickedIndex + 1]
-        const bCircle = circles[pickedIndex + width]
-        const bbCircle = circles[pickedIndex + width * 2]
-        const brCircle = circles[pickedIndex + 1 + width]
-        const trCircle = circles[pickedIndex - width + 1]
-        const blCircle = circles[pickedIndex - 1 + width]
-        const blblCircle = circles[pickedIndex - 2 + width * 2]
-
-        // Defend if there 3 in a row on the left hand side (horizontally)
-        defendThreeH(inCheckCircle, [rCircle, brCircle, lCircle, llCircle], 6)
-
-        // Defend if there's three in a column vertically
-        defendThreeV(inCheckCircle, [bCircle, bbCircle], 5)
-
-        // Defend if 3 in a row diagonally (bottom left)
-        if (playSquidward) {
-          if (blCircle && blblCircle) {
-            if (!trCircle.classList.contains('spongebob') || !trCircle.classList.contains('squidward')) {
-              if (rCircle.classList.contains('spongebob') || rCircle.classList.contains('squidward')) {
-                if (blCircle.classList.contains('spongebob') && blblCircle.classList.contains('spongebob')) {
-                  playColumn(6)
-                  inCheckCircle.classList.add('connect-three')
-                  bCircle.classList.add('connect-three')
-                  bbCircle.classList.add('connect-three')
-                  playSquidward = false
-                }
-              }
-            }
-          } else {
-            playSquidward = true
-          }
-        }
-
-        // Defend if there 2 in a row on the left hand side (horizontally)
-        defendTwoH([rCircle, brCircle, lCircle], 6)
-
-        // Defend if there's 2 in a column vertically
-        defendTwoV(bCircle, 5)
-      }
-
-      function defendColumnSix() {
-        const inCheckCircle = playedCircles[0]
-        const pickedIndex = parseInt(inCheckCircle.getAttribute('data-id'))
-        const bCircle = circles[pickedIndex + width]
-        const bbCircle = circles[pickedIndex + width * 2]
-
-        // Defend if there's three in a column
-        defendThreeV(inCheckCircle, [bCircle, bbCircle], 6)
-
-        // Defend if there's 2 in a column
-        defendTwoV(bCircle, 6)
-      }
-
-      // if statements that control where spongebob and squidward are placed at every turn
-
-      if (circleIndex === 0) {
-        playSquidward = true
-        const randomIndex = Math.round(Math.random())
-        columnZero[availableZero].classList.add('spongebob')
-        playedCircles.unshift(columnZero[availableZero])
-        checkForWin('spongebob')
-        columnZero.pop()
-        availableZero = columnZero.length - 1
-
-        if (playSquidward) {
-          if (availableZero > 0) {
-            defendColumnZero()
-            if(playSquidward) {
-              switch(randomIndex) {
-                case 0:
-                  playColumn(0)
-                  break
-                case 1:
-                  if (availableOne > 0) {
-                    playColumn(1)
-                  } else {
-                    checkFromColumnOne()
-                  }
-                  break
-              }
-            }
-          } else {
-            checkFromColumnZero()
-          }
-        }
-
-      }
-
-      if (circleIndex === 1) {
-        playSquidward = true
-        const randomIndex = Math.floor(Math.random() * 3)
-        columnOne[availableOne].classList.add('spongebob')
-        playedCircles.unshift(columnOne[availableOne])
-        checkForWin('spongebob')
-        columnOne.pop()
-        availableOne = columnOne.length - 1
-
-        if (playSquidward) {
-          if (availableOne > 0) {
-            defendColumnOne()
-            if(playSquidward) {
-              switch(randomIndex) {
-                case 0:
-                  if (availableZero > 0) {
-                    playColumn(0)
-                  } else {
-                    checkFromColumnZero()
-                  }
-                  break
-                case 1:
-                  playColumn(1)
-                  break
-                case 2:
-                  if (availableTwo > 0) {
-                    playColumn(2)
-                  } else {
-                    checkFromColumnTwo()
-                  }
-                  break
-              }
-            }
-          } else {
-            checkFromColumnOne()
-          }
-        }
-
-      }
-
-      if (circleIndex === 2) {
-        playSquidward = true
-        const randomIndex = Math.floor(Math.random() * 3)
-        columnTwo[availableTwo].classList.add('spongebob')
-        playedCircles.unshift(columnTwo[availableTwo])
-        checkForWin('spongebob')
-        columnTwo.pop()
-        availableTwo = columnTwo.length - 1
-
-        if(playSquidward) {
-          if (availableTwo > 0) {
-            defendColumnTwo()
-            if(playSquidward) {
-              switch(randomIndex) {
-                case 0:
-                  if (availableOne > 0) {
-                    playColumn(1)
-                  } else {
-                    checkFromColumnOne()
-                  }
-                  break
-                case 1:
-                  playColumn(2)
-                  break
-                case 2:
-                  if (availableThree > 0) {
-                    playColumn(3)
-                  } else {
-                    checkFromColumnThree()
-                  }
-                  break
-              }
-            }
-          } else {
-            checkFromColumnTwo()
-          }
-        }
-
-      }
-
-      if (circleIndex === 3) {
-        playSquidward = true
-        const randomIndex = Math.floor(Math.random() * 3)
-        columnThree[availableThree].classList.add('spongebob')
-        playedCircles.unshift(columnThree[availableThree])
-        checkForWin('spongebob')
-        columnThree.pop()
-        availableThree = columnThree.length - 1
-
-        if (playSquidward) {
-          if (availableThree > 0) {
-            defendColumnThree()
-            if(playSquidward) {
-              switch(randomIndex) {
-                case 0:
-                  if (availableTwo > 0) {
-                    playColumn(2)
-                  } else {
-                    checkFromColumnTwo()
-                  }
-                  break
-                case 1:
-                  playColumn(3)
-                  break
-                case 2:
-                  if (availableFour > 0) {
-                    playColumn(4)
-                  } else {
-                    checkFromColumnFour()
-                  }
-                  break
-              }
-            }
-          } else {
-            checkFromColumnThree()
-          }
-        }
-
-      }
-
-      if (circleIndex === 4) {
-        playSquidward = true
-        const randomIndex = Math.floor(Math.random() * 3)
-        columnFour[availableFour].classList.add('spongebob')
-        playedCircles.unshift(columnFour[availableFour])
-        checkForWin('spongebob')
-        columnFour.pop()
-        availableFour = columnFour.length - 1
-
-        if(playSquidward) {
-          if (availableFour > 0) {
-            defendColumnFour()
-            if(playSquidward) {
-              switch(randomIndex) {
-                case 0:
-                  if (availableThree > 0) {
-                    playColumn(3)
-                  } else {
-                    checkFromColumnThree()
-                  }
-                  break
-                case 1:
-                  playColumn(4)
-                  break
-                case 2:
-                  if (availableFive > 0) {
-                    playColumn(5)
-                  } else {
-                    checkFromColumnFive()
-                  }
-                  break
-              }
-            }
-          } else {
-            checkFromColumnFour()
-          }
-        }
-
-      }
-
-      if (circleIndex === 5) {
-        playSquidward = true
-        const randomIndex = Math.floor(Math.random() * 3)
-        columnFive[availableFive].classList.add('spongebob')
-        playedCircles.unshift(columnFive[availableFive])
-        checkForWin('spongebob')
-        columnFive.pop()
-        availableFive = columnFive.length - 1
-
-        if(playSquidward) {
-          if (availableFive > 0) {
-            defendColumnFive()
-            if(playSquidward) {
-              switch(randomIndex) {
-                case 0:
-                  if (columnFour > 0) {
-                    playColumn(4)
-                  } else {
-                    checkFromColumnFour()
-                  }
-                  break
-                case 1:
-                  playColumn(5)
-                  break
-                case 2:
-                  if (columnSix > 0) {
-                    playColumn(6)
-                  } else {
-                    checkFromColumnSix()
-                  }
-                  break
-              }
-            }
-          } else {
-            checkFromColumnFive()
-          }
-        }
-
-      }
-
-      if (circleIndex === 6) {
-        playSquidward = true
-        const randomIndex = Math.round(Math.random())
-        columnSix[availableSix].classList.add('spongebob')
-        playedCircles.unshift(columnSix[availableSix])
-        checkForWin('spongebob')
-        columnSix.pop()
-        availableSix = columnSix.length - 1
-
-        if(playSquidward) {
-          if (availableSix > 0) {
-            defendColumnSix()
-            if(playSquidward) {
-              switch(randomIndex) {
-                case 0:
-                  if (availableFive > 0) {
-                    playColumn(5)
-                  } else {
-                    checkFromColumnFive()
-                  }
-                  break
-                case 1:
-                  playColumn(6)
-                  break
-              }
-            }
-          } else {
-            checkFromColumnSix()
-          }
-        }
-      }
-    })
+    circle.addEventListener('click', () => play(circle, circleIndex))
   }
 
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle in playerx2 mode
