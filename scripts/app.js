@@ -341,146 +341,56 @@ function init() {
       }
 
       // Functions that define the hierarchy of choice as to where squidward should be placed based on spongebob's last move
-
-      function checkFromColumnZero() {
-        if (availableOne > 0) {
-          playColumn(1)
-        } else if (availableTwo > 0) {
-          playColumn(2)
-        } else if (availableThree > 0) {
-          playColumn(3)
-        } else if (availableFour > 0) {
-          playColumn(4)
-        } else if (availableFive > 0) {
-          playColumn(5)
-        } else if (availableSix > 0) {
-          playColumn(6)
-        } else {
+      function check(hierarchyArray) {
+        const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
+        let optionsLeft = 6
+        for (let i = 0; i < hierarchyArray; i++) {
+          if (availableArray[i] > 0) {
+            playColumn(i)
+          } else {
+            optionsLeft -= 1
+          }
+        }
+        if (optionsLeft === 0) {
           addSquidward()
           addSpongebob()
           stopHoverChoices()
         }
+      }
+
+      function checkFromColumnZero() {
+        const hierarchyArray = [1,2,3,4,5,6]
+        check(hierarchyArray)
       }
 
       function checkFromColumnOne() {
-        if (availableZero > 0) {
-          playColumn(0)
-        } else if (availableTwo > 0) {
-          playColumn(2)
-        } else if (availableThree > 0) {
-          playColumn(3)
-        } else if (availableFour > 0) {
-          playColumn(4)
-        } else if (availableFive > 0) {
-          playColumn(5)
-        } else if (availableSix > 0) {
-          playColumn(6)
-        } else {
-          addSquidward()
-          addSpongebob()
-          stopHoverChoices()
-        }
+        const hierarchyArray = [0,2,3,4,5,6]
+        check(hierarchyArray)
       }
 
       function checkFromColumnTwo() {
-        if (availableOne > 0) {
-          playColumn(1)
-        } else if (availableThree > 0) {
-          playColumn(3)
-        } else if (availableZero > 0) {
-          playColumn(0)
-        }  else if (availableFour > 0) {
-          playColumn(4)
-          columnZero = []
-        } else if (availableFive > 0) {
-          playColumn(5)
-        } else if (availableSix > 0) {
-          playColumn(6)
-        } else {
-          addSquidward()
-          addSpongebob()
-          stopHoverChoices()
-        }
+        const hierarchyArray = [1,3,0,4,5,6]
+        check(hierarchyArray)
       }
 
       function checkFromColumnThree() {
-        if (availableTwo > 0) {
-          playColumn(2)
-        } else if (availableFour > 0) {
-          playColumn(4)
-        } else if (availableOne > 0) {
-          playColumn(1)
-        }  else if (availableFive > 0) {
-          playColumn(5)
-        } else if (availableZero > 0) {
-          playColumn(0)
-        } else if (availableSix > 0) {
-          playColumn(6)
-        } else {
-          addSquidward()
-          addSpongebob()
-          stopHoverChoices()
-        }
+        const hierarchyArray = [2,4,1,5,0,6]
+        check(hierarchyArray)
       }
 
       function checkFromColumnFour() {
-        if (availableThree > 0) {
-          playColumn(3)
-        } else if (availableFive > 0) {
-          playColumn(5)
-        } else if (availableTwo > 0) {
-          playColumn(2)
-        }  else if (availableSix > 0) {
-          playColumn(6)
-        } else if (availableOne > 0) {
-          playColumn(1)
-        } else if (availableZero > 0) {
-          playColumn(0)
-        } else {
-          addSquidward()
-          addSpongebob()
-          stopHoverChoices()
-        }
+        const hierarchyArray = [3,5,2,6,1,0]
+        check(hierarchyArray)
       }
 
       function checkFromColumnFive() {
-        if (availableSix > 0) {
-          playColumn(6)
-        } else if (availableFour > 0) {
-          playColumn(4)
-        } else if (availableThree > 0) {
-          playColumn(3)
-        }  else if (availableTwo > 0) {
-          playColumn(2)
-        } else if (availableOne > 0) {
-          playColumn(1)
-        } else if (availableZero > 0) {
-          playColumn(0)
-        } else {
-          addSquidward()
-          addSpongebob()
-          stopHoverChoices()
-        }
+        const hierarchyArray = [6,4,3,2,1,0]
+        check(hierarchyArray)
       }
 
       function checkFromColumnSix() {
-        if (availableFive > 0) {
-          playColumn(5)
-        } else if (availableFour > 0) {
-          playColumn(4)
-        }  else if (availableThree > 0) {
-          playColumn(3)
-        } else if (availableTwo > 0) {
-          playColumn(2)
-        } else if (availableOne > 0) {
-          playColumn(1)
-        } else if (availableZero > 0) {
-          playColumn(0)
-        } else {
-          addSquidward()
-          addSpongebob()
-          stopHoverChoices()
-        }
+        const hierarchyArray = [5,4,3,2,1,0]
+        check(hierarchyArray)
       }
 
       // Functions that defend each column horizontally and vertically
