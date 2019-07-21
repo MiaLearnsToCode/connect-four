@@ -112,7 +112,7 @@ function init() {
     spanSquidward.innerHTML = scoreSquidward
   }
 
-  // Function evoked every time the spongebob plays, to check if the player has 4 in a line)
+  // Function evoked every time the either players play, to check if the player has 4 in a line
   function checkForWin(player) {
 
     const inCheckCircle = playedCircles[0]
@@ -167,7 +167,7 @@ function init() {
     }
   }
 
-  // Functions that place Squidward in the indicated column
+  // Functions that place Squidward in the indicated column (one player mode)
   function playColumn(n) {
     const availableZero = columnZero.length - 1
     const availableOne = columnOne.length - 1
@@ -190,11 +190,7 @@ function init() {
     playColumn(n)
   }
 
-
-
-
-
-  // Functions that define the hierarchy of choice as to where squidward should be placed based on spongebob's last move
+  // Functions that define the hierarchy of choice as to where squidward should be placed based on spongebob's last move (one player mode)
   function check(hierarchyArray) {
     const availableZero = columnZero.length - 1
     const availableOne = columnOne.length - 1
@@ -219,7 +215,8 @@ function init() {
     }
   }
 
-  function play(circle, circleIndex) {
+  // Overarching logic for the one player mode
+  function playOne(circleIndex) {
     const availableZero = columnZero.length - 1
     const availableOne = columnOne.length - 1
     const availableTwo = columnTwo.length - 1
@@ -571,43 +568,45 @@ function init() {
     }
   }
 
+  // Overarching logic for the two players mode
+  function playTwo(circleIndex) {
+    const availableZero = columnZero.length - 1
+    const availableOne = columnOne.length - 1
+    const availableTwo = columnTwo.length - 1
+    const availableThree = columnThree.length - 1
+    const availableFour = columnFour.length - 1
+    const availableFive = columnFive.length - 1
+    const availableSix = columnSix.length - 1
+    const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
+    playerSpongebob = !playerSpongebob
+
+    for (let i = 0; i < width; i++) {
+      const column = columns[i]
+      let available = availableArray[i]
+      if(circleIndex === i) {
+        if(playerSpongebob) {
+          column[available].classList.add('spongebob')
+          playedCircles.unshift(column[available])
+          checkForWin('spongebob')
+        } else {
+          column[available].classList.add('squidward')
+          playedCircles.unshift(column[available])
+          checkForWin('squidward')
+        }
+        column.pop()
+        available = column.length - 1
+      }
+    }
+  }
 
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle in playerx1 mode
   function playChoice(circle, circleIndex) {
-    circle.addEventListener('click', () => play(circle, circleIndex))
+    circle.addEventListener('click', () => playOne(circleIndex))
   }
 
   // Event listener on the top circles for when you click on them and spongebob appears at the bottom on the lowest available circle in playerx2 mode
   function playChoiceTwo(circle, circleIndex) {
-    circle.addEventListener('click', () => {
-      const availableZero = columnZero.length - 1
-      const availableOne = columnOne.length - 1
-      const availableTwo = columnTwo.length - 1
-      const availableThree = columnThree.length - 1
-      const availableFour = columnFour.length - 1
-      const availableFive = columnFive.length - 1
-      const availableSix = columnSix.length - 1
-      const availableArray = [availableZero, availableOne, availableTwo, availableThree, availableFour, availableFive, availableSix]
-      playerSpongebob = !playerSpongebob
-
-      for (let i = 0; i < availableArray.length; i++) {
-        const column = columns[i]
-        let available = availableArray[i]
-        if(circleIndex === i) {
-          if(playerSpongebob) {
-            column[available].classList.add('spongebob')
-            playedCircles.unshift(column[available])
-            checkForWin('spongebob')
-          } else {
-            column[available].classList.add('squidward')
-            playedCircles.unshift(column[available])
-            checkForWin('squidward')
-          }
-          column.pop()
-          available = column.length - 1
-        }
-      }
-    })
+    circle.addEventListener('click', () => playTwo(circleIndex))
   }
 
   // Function that creates the hoverable top row to make choices (the if statement checks which mode the play is in and creates a different row accordingly)
